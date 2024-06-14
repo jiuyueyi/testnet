@@ -121,6 +121,24 @@ else
     fi
 fi
 
+# 检查ES文件夹
+if [ -d "./es_data" ]; then
+    echo "文件夹已存在"
+else
+    # 如果不存在，则创建 es_data 文件夹
+    mkdir "./es_data"
+    if [ $? -ne "0" ]; then
+        echo "创建 ./es_data 文件夹失败"
+    else
+        chmod 777 ./es_data
+        if [ $? -ne "0" ]; then
+            echo "设置 ./es_data 文件夹权限失败"
+        else
+            echo "成功创建并设置 ./es_data 文件夹"
+        fi
+    fi
+fi
+
 $compose_command up -d
 
 
