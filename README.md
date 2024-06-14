@@ -34,8 +34,8 @@ The TestNet Asset Management System aims to provide comprehensive and efficient 
 ### 1. **Quick Installation**
 ### Linux and Mac
 ```bash
-git clone https://github.com/testnet0/testnet_build.git
-cd testnet_build && bash build.sh
+git clone https://github.com/testnet0/testnet.git
+cd testnet && bash build.sh
 ```
 After a short wait, the system will start. The default access port is `IP:80`.
 ### Windows
