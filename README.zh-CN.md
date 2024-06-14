@@ -33,8 +33,8 @@ TestNet资产管理系统旨在提供全面、高效的互联网资产管理与�
 ### Linux和Mac
 
 ```bash
-git clone https://github.com/testnet0/testnet_build.git
-cd testnet_build && bash build.sh
+git clone https://github.com/testnet0/testnet.git
+cd testnet && bash build.sh
 ```
 稍等片刻，即可启动系统。默认访问端口为 `IP:80`
 ### Windows
