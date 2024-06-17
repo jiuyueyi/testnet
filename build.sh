@@ -143,6 +143,18 @@ $compose_command up -d
 
 warning "TestNet安装成功，请稍等2分钟打开后台登录..."
 warning "http://0.0.0.0:8099/"
+
+local_ips() {
+    if [ -z `command_exists ip` ]; then
+        ip_cmd="ip addr show"
+    else
+        ip_cmd="ifconfig -a"
+    fi
+
+    echo $($ip_cmd | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | awk '{print $2}')
+}
+
+ips=$(local_ips)
 for ip in $ips; do
     warning http://$ip:8099/
 done
