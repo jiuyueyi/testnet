@@ -56,7 +56,7 @@ if [ ! -t 0 ]; then
     abort "STDIN 不是标准的输入设备"
 fi
 
-if [ "$#" -ne "0" ]; then
+if [ "$#" -ne 0 ]; then
     abort "当前脚本无需任何参数"
 fi
 
@@ -77,7 +77,7 @@ fi
 info "发现 Docker 环境: '$(command -v docker)'"
 
 docker version > /dev/null 2>&1
-if [ $? -ne "0" ]; then
+if [ $? -ne 0 ]; then
     abort "Docker 服务工作异常"
 fi
 info "Docker 工作状态正常"
@@ -92,7 +92,7 @@ else
         warning "未发现 docker-compose 组件"
         if confirm "是否需要自动安装 Docker Compose Plugin"; then
             curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            if [ $? -ne "0" ]; then
+            if [ $? -ne 0 ]; then
                 abort "Docker Compose Plugin 安装失败"
             fi
             info "Docker Compose Plugin 安装完成"
@@ -111,7 +111,7 @@ if [ -f ".env" ]; then
 else
     # 如果不存在，则创建 .env 文件
     touch ".env"
-    if [ $? -ne "0" ]; then
+    if [ $? -ne 0 ]; then
         echo "创建 .env 文件失败"
     else
         echo "创建 .env 文件成功"
@@ -127,11 +127,11 @@ if [ -d "./es_data" ]; then
 else
     # 如果不存在，则创建 es_data 文件夹
     mkdir "./es_data"
-    if [ $? -ne "0" ]; then
+    if [ $? -ne 0 ]; then
         echo "创建 ./es_data 文件夹失败"
     else
         chmod 777 ./es_data
-        if [ $? -ne "0" ]; then
+        if [ $? -ne 0 ]; then
             echo "设置 ./es_data 文件夹权限失败"
         else
             echo "成功创建并设置 ./es_data 文件夹"
@@ -141,7 +141,11 @@ fi
 
 $compose_command up -d
 
-
+warning "TestNet安装成功，请稍等2分钟打开后台登录..."
+warning "http://0.0.0.0:8099/"
+for ip in $ips; do
+    warning http://$ip:8099/
+done
 
 if confirm "是否需要自动安装运行环境"; then
   docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh"
