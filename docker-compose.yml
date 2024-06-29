@@ -94,7 +94,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PORT=6379
       - TESTNET_CLIENT_VERSION=V1.2
-      - TESTNET_RESULT_PATH=/testnet-client/results
+      - TESTNET_RESULT_PATH=/testnet-client/results/
       - TESTNET_CLIENT_NAME=testnet-client-default
       - POOL_MAX_SIZE=8
     restart: always
