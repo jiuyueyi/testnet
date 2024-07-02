@@ -43,7 +43,7 @@ abort() {
 trap 'onexit' INT
 onexit() {
     echo
-    abort "用户手动结束安装"
+    abort "用户手动结束操作"
 }
 
 testnet_path='/data/testnet'
@@ -105,47 +105,98 @@ else
     fi
 fi
 
-# 检查是否已经存在 .env 文件
-if [ -f ".env" ]; then
-    echo "文件已存在"
-else
-    # 如果不存在，则创建 .env 文件
-    touch ".env"
-    if [ $? -ne 0 ]; then
-        echo "创建 .env 文件失败"
+function create_env_file() {
+    # 检查是否已经存在 .env 文件
+    if [ -f ".env" ]; then
+        echo ".env 文件已存在"
     else
-        echo "创建 .env 文件成功"
-        echo "REDIS_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
-        echo "MYSQL_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
-        echo "SUBNET_PREFIX=172.16.1" >> .env
-    fi
-fi
-
-# 检查ES文件夹
-if [ -d "./es_data" ]; then
-    echo "文件夹已存在"
-else
-    # 如果不存在，则创建 es_data 文件夹
-    mkdir "./es_data"
-    if [ $? -ne 0 ]; then
-        echo "创建 ./es_data 文件夹失败"
-    else
-        chmod 777 ./es_data
+        # 如果不存在，则创建 .env 文件
+        touch ".env"
         if [ $? -ne 0 ]; then
-            echo "设置 ./es_data 文件夹权限失败"
+            echo "创建 .env 文件失败"
         else
-            echo "成功创建并设置 ./es_data 文件夹"
+            echo "创建 .env 文件成功"
+            echo "REDIS_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
+            echo "MYSQL_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
+            echo "SUBNET_PREFIX=172.16.1" >> .env
         fi
     fi
-fi
+}
 
-$compose_command up -d
+function create_es_data_folder() {
+    # 检查ES文件夹
+    if [ -d "./es_data" ]; then
+        echo "文件夹已存在"
+    else
+        # 如果不存在，则创建 es_data 文件夹
+        mkdir "./es_data"
+        if [ $? -ne 0 ]; then
+            echo "创建 ./es_data 文件夹失败"
+        else
+            chmod 777 ./es_data
+            if [ $? -ne 0 ]; then
+                echo "设置 ./es_data 文件夹权限失败"
+            else
+                echo "成功创建并设置 ./es_data 文件夹"
+            fi
+        fi
+    fi
+}
 
-warning "TestNet安装成功，请稍等2分钟打开后台登录..."
-warning "后台访问地址：https://IP:8099/"
+function start_testnet() {
+    $compose_command up -d
+    warning "TestNet安装成功，请稍等2分钟打开后台登录..."
+    warning "后台访问地址：https://IP:8099/"
+}
 
-if confirm "是否需要自动安装运行环境"; then
-  docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh"
-else
- abort "取消安装运行环境"
-fi
+function stop_testnet() {
+    $compose_command down
+    info "TestNet 已停止运行"
+}
+
+function update_testnet() {
+    info "开始更新 TestNet..."
+    git pull
+    $compose_command down
+    $compose_command rm
+    $compose_command pull
+    $compose_command up -d
+    info "TestNet 更新完成"
+}
+
+function install_run_environment() {
+    if confirm "是否需要自动安装客户端运行环境"; then
+        docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh"
+    else
+        abort "取消安装运行环境"
+    fi
+}
+
+# 提供用户操作选择
+echo "请选择操作："
+echo "1) 安装 TestNet"
+echo "2) 更新 TestNet"
+echo "3) 停止运行 TestNet"
+echo "4) 安装客户端运行环境"
+read -p "输入数字选择操作: " user_choice
+
+case $user_choice in
+    1)
+        create_env_file
+        create_es_data_folder
+        start_testnet
+        install_run_environment
+        ;;
+    2)
+        update_testnet
+        ;;
+    3)
+        stop_testnet
+        ;;
+    4)
+        install_run_environment
+        ;;
+    *)
+        abort "无效选择，退出脚本"
+        ;;
+esac
