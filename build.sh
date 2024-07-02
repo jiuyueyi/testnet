@@ -142,7 +142,7 @@ fi
 $compose_command up -d
 
 warning "TestNet安装成功，请稍等2分钟打开后台登录..."
-warning "后台访问地址：http://IP:8099/"
+warning "后台访问地址：https://IP:8099/"
 
 if confirm "是否需要自动安装运行环境"; then
   docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh"

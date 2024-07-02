@@ -64,6 +64,9 @@ services:
       - REDIS_HOST=${SUBNET_PREFIX}.3
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - ES_HOST=${SUBNET_PREFIX}.4:9200
+      - GPT_ENABLE=false
+      - GPT_KEY=xxx
+      - GPT_HOST=https://api.openai.com
     depends_on:
       - testnet-mysql
       - testnet-redis
@@ -77,7 +80,7 @@ services:
       testnet:
         ipv4_address: ${SUBNET_PREFIX}.6
     ports:
-      - "8099:80"
+      - "8099:443"
     restart: always
     depends_on:
       - testnet-server
