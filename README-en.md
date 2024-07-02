@@ -37,7 +37,7 @@ The TestNet Asset Management System aims to provide comprehensive and efficient 
 git clone https://github.com/testnet0/testnet.git
 cd testnet && bash build.sh
 ```
-After a short wait, the system will start. The default access port is `IP:8099`.
+After a short wait, the system will start. The default access port is `https://IP:8099`.
 ### Windows
 Refer to the help documentation.
 
