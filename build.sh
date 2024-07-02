@@ -159,8 +159,8 @@ function update_testnet() {
     git pull
     $compose_command down
     $compose_command rm
-    $compose_command pull
-    $compose_command up -d
+    $compose_command pull --force-recreate
+    $compose_command up -d --build
     info "TestNet 更新完成"
 }
 
