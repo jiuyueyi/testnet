@@ -150,17 +150,17 @@ function start_testnet() {
 }
 
 function stop_testnet() {
-    $compose_command down
+    $compose_command stop
     info "TestNet 已停止运行"
 }
 
 function update_testnet() {
     info "开始更新 TestNet..."
     git pull
-    $compose_command down
-    $compose_command rm
-    $compose_command pull
-    $compose_command up -d --build
+    $compose_command stop testnet-server testnet-frontend
+    $compose_command rm -f testnet-server testnet-frontend
+    $compose_command pull testnet-server testnet-frontend
+    $compose_command up -d testnet-server testnet-frontend
     info "TestNet 更新完成"
 }
 
