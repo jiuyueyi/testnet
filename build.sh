@@ -202,7 +202,13 @@ start_testnet_client() {
 
 install_run_environment() {
     if confirm "是否需要自动安装客户端运行环境"; then
-        docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh"
+        if confirm "是否使用网络代理"; then
+          docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 1"
+          info "客户端环境安装完成"
+        else
+          docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 0"
+          info "客户端环境安装完成"
+        fi
     else
         abort "取消安装运行环境"
     fi
