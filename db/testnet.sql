@@ -13,7 +13,7 @@ USE `jeecg-boot`;
  Target Server Version : 80300
  File Encoding         : 65001
 
- Date: 16/07/2024 10:28:43
+ Date: 16/07/2024 10:51:40
 */
 
 SET NAMES utf8mb4;
@@ -259,10 +259,10 @@ CREATE TABLE `asset_search_engine` (
 -- Records of asset_search_engine
 -- ----------------------------
 BEGIN;
-INSERT INTO `asset_search_engine` VALUES ('1808335866473504769', 'admin', '2024-07-03 11:04:02', 'admin', '2024-07-04 11:52:49', 'A01', 'shodan', 'xxxx');
-INSERT INTO `asset_search_engine` VALUES ('1808336360352800769', 'admin', '2024-07-03 11:06:00', 'admin', '2024-07-11 21:25:37', 'A01', 'quake', 'xxxx');
-INSERT INTO `asset_search_engine` VALUES ('1808336376505065473', 'admin', '2024-07-03 11:06:04', 'admin', '2024-07-15 12:42:08', 'A01', 'fofa', 'xxxx');
-INSERT INTO `asset_search_engine` VALUES ('1808336391080271873', 'admin', '2024-07-03 11:06:07', 'admin', '2024-07-11 21:23:25', 'A01', 'hunter', 'xxxx');
+INSERT INTO `asset_search_engine` VALUES ('1808335866473504769', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'shodan', 'xxxx');
+INSERT INTO `asset_search_engine` VALUES ('1808336360352800769', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'quake', 'xxxx');
+INSERT INTO `asset_search_engine` VALUES ('1808336376505065473', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'fofa', 'xxxx');
+INSERT INTO `asset_search_engine` VALUES ('1808336391080271873', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'hunter', 'xxxx');
 COMMIT;
 
 -- ----------------------------
@@ -395,13 +395,6 @@ CREATE TABLE `ceshi_note` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of ceshi_note
--- ----------------------------
-BEGIN;
-INSERT INTO `ceshi_note` VALUES ('1586278360710615042', 'admin', '2022-10-29 16:46:47', NULL, NULL, 'A01', '单表示例', '1', 333, 'sd', '2022-10-16', '2022-10-29 02:00:03', 22.000, 'afad', NULL, 'jeecg', 'c6d7cb4deeac411cb3384b1b31278596', 'Y', 'temp/lowcode22_1667033194717.jpg', 'temp/lowcodemin2_1667033196391.jpg', '130303', '<p>asdfafd</p>', '1185039122143719425', '2', NULL);
-COMMIT;
-
--- ----------------------------
 -- Table structure for client
 -- ----------------------------
 DROP TABLE IF EXISTS `client`;
@@ -484,14 +477,6 @@ CREATE TABLE `demo_field_def_val_main` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of demo_field_def_val_main
--- ----------------------------
-BEGIN;
-INSERT INTO `demo_field_def_val_main` VALUES ('1256548579457114114', 'q', 'q', '1', 'q', 'q', 'admin', '2020-05-02 19:38:21', 'admin', '2020-05-03 01:02:51', 'A01');
-INSERT INTO `demo_field_def_val_main` VALUES ('1580543461659652098', '${order_num_rule_param}', 'admin', '2', '北京市 朝阳区', '北京市 昌平区', 'admin', '2022-10-13 20:58:21', 'admin', '2022-11-28 16:43:06', 'A01');
-COMMIT;
-
--- ----------------------------
 -- Table structure for demo_field_def_val_sub
 -- ----------------------------
 DROP TABLE IF EXISTS `demo_field_def_val_sub`;
@@ -508,19 +493,6 @@ CREATE TABLE `demo_field_def_val_sub` (
   `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of demo_field_def_val_sub
--- ----------------------------
-BEGIN;
-INSERT INTO `demo_field_def_val_sub` VALUES ('1580543461798064129', '${order_num_rule_param}', '管理员', '2022-10-13', '1580543461659652098', 'admin', '2022-11-28 16:43:06', NULL, NULL, 'A01');
-INSERT INTO `demo_field_def_val_sub` VALUES ('1580543461810647042', '${order_num_rule_param}', '管理员', '2022-10-13', '1580543461659652098', 'admin', '2022-10-13 20:58:21', NULL, NULL, 'A01');
-INSERT INTO `demo_field_def_val_sub` VALUES ('1580543527443116034', '${order_num_rule_param}', '管理员', '2022-10-13', '1580543461659652098', 'admin', '2022-10-13 20:58:36', NULL, NULL, 'A01');
-INSERT INTO `demo_field_def_val_sub` VALUES ('1580543527451504642', '${order_num_rule_param}', '管理员', '2022-10-13', '1580543461659652098', 'admin', '2022-10-13 20:58:36', NULL, NULL, 'A01');
-INSERT INTO `demo_field_def_val_sub` VALUES ('15884194974080425602', '133', '管理员', '2020-05-02', '1256548579457114114', 'admin', '2020-05-03 01:02:51', NULL, NULL, 'A01');
-INSERT INTO `demo_field_def_val_sub` VALUES ('15884194979201535108', '1144', '管理员', '2020-05-02', '1256548579457114114', 'admin', '2020-05-03 01:02:51', NULL, NULL, 'A01');
-INSERT INTO `demo_field_def_val_sub` VALUES ('1597149069167026177', '${order_num_rule_param}', '管理员', '2022-11-28', '1580543461659652098', 'admin', '2022-11-28 16:43:06', NULL, NULL, 'A01');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for flyway_schema_history
@@ -634,20 +606,6 @@ CREATE TABLE `jeecg_project_nature_income` (
   `interol_consulting_fee` decimal(18,2) DEFAULT '0.00' COMMENT '内控咨询费',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of jeecg_project_nature_income
--- ----------------------------
-BEGIN;
-INSERT INTO `jeecg_project_nature_income` VALUES (1, '市场化-电商业务', 4865.41, 0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (2, '统筹型', 35767081.88, 0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (3, '市场化-非股东', 1487045.35, 0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (4, '市场化-参控股', 382690.56, 0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (5, '市场化-员工福利', 256684.91, 0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (6, '市场化-再保险', 563451.03, 0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (7, '市场化-海外业务', 760576.25, 770458.75, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO `jeecg_project_nature_income` VALUES (8, '市场化-风险咨询', 910183.93, 0.00, 0.00, 0.00, 0.00, 226415.09);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for jimu_dict
@@ -3306,13 +3264,6 @@ CREATE TABLE `qrtz_cron_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of qrtz_cron_triggers
--- ----------------------------
-BEGIN;
-INSERT INTO `qrtz_cron_triggers` VALUES ('MyScheduler', '1812830556639322113', 'DEFAULT', '0 0 0 ? 1 1,2,3 *', 'Asia/Shanghai');
-COMMIT;
-
--- ----------------------------
 -- Table structure for qrtz_fired_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_fired_triggers`;
@@ -3352,13 +3303,6 @@ CREATE TABLE `qrtz_job_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of qrtz_job_details
--- ----------------------------
-BEGIN;
-INSERT INTO `qrtz_job_details` VALUES ('MyScheduler', '1812830556639322113', 'DEFAULT', NULL, 'org.jeecg.modules.testnet.server.job.RunChainJob', '0', '1', '1', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C77080000001000000001740009706172616D65746572740013313831323735373638373333303638343933307800);
-COMMIT;
-
--- ----------------------------
 -- Table structure for qrtz_locks
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_locks`;
@@ -3367,14 +3311,6 @@ CREATE TABLE `qrtz_locks` (
   `LOCK_NAME` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of qrtz_locks
--- ----------------------------
-BEGIN;
-INSERT INTO `qrtz_locks` VALUES ('MyScheduler', 'STATE_ACCESS');
-INSERT INTO `qrtz_locks` VALUES ('MyScheduler', 'TRIGGER_ACCESS');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for qrtz_paused_trigger_grps
@@ -3397,13 +3333,6 @@ CREATE TABLE `qrtz_scheduler_state` (
   `CHECKIN_INTERVAL` bigint NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of qrtz_scheduler_state
--- ----------------------------
-BEGIN;
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'bogon1721095277519', 1721096906686, 15000);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -3468,13 +3397,6 @@ CREATE TABLE `qrtz_triggers` (
   KEY `SCHED_NAME` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `qrtz_job_details` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of qrtz_triggers
--- ----------------------------
-BEGIN;
-INSERT INTO `qrtz_triggers` VALUES ('MyScheduler', '1812830556639322113', 'DEFAULT', '1812830556639322113', 'DEFAULT', NULL, 1736006400000, -1, 5, 'WAITING', 'CRON', 1721047645000, 0, NULL, 0, '');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for rep_demo_dxtj
