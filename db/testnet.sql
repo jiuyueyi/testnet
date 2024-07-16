@@ -1,19 +1,19 @@
 CREATE database if NOT EXISTS `jeecg-boot` default character set utf8mb4 collate utf8mb4_unicode_ci;
 USE `jeecg-boot`;
 /*
- Navicat MySQL Data Transfer
+ Navicat Premium Dump SQL
 
- Source Server         : 127.0.0.1
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 80300
+ Source Server Version : 80300 (8.3.0)
  Source Host           : localhost:3306
  Source Schema         : jeecg-boot
 
  Target Server Type    : MySQL
- Target Server Version : 80300
+ Target Server Version : 80300 (8.3.0)
  File Encoding         : 65001
 
- Date: 16/07/2024 10:51:40
+ Date: 16/07/2024 20:41:46
 */
 
 SET NAMES utf8mb4;
@@ -23,614 +23,695 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for asset_api
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_api`;
-CREATE TABLE `asset_api` (
+CREATE TABLE `asset_api`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `asset_web_tree_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属树',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
-  `http_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方法',
-  `request_header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '请求头',
-  `request_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '请求体',
-  `response_header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '响应头',
-  `response_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '响应体',
-  `source` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '来源',
-  `hash` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'hash值',
-  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '项目',
-  `status_code` int DEFAULT NULL COMMENT '状态码',
-  `title` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题',
-  `content_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '返回类型',
-  `content_length` int DEFAULT NULL COMMENT '返回包大小',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `asset_web_tree_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属树',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `http_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求方法',
+  `request_header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '请求头',
+  `request_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '请求体',
+  `response_header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '响应头',
+  `response_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '响应体',
+  `source` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+  `hash` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'hash值',
+  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目',
+  `status_code` int NULL DEFAULT NULL COMMENT '状态码',
+  `title` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
+  `content_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '返回类型',
+  `content_length` int NULL DEFAULT NULL COMMENT '返回包大小',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_api` (`hash`),
-  KEY `idx_tree_id` (`asset_web_tree_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_api`(`hash` ASC) USING BTREE,
+  INDEX `idx_tree_id`(`asset_web_tree_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_api
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_api_tree
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_api_tree`;
-CREATE TABLE `asset_api_tree` (
+CREATE TABLE `asset_api_tree`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '所属部门',
-  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '项目',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '资产标签',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '来源',
-  `asset_web_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属WEB',
-  `relative_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '相对路径',
-  `absolute_path` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '绝对路径',
-  `pid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '父级节点',
-  `has_child` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否有子节点',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_id` (`id`),
-  KEY `idx_pid` (`pid`),
-  KEY `idx_relative_path` (`relative_path`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '项目',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '来源',
+  `asset_web_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属WEB',
+  `relative_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '相对路径',
+  `absolute_path` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '绝对路径',
+  `pid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父级节点',
+  `has_child` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否有子节点',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `idx_id`(`id` ASC) USING BTREE,
+  INDEX `idx_pid`(`pid` ASC) USING BTREE,
+  INDEX `idx_relative_path`(`relative_path` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of asset_api_tree
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_black_list
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_black_list`;
-CREATE TABLE `asset_black_list` (
+CREATE TABLE `asset_black_list`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '所属部门',
-  `keyword` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '关键字',
-  `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
-  `asset_type` varchar(32) DEFAULT NULL COMMENT '资产类型',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `keyword` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '关键字',
+  `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
+  `asset_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '资产类型',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_asset_type` (`asset_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+  INDEX `idx_asset_type`(`asset_type` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of asset_black_list
 -- ----------------------------
-BEGIN;
 INSERT INTO `asset_black_list` VALUES ('1773278672122867713', 'admin', '2024-03-28 17:19:16', 'admin', '2024-04-11 18:04:11', 'A01', '.gov.cn', NULL, 'sub_domain');
 INSERT INTO `asset_black_list` VALUES ('1773278699822051329', 'admin', '2024-03-28 17:19:23', 'admin', '2024-04-11 18:04:57', 'A01', '.edu.cn', NULL, 'sub_domain');
 INSERT INTO `asset_black_list` VALUES ('1778410640326864897', 'admin', '2024-04-11 21:11:53', NULL, NULL, 'A01', '暂无', NULL, 'company');
 INSERT INTO `asset_black_list` VALUES ('1780064200449978369', 'admin', '2024-04-16 10:42:32', NULL, NULL, 'A01', '-', NULL, 'company');
 INSERT INTO `asset_black_list` VALUES ('1781348071148949506', 'admin', '2024-04-19 23:44:11', NULL, NULL, 'A01', 'gov', NULL, 'sub_domain');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for asset_company
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_company`;
-CREATE TABLE `asset_company` (
+CREATE TABLE `asset_company`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `company_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公司名称',
-  `project_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属项目',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '来源',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `company_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公司名称',
+  `project_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属项目',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '来源',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_name_project` (`company_name`,`project_id`),
-  KEY `idx_project` (`project_id`),
-  KEY `idx_name` (`company_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_name_project`(`company_name` ASC, `project_id` ASC) USING BTREE,
+  INDEX `idx_project`(`project_id` ASC) USING BTREE,
+  INDEX `idx_name`(`company_name` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_company
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_domain
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_domain`;
-CREATE TABLE `asset_domain` (
+CREATE TABLE `asset_domain`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `project_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属项目',
-  `domain` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '主域名',
-  `icp_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'ICP备案号',
-  `whois` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'whois',
-  `company_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属公司',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '来源',
-  `dns_server` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'DNS服务器',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `project_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属项目',
+  `domain` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主域名',
+  `icp_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ICP备案号',
+  `whois` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'whois',
+  `company_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属公司',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+  `dns_server` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'DNS服务器',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_domain_project` (`domain`,`project_id`),
-  KEY `idx_project_id` (`project_id`),
-  KEY `idx_domain` (`domain`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_domain_project`(`domain` ASC, `project_id` ASC) USING BTREE,
+  INDEX `idx_project_id`(`project_id` ASC) USING BTREE,
+  INDEX `idx_domain`(`domain` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_domain
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_ip
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_ip`;
-CREATE TABLE `asset_ip` (
+CREATE TABLE `asset_ip`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `project_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属项目',
-  `ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'ip',
-  `is_public` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公网',
-  `is_ipv6` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'ipv6',
-  `isp` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '运营商',
-  `province` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省份',
-  `city` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '城市',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '来源',
-  `sub_domain_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '子域名',
-  `country` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '国家',
-  `region` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '地区',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `project_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属项目',
+  `ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip',
+  `is_public` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公网',
+  `is_ipv6` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ipv6',
+  `isp` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '运营商',
+  `province` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省份',
+  `city` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '城市',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '来源',
+  `sub_domain_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '子域名',
+  `country` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '国家',
+  `region` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地区',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_ip_project` (`ip`,`project_id`),
-  KEY `idx_project` (`project_id`),
-  KEY `idx_ip` (`ip`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_ip_project`(`ip` ASC, `project_id` ASC) USING BTREE,
+  INDEX `idx_project`(`project_id` ASC) USING BTREE,
+  INDEX `idx_ip`(`ip` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_ip
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_ip_sub_domain
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_ip_sub_domain`;
-CREATE TABLE `asset_ip_sub_domain` (
+CREATE TABLE `asset_ip_sub_domain`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `subdomain_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属域名',
-  `ip_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属IP',
+  `subdomain_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属域名',
+  `ip_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属IP',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `unique_subdomain_ip` (`subdomain_id`,`ip_id`),
-  KEY `idx_ip` (`ip_id`),
-  KEY `idx_domain` (`subdomain_id`),
-  CONSTRAINT `asset_ip_sub_domain_ibfk_1` FOREIGN KEY (`subdomain_id`) REFERENCES `asset_sub_domain` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `asset_ip_sub_domain_ibfk_2` FOREIGN KEY (`ip_id`) REFERENCES `asset_ip` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `unique_subdomain_ip`(`subdomain_id` ASC, `ip_id` ASC) USING BTREE,
+  INDEX `idx_ip`(`ip_id` ASC) USING BTREE,
+  INDEX `idx_domain`(`subdomain_id` ASC) USING BTREE,
+  CONSTRAINT `asset_ip_sub_domain_ibfk_1` FOREIGN KEY (`subdomain_id`) REFERENCES `asset_sub_domain` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `asset_ip_sub_domain_ibfk_2` FOREIGN KEY (`ip_id`) REFERENCES `asset_ip` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_ip_sub_domain
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_label
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_label`;
-CREATE TABLE `asset_label` (
+CREATE TABLE `asset_label`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   `label_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '标签名称',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '来源',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_label_name` (`label_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  INDEX `idx_label_name`(`label_name` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_label
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_port
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_port`;
-CREATE TABLE `asset_port` (
+CREATE TABLE `asset_port`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `port` int DEFAULT NULL COMMENT '端口号',
-  `ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属ip',
-  `service` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '服务',
-  `version` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '版本',
-  `is_web` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Web资产',
-  `source` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '来源',
-  `protocol` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '协议',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
-  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '项目',
-  `is_tls` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'TLS',
-  `product` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '产品',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `port` int NULL DEFAULT NULL COMMENT '端口号',
+  `ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属ip',
+  `service` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务',
+  `version` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '版本',
+  `is_web` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Web资产',
+  `source` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+  `protocol` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '协议',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目',
+  `is_tls` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'TLS',
+  `product` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '产品',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_domain_ip_port` (`project_id`,`ip`,`port`),
-  KEY `idx_project` (`project_id`),
-  KEY `idx_port_id` (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_domain_ip_port`(`project_id` ASC, `ip` ASC, `port` ASC) USING BTREE,
+  INDEX `idx_project`(`project_id` ASC) USING BTREE,
+  INDEX `idx_port_id`(`ip` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_port
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_search_engine
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_search_engine`;
-CREATE TABLE `asset_search_engine` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '所属部门',
-  `engine_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '引擎名称',
-  `engine_token` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '引擎Token',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `asset_search_engine`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `engine_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '引擎名称',
+  `engine_token` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '引擎Token',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of asset_search_engine
 -- ----------------------------
-BEGIN;
 INSERT INTO `asset_search_engine` VALUES ('1808335866473504769', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'shodan', 'xxxx');
 INSERT INTO `asset_search_engine` VALUES ('1808336360352800769', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'quake', 'xxxx');
 INSERT INTO `asset_search_engine` VALUES ('1808336376505065473', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'fofa', 'xxxx');
 INSERT INTO `asset_search_engine` VALUES ('1808336391080271873', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'hunter', 'xxxx');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for asset_sub_domain
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_sub_domain`;
-CREATE TABLE `asset_sub_domain` (
+CREATE TABLE `asset_sub_domain`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sub_domain` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '子域名',
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '解析类型',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `dns_record` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '解析值',
-  `name_server` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'name_server',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
-  `level` int DEFAULT NULL COMMENT '域名等级',
-  `domain_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '主域名',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '来源',
-  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '项目id',
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '解析类型',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `dns_record` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '解析值',
+  `name_server` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'name_server',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `level` int NULL DEFAULT NULL COMMENT '域名等级',
+  `domain_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主域名',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '来源',
+  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目id',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_sub_domain` (`sub_domain`,`project_id`),
-  KEY `idx_domain` (`domain_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_sub_domain`(`sub_domain` ASC, `project_id` ASC) USING BTREE,
+  INDEX `idx_domain`(`domain_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_sub_domain
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_vul
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_vul`;
-CREATE TABLE `asset_vul` (
-  `id` varchar(36) NOT NULL,
-  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) DEFAULT NULL COMMENT '所属部门',
-  `asset_type` varchar(32) DEFAULT NULL COMMENT '资产类型',
-  `asset_id` varchar(36) DEFAULT NULL COMMENT '资产ID',
-  `vul_name` varchar(1024) DEFAULT NULL COMMENT '漏洞名称',
-  `request_body` text COMMENT '请求包',
-  `response_body` text COMMENT '响应包',
-  `vul_type` varchar(128) DEFAULT NULL COMMENT '漏洞类型',
-  `source` varchar(128) DEFAULT NULL COMMENT '来源',
-  `vul_status` varchar(32) DEFAULT NULL COMMENT '漏洞状态',
-  `severity` varchar(32) DEFAULT NULL COMMENT '漏洞级别',
-  `vul_desc` varchar(1024) DEFAULT NULL COMMENT '漏洞描述',
-  `vul_url` varchar(1024) DEFAULT NULL COMMENT '漏洞链接',
-  `payload` text COMMENT '触发请求包',
-  `project_id` varchar(32) DEFAULT NULL COMMENT '项目',
-  `asset_label` varchar(1000) DEFAULT NULL COMMENT '资产标签',
-  `owner` varchar(999) DEFAULT NULL COMMENT '负责人',
-  PRIMARY KEY (`id`),
-  KEY `idx_status` (`vul_status`),
-  KEY `idx_asset` (`asset_type`,`asset_id`),
-  KEY `idx_asset_id` (`asset_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `asset_vul`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `asset_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '资产类型',
+  `asset_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '资产ID',
+  `vul_name` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '漏洞名称',
+  `request_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '请求包',
+  `response_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '响应包',
+  `vul_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '漏洞类型',
+  `source` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '来源',
+  `vul_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '漏洞状态',
+  `severity` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '漏洞级别',
+  `vul_desc` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '漏洞描述',
+  `vul_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '漏洞链接',
+  `payload` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '触发请求包',
+  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '项目',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `owner` varchar(999) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '负责人',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_status`(`vul_status` ASC) USING BTREE,
+  INDEX `idx_asset`(`asset_type` ASC, `asset_id` ASC) USING BTREE,
+  INDEX `idx_asset_id`(`asset_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of asset_vul
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for asset_web
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_web`;
-CREATE TABLE `asset_web` (
+CREATE TABLE `asset_web`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `web_title` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '站点标题',
-  `favicon` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'favicon',
-  `port_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '端口',
-  `screenshot` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '站点截图',
-  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '来源',
-  `web_header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'Header',
-  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资产标签',
-  `tech` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '技术框架',
-  `status_code` int DEFAULT NULL COMMENT '状态码',
-  `method` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '方法',
-  `web_server` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '服务器',
-  `web_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '访问链接',
-  `content_type` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'content_type',
-  `content_length` int DEFAULT NULL COMMENT 'content_length',
-  `delay_time` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '延迟',
-  `http_schema` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'http协议',
-  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '项目',
-  `jarm` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'jarm指纹',
-  `body_md5` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '返回包hash',
-  `header_md5` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '返回头hash',
-  `domain` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '域名',
-  `icon_url` varchar(256) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '图标地址',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `web_title` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '站点标题',
+  `favicon` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'favicon',
+  `port_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '端口',
+  `screenshot` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '站点截图',
+  `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+  `web_header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'Header',
+  `asset_label` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资产标签',
+  `tech` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '技术框架',
+  `status_code` int NULL DEFAULT NULL COMMENT '状态码',
+  `method` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '方法',
+  `web_server` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务器',
+  `web_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '访问链接',
+  `content_type` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'content_type',
+  `content_length` int NULL DEFAULT NULL COMMENT 'content_length',
+  `delay_time` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '延迟',
+  `http_schema` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'http协议',
+  `project_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目',
+  `jarm` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'jarm指纹',
+  `body_md5` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '返回包hash',
+  `header_md5` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '返回头hash',
+  `domain` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '域名',
+  `icon_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标地址',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `idx_web` (`port_id`,`domain`,`project_id`),
-  KEY `idx_domain` (`domain`),
-  KEY `idx_port_id` (`port_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_web`(`port_id` ASC, `domain` ASC, `project_id` ASC) USING BTREE,
+  INDEX `idx_domain`(`domain` ASC) USING BTREE,
+  INDEX `idx_port_id`(`port_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of asset_web
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for ceshi_note
 -- ----------------------------
 DROP TABLE IF EXISTS `ceshi_note`;
-CREATE TABLE `ceshi_note` (
+CREATE TABLE `ceshi_note`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名',
-  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '性别',
-  `age` int DEFAULT NULL COMMENT '年龄',
-  `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `xia_time` datetime DEFAULT NULL COMMENT '下单时间',
-  `salary` double(10,3) DEFAULT NULL COMMENT '薪资',
-  `log_txt` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '大文本',
-  `pop_cc` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '弹出报表',
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户',
-  `dep_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '部门',
-  `kai_guan` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '开关',
-  `file2` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '文件',
-  `pic` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '图片',
-  `shengshiqu` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省市区',
-  `accc` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '富文本',
-  `daa_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物料分类',
-  `ccc` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '单选框',
-  `aaa` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'aa',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `age` int NULL DEFAULT NULL COMMENT '年龄',
+  `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `birthday` date NULL DEFAULT NULL COMMENT '生日',
+  `xia_time` datetime NULL DEFAULT NULL COMMENT '下单时间',
+  `salary` double(10, 3) NULL DEFAULT NULL COMMENT '薪资',
+  `log_txt` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '大文本',
+  `pop_cc` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '弹出报表',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户',
+  `dep_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门',
+  `kai_guan` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '开关',
+  `file2` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件',
+  `pic` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图片',
+  `shengshiqu` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省市区',
+  `accc` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '富文本',
+  `daa_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物料分类',
+  `ccc` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '单选框',
+  `aaa` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'aa',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of ceshi_note
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for client
 -- ----------------------------
 DROP TABLE IF EXISTS `client`;
-CREATE TABLE `client` (
+CREATE TABLE `client`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '最后上报时间',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `client_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '节点名称',
-  `client_version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '节点版本',
-  `status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '节点状态',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '最后上报时间',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `client_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '节点名称',
+  `client_version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '节点版本',
+  `status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '节点状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of client
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for client_config
 -- ----------------------------
 DROP TABLE IF EXISTS `client_config`;
-CREATE TABLE `client_config` (
+CREATE TABLE `client_config`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `client_id` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '节点',
-  `config` text COLLATE utf8mb4_general_ci COMMENT '配置',
-  `chain_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程',
-  `config_file` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否配置文件',
-  `config_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置文件路径',
-  `max_threads` int DEFAULT NULL COMMENT '并发数量',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `client_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '节点',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '配置',
+  `chain_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '流程',
+  `config_file` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否配置文件',
+  `config_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '配置文件路径',
+  `max_threads` int NULL DEFAULT NULL COMMENT '并发数量',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of client_config
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for demo
 -- ----------------------------
 DROP TABLE IF EXISTS `demo`;
-CREATE TABLE `demo` (
+CREATE TABLE `demo`  (
   `id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
-  `name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '姓名',
-  `key_word` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '关键词',
-  `punch_time` datetime DEFAULT NULL COMMENT '打卡时间',
-  `salary_money` decimal(10,3) DEFAULT NULL COMMENT '工资',
-  `bonus_money` double(10,2) DEFAULT NULL COMMENT '奖金',
-  `sex` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '性别 {男:1,女:2}',
-  `age` int DEFAULT NULL COMMENT '年龄',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '邮箱',
-  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '个人简介',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属部门编码',
-  `tenant_id` int DEFAULT '0',
-  `update_count` int DEFAULT NULL COMMENT '乐观锁测试',
+  `name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `key_word` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '关键词',
+  `punch_time` datetime NULL DEFAULT NULL COMMENT '打卡时间',
+  `salary_money` decimal(10, 3) NULL DEFAULT NULL COMMENT '工资',
+  `bonus_money` double(10, 2) NULL DEFAULT NULL COMMENT '奖金',
+  `sex` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '性别 {男:1,女:2}',
+  `age` int NULL DEFAULT NULL COMMENT '年龄',
+  `birthday` date NULL DEFAULT NULL COMMENT '生日',
+  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '个人简介',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属部门编码',
+  `tenant_id` int NULL DEFAULT 0,
+  `update_count` int NULL DEFAULT NULL COMMENT '乐观锁测试',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of demo
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for demo_field_def_val_main
 -- ----------------------------
 DROP TABLE IF EXISTS `demo_field_def_val_main`;
-CREATE TABLE `demo_field_def_val_main` (
+CREATE TABLE `demo_field_def_val_main`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `code` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编码',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '姓名',
-  `sex` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '性别',
-  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '地址',
-  `address_param` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '地址（传参）',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
+  `code` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `sex` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地址',
+  `address_param` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地址（传参）',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of demo_field_def_val_main
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for demo_field_def_val_sub
 -- ----------------------------
 DROP TABLE IF EXISTS `demo_field_def_val_sub`;
-CREATE TABLE `demo_field_def_val_sub` (
+CREATE TABLE `demo_field_def_val_sub`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `code` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编码',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名称',
-  `date` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '日期',
-  `main_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '主表ID',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
+  `code` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `date` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '日期',
+  `main_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主表ID',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of demo_field_def_val_sub
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for flyway_schema_history
 -- ----------------------------
 DROP TABLE IF EXISTS `flyway_schema_history`;
-CREATE TABLE `flyway_schema_history` (
+CREATE TABLE `flyway_schema_history`  (
   `installed_rank` int NOT NULL,
-  `version` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `version` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `script` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `checksum` int DEFAULT NULL,
+  `checksum` int NULL DEFAULT NULL,
   `installed_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `execution_time` int NOT NULL,
   `success` tinyint(1) NOT NULL,
   PRIMARY KEY (`installed_rank`) USING BTREE,
-  KEY `flyway_schema_history_s_idx` (`success`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+  INDEX `flyway_schema_history_s_idx`(`success` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of flyway_schema_history
 -- ----------------------------
-BEGIN;
 INSERT INTO `flyway_schema_history` VALUES (1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'root', '2024-03-18 16:42:29', 0, 1);
 INSERT INTO `flyway_schema_history` VALUES (2, '3.6.2', 'all upgrade', 'SQL', 'V3.6.2__all_upgrade.sql', 146217576, 'root', '2024-03-18 16:42:30', 179, 1);
 INSERT INTO `flyway_schema_history` VALUES (3, '3.6.3', 'all upgrade', 'SQL', 'V3.6.3__all_upgrade.sql', -98134889, 'root', '2024-03-18 16:42:33', 3201, 1);
 INSERT INTO `flyway_schema_history` VALUES (4, '3.7.0', 'all upgrade', 'SQL', 'V3.7.0__all_upgrade.sql', -762627866, 'root', '2024-06-24 11:26:13', 158, 1);
 INSERT INTO `flyway_schema_history` VALUES (5, NULL, '370 missingPermission', 'SQL', 'R__370_missingPermission.sql', 464329002, 'root', '2024-06-24 11:28:29', 120, 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for jeecg_monthly_growth_analysis
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_monthly_growth_analysis`;
-CREATE TABLE `jeecg_monthly_growth_analysis` (
+CREATE TABLE `jeecg_monthly_growth_analysis`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `year` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `month` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '月份',
-  `main_income` decimal(18,2) DEFAULT '0.00' COMMENT '佣金/主营收入',
-  `other_income` decimal(18,2) DEFAULT '0.00' COMMENT '其他收入',
+  `year` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `month` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '月份',
+  `main_income` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '佣金/主营收入',
+  `other_income` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '其他收入',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jeecg_monthly_growth_analysis
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jeecg_order_customer
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_order_customer`;
-CREATE TABLE `jeecg_order_customer` (
+CREATE TABLE `jeecg_order_customer`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '客户名',
-  `sex` varchar(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '性别',
-  `idcard` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '身份证号码',
-  `idcard_pic` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '身份证扫描件',
-  `telphone` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '电话1',
+  `sex` varchar(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `idcard` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '身份证号码',
+  `idcard_pic` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '身份证扫描件',
+  `telphone` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '电话1',
   `order_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '外键',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jeecg_order_customer
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jeecg_order_main
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_order_main`;
-CREATE TABLE `jeecg_order_main` (
+CREATE TABLE `jeecg_order_main`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `order_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '订单号',
-  `ctype` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '订单类型',
-  `order_date` datetime DEFAULT NULL COMMENT '订单日期',
-  `order_money` double(10,3) DEFAULT NULL COMMENT '订单金额',
-  `content` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '订单备注',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `bpm_status` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '流程状态',
+  `order_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单号',
+  `ctype` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单类型',
+  `order_date` datetime NULL DEFAULT NULL COMMENT '订单日期',
+  `order_money` double(10, 3) NULL DEFAULT NULL COMMENT '订单金额',
+  `content` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单备注',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `bpm_status` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '流程状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jeecg_order_main
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jeecg_order_ticket
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_order_ticket`;
-CREATE TABLE `jeecg_order_ticket` (
+CREATE TABLE `jeecg_order_ticket`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
   `ticket_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '航班号',
-  `tickect_date` datetime DEFAULT NULL COMMENT '航班时间',
+  `tickect_date` datetime NULL DEFAULT NULL COMMENT '航班时间',
   `order_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '外键',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jeecg_order_ticket
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jeecg_project_nature_income
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_project_nature_income`;
-CREATE TABLE `jeecg_project_nature_income` (
+CREATE TABLE `jeecg_project_nature_income`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `nature` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '项目性质',
-  `insurance_fee` decimal(18,2) DEFAULT '0.00' COMMENT '保险经纪佣金费',
-  `risk_consulting_fee` decimal(18,2) DEFAULT '0.00' COMMENT '风险咨询费',
-  `evaluation_fee` decimal(18,2) DEFAULT '0.00' COMMENT '承保公估评估费',
-  `insurance_evaluation_fee` decimal(18,2) DEFAULT '0.00' COMMENT '保险公估费',
-  `bidding_consulting_fee` decimal(18,2) DEFAULT '0.00' COMMENT '投标咨询费',
-  `interol_consulting_fee` decimal(18,2) DEFAULT '0.00' COMMENT '内控咨询费',
+  `insurance_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '保险经纪佣金费',
+  `risk_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '风险咨询费',
+  `evaluation_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '承保公估评估费',
+  `insurance_evaluation_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '保险公估费',
+  `bidding_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '投标咨询费',
+  `interol_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '内控咨询费',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jeecg_project_nature_income
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_dict`;
-CREATE TABLE `jimu_dict` (
+CREATE TABLE `jimu_dict`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `dict_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典名称',
   `dict_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典编码',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `del_flag` int DEFAULT NULL COMMENT '删除状态',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `type` int(1) unsigned zerofill DEFAULT '0' COMMENT '字典类型0为string,1为number',
-  `tenant_id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '多租户标识',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `del_flag` int NULL DEFAULT NULL COMMENT '删除状态',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `type` int(1) UNSIGNED ZEROFILL NULL DEFAULT 0 COMMENT '字典类型0为string,1为number',
+  `tenant_id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '多租户标识',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_sd_dict_code` (`dict_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uk_sd_dict_code`(`dict_code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jimu_dict
 -- ----------------------------
-BEGIN;
 INSERT INTO `jimu_dict` VALUES ('0b5d19e1fce4b2e6647e6b4a17760c14', '通告类型', 'msg_category', '消息类型1:通知公告2:系统消息', 0, 'admin', '2019-04-22 18:01:35', NULL, NULL, 0, NULL);
 INSERT INTO `jimu_dict` VALUES ('1174509082208395266', '职务职级', 'position_rank', '职务表职级字典', 0, 'admin', '2019-09-19 10:22:41', NULL, NULL, 0, NULL);
 INSERT INTO `jimu_dict` VALUES ('1174511106530525185', '机构类型', 'org_category', '机构类型 1公司，2部门 3岗位', 0, 'admin', '2019-09-19 10:30:43', NULL, NULL, 0, NULL);
@@ -672,35 +753,33 @@ INSERT INTO `jimu_dict` VALUES ('c36169beb12de8a71c8683ee7c28a503', '部门状�
 INSERT INTO `jimu_dict` VALUES ('c5a14c75172783d72cbee6ee7f5df5d1', 'Online图表类型', 'online_graph_type', 'Online图表类型', 0, 'admin', '2019-04-12 17:04:06', NULL, NULL, 0, NULL);
 INSERT INTO `jimu_dict` VALUES ('d6e1152968b02d69ff358c75b48a6ee1', '流程类型', 'bpm_process_type', NULL, 0, 'admin', '2021-02-22 19:26:54', 'admin', '2019-03-30 18:14:44', 0, NULL);
 INSERT INTO `jimu_dict` VALUES ('fc6cd58fde2e8481db10d3a1e68ce70c', '用户状态', 'user_status', NULL, 0, 'admin', '2019-03-18 21:57:25', 'admin', '2019-03-18 23:11:58', 1, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for jimu_dict_item
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_dict_item`;
-CREATE TABLE `jimu_dict_item` (
+CREATE TABLE `jimu_dict_item`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `dict_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典id',
+  `dict_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典id',
   `item_text` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典项文本',
   `item_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典项值',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `sort_order` int DEFAULT NULL COMMENT '排序',
-  `status` int DEFAULT NULL COMMENT '状态（1启用 0不启用）',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `sort_order` int NULL DEFAULT NULL COMMENT '排序',
+  `status` int NULL DEFAULT NULL COMMENT '状态（1启用 0不启用）',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sdi_role_dict_id` (`dict_id`) USING BTREE,
-  KEY `idx_sdi_role_sort_order` (`sort_order`) USING BTREE,
-  KEY `idx_sdi_status` (`status`) USING BTREE,
-  KEY `idx_sdi_dict_val` (`dict_id`,`item_value`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_sdi_role_dict_id`(`dict_id` ASC) USING BTREE,
+  INDEX `idx_sdi_role_sort_order`(`sort_order` ASC) USING BTREE,
+  INDEX `idx_sdi_status`(`status` ASC) USING BTREE,
+  INDEX `idx_sdi_dict_val`(`dict_id` ASC, `item_value` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jimu_dict_item
 -- ----------------------------
-BEGIN;
 INSERT INTO `jimu_dict_item` VALUES ('0072d115e07c875d76c9b022e2179128', '4d7fec1a7799a436d26d02325eff295e', '低', 'L', '低', 3, 1, 'admin', '2019-04-16 17:04:59', NULL, NULL);
 INSERT INTO `jimu_dict_item` VALUES ('05a2e732ce7b00aa52141ecc3e330b4e', '3486f32803bb953e7155dab3513dc68b', '已删除', '1', NULL, NULL, 1, 'admin', '2025-10-18 21:46:56', 'admin', '2019-03-28 22:23:20');
 INSERT INTO `jimu_dict_item` VALUES ('096c2e758d823def3855f6376bc736fb', 'bd1b8bc28e65d6feefefb6f3c79f42fd', 'SQL', 'sql', NULL, 1, 1, 'admin', '2019-04-12 17:26:26', NULL, NULL);
@@ -823,257 +902,291 @@ INSERT INTO `jimu_dict_item` VALUES ('f753aff60ff3931c0ecb4812d8b5e643', '4c03fc
 INSERT INTO `jimu_dict_item` VALUES ('f80a8f6838215753b05e1a5ba3346d22', '880a895c98afeca9d9ac39f29e67c13e', '删除', '4', '', 4, 1, 'admin', '2019-07-22 10:55:14', 'admin', '2019-07-22 10:55:30');
 INSERT INTO `jimu_dict_item` VALUES ('fcec03570f68a175e1964808dc3f1c91', '4c03fca6bf1f0299c381213961566349', 'Tab风格', 'tab', NULL, 1, 1, 'admin', '2019-04-12 17:43:31', NULL, NULL);
 INSERT INTO `jimu_dict_item` VALUES ('fe50b23ae5e68434def76f67cef35d2d', '78bda155fe380b1b3f175f1e88c284c6', '已作废', '4', '已作废', 4, 1, 'admin', '2021-09-09 16:33:43', 'admin', '2019-05-09 16:34:40');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for jimu_report
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report`;
-CREATE TABLE `jimu_report` (
+CREATE TABLE `jimu_report`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '编码',
-  `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '名称',
-  `note` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '说明',
-  `status` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '状态',
-  `type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '类型',
-  `json_str` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'json字符串',
-  `api_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求地址',
-  `thumb` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '缩略图',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `del_flag` tinyint(1) DEFAULT NULL COMMENT '删除标识0-正常,1-已删除',
-  `api_method` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求方法0-get,1-post',
-  `api_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求编码',
-  `template` tinyint(1) DEFAULT NULL COMMENT '是否是模板 0不是,1是',
-  `view_count` bigint DEFAULT '0' COMMENT '浏览次数',
-  `css_str` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'css增强',
-  `js_str` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'js增强',
-  `py_str` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'py增强',
-  `tenant_id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '多租户标识',
+  `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `note` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '说明',
+  `status` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '状态',
+  `type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `json_str` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'json字符串',
+  `api_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求地址',
+  `thumb` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '缩略图',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `del_flag` tinyint(1) NULL DEFAULT NULL COMMENT '删除标识0-正常,1-已删除',
+  `api_method` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求方法0-get,1-post',
+  `api_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求编码',
+  `template` tinyint(1) NULL DEFAULT NULL COMMENT '是否是模板 0不是,1是',
+  `view_count` bigint NULL DEFAULT 0 COMMENT '浏览次数',
+  `css_str` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'css增强',
+  `js_str` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'js增强',
+  `py_str` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'py增强',
+  `tenant_id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '多租户标识',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_jmreport_code` (`code`) USING BTREE,
-  KEY `uniq_jmreport_createby` (`create_by`) USING BTREE,
-  KEY `uniq_jmreport_delflag` (`del_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='在线excel设计器';
+  UNIQUE INDEX `uniq_jmreport_code`(`code` ASC) USING BTREE,
+  INDEX `uniq_jmreport_createby`(`create_by` ASC) USING BTREE,
+  INDEX `uniq_jmreport_delflag`(`del_flag` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '在线excel设计器' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_data_source
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_data_source`;
-CREATE TABLE `jimu_report_data_source` (
+CREATE TABLE `jimu_report_data_source`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据源名称',
-  `report_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '报表_id',
-  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编码',
-  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  `db_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据库类型',
-  `db_driver` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '驱动类',
-  `db_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据源地址',
-  `db_username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名',
-  `db_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `connect_times` int unsigned DEFAULT '0' COMMENT '连接失败次数',
-  `tenant_id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '多租户标识',
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型(report:报表;drag:仪表盘)',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
+  `report_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '报表_id',
+  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `db_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据库类型',
+  `db_driver` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '驱动类',
+  `db_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源地址',
+  `db_username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `db_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `connect_times` int UNSIGNED NULL DEFAULT 0 COMMENT '连接失败次数',
+  `tenant_id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '多租户标识',
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型(report:报表;drag:仪表盘)',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_jmdatasource_report_id` (`report_id`) USING BTREE,
-  KEY `idx_jmdatasource_code` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  INDEX `idx_jmdatasource_report_id`(`report_id` ASC) USING BTREE,
+  INDEX `idx_jmdatasource_code`(`code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_data_source
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_db
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_db`;
-CREATE TABLE `jimu_report_db` (
+CREATE TABLE `jimu_report_db`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'id',
-  `jimu_report_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '主键字段',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `db_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据集编码',
-  `db_ch_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据集名字',
-  `db_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据源类型',
-  `db_table_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据库表名',
-  `db_dyn_sql` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '动态查询SQL',
-  `db_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据源KEY',
-  `tb_db_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '填报数据源',
-  `tb_db_table_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '填报数据表',
-  `java_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'java类数据集  类型（spring:springkey,class:java类名）',
-  `java_value` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'java类数据源  数值（bean key/java类名）',
-  `api_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求地址',
-  `api_method` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求方法0-get,1-post',
-  `is_list` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT '是否是列表0否1是 默认0',
-  `is_page` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否作为分页,0:不分页，1:分页',
-  `db_source` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据源',
-  `db_source_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据库类型 MYSQL ORACLE SQLSERVER',
-  `json_data` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'json数据，直接解析json内容',
-  `api_convert` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'api转换器',
+  `jimu_report_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '主键字段',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `db_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据集编码',
+  `db_ch_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据集名字',
+  `db_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据源类型',
+  `db_table_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据库表名',
+  `db_dyn_sql` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '动态查询SQL',
+  `db_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据源KEY',
+  `tb_db_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '填报数据源',
+  `tb_db_table_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '填报数据表',
+  `java_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'java类数据集  类型（spring:springkey,class:java类名）',
+  `java_value` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'java类数据源  数值（bean key/java类名）',
+  `api_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求地址',
+  `api_method` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求方法0-get,1-post',
+  `is_list` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '是否是列表0否1是 默认0',
+  `is_page` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否作为分页,0:不分页，1:分页',
+  `db_source` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据源',
+  `db_source_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据库类型 MYSQL ORACLE SQLSERVER',
+  `json_data` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'json数据，直接解析json内容',
+  `api_convert` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'api转换器',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_jmreportdb_db_key` (`db_key`) USING BTREE,
-  KEY `idx_jimu_report_id` (`jimu_report_id`) USING BTREE,
-  KEY `idx_db_source_id` (`db_source`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_jmreportdb_db_key`(`db_key` ASC) USING BTREE,
+  INDEX `idx_jimu_report_id`(`jimu_report_id` ASC) USING BTREE,
+  INDEX `idx_db_source_id`(`db_source` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_db
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_db_field
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_db_field`;
-CREATE TABLE `jimu_report_db_field` (
+CREATE TABLE `jimu_report_db_field`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'id',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `jimu_report_db_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据源ID',
-  `field_name` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段名',
-  `field_text` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段文本',
-  `widget_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '控件类型',
-  `widget_width` int DEFAULT NULL COMMENT '控件宽度',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `search_flag` int DEFAULT '0' COMMENT '查询标识0否1是 默认0',
-  `search_mode` int DEFAULT NULL COMMENT '查询模式1简单2范围',
-  `dict_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典编码支持从表中取数据',
-  `search_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询默认值',
-  `search_format` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询时间格式化表达式',
-  `ext_json` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '参数配置',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `jimu_report_db_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据源ID',
+  `field_name` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段名',
+  `field_text` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段文本',
+  `widget_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '控件类型',
+  `widget_width` int NULL DEFAULT NULL COMMENT '控件宽度',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `search_flag` int NULL DEFAULT 0 COMMENT '查询标识0否1是 默认0',
+  `search_mode` int NULL DEFAULT NULL COMMENT '查询模式1简单2范围',
+  `dict_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典编码支持从表中取数据',
+  `search_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询默认值',
+  `search_format` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询时间格式化表达式',
+  `ext_json` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '参数配置',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_jrdf_jimu_report_db_id` (`jimu_report_db_id`) USING BTREE,
-  KEY `idx_dbfield_order_num` (`order_num`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_jrdf_jimu_report_db_id`(`jimu_report_db_id` ASC) USING BTREE,
+  INDEX `idx_dbfield_order_num`(`order_num` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_db_field
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_db_param
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_db_param`;
-CREATE TABLE `jimu_report_db_param` (
+CREATE TABLE `jimu_report_db_param`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `jimu_report_head_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '动态报表ID',
   `param_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '参数字段',
-  `param_txt` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数文本',
-  `param_value` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数默认值',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `search_flag` int DEFAULT NULL COMMENT '查询标识0否1是 默认0',
-  `widget_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询控件类型',
-  `search_mode` int DEFAULT NULL COMMENT '查询模式1简单2范围',
-  `dict_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典',
-  `search_format` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询时间格式化表达式',
-  `ext_json` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '参数配置',
+  `param_txt` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数文本',
+  `param_value` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数默认值',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `search_flag` int NULL DEFAULT NULL COMMENT '查询标识0否1是 默认0',
+  `widget_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询控件类型',
+  `search_mode` int NULL DEFAULT NULL COMMENT '查询模式1简单2范围',
+  `dict_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典',
+  `search_format` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询时间格式化表达式',
+  `ext_json` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '参数配置',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_jrdp_jimu_report_head_id` (`jimu_report_head_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_jrdp_jimu_report_head_id`(`jimu_report_head_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_db_param
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_link
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_link`;
-CREATE TABLE `jimu_report_link` (
+CREATE TABLE `jimu_report_link`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键id',
-  `report_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '积木设计器id',
-  `parameter` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '参数',
-  `eject_type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '弹出方式（0 当前页面 1 新窗口）',
-  `link_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '链接名称',
-  `api_method` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方法0-get,1-post',
-  `link_type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '链接方式(0 网络报表 1 网络连接 2 图表联动)',
-  `api_url` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '外网api',
-  `link_chart_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联动图表的ID',
-  `requirement` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '条件',
-  `expression` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '表达式',
+  `report_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '积木设计器id',
+  `parameter` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '参数',
+  `eject_type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '弹出方式（0 当前页面 1 新窗口）',
+  `link_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '链接名称',
+  `api_method` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求方法0-get,1-post',
+  `link_type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '链接方式(0 网络报表 1 网络连接 2 图表联动)',
+  `api_url` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '外网api',
+  `link_chart_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联动图表的ID',
+  `requirement` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '条件',
+  `expression` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '表达式',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `uniq_link_reportid` (`report_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='超链接配置表';
+  INDEX `uniq_link_reportid`(`report_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '超链接配置表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_link
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_map
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_map`;
-CREATE TABLE `jimu_report_map` (
+CREATE TABLE `jimu_report_map`  (
   `id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `label` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '地图名称',
-  `name` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '地图编码',
-  `data` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '地图数据',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `del_flag` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '0表示未删除,1表示删除',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属部门',
+  `label` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '地图名称',
+  `name` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '地图编码',
+  `data` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '地图数据',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `del_flag` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '0表示未删除,1表示删除',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_jmreport_map_name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='地图配置表';
+  UNIQUE INDEX `uniq_jmreport_map_name`(`name` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '地图配置表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_map
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for jimu_report_share
 -- ----------------------------
 DROP TABLE IF EXISTS `jimu_report_share`;
-CREATE TABLE `jimu_report_share` (
+CREATE TABLE `jimu_report_share`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `report_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '在线excel设计器id',
-  `preview_url` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '预览地址',
-  `preview_lock` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码锁',
-  `last_update_time` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `term_of_validity` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '有效期(0:永久有效，1:1天，2:7天)',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否过期(0未过期，1已过期)',
-  `preview_lock_status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否为密码锁(0 否,1是)',
-  `share_token` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分享token',
+  `report_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '在线excel设计器id',
+  `preview_url` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览地址',
+  `preview_lock` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码锁',
+  `last_update_time` datetime NULL DEFAULT NULL COMMENT '最后更新时间',
+  `term_of_validity` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '有效期(0:永久有效，1:1天，2:7天)',
+  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否过期(0未过期，1已过期)',
+  `preview_lock_status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否为密码锁(0 否,1是)',
+  `share_token` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分享token',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_jrs_share_token` (`share_token`) USING BTREE,
-  UNIQUE KEY `uniq_jrs_report_id` (`report_id`) USING BTREE COMMENT '报表id唯一索引'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='积木报表预览权限表';
+  UNIQUE INDEX `uniq_jrs_share_token`(`share_token` ASC) USING BTREE,
+  UNIQUE INDEX `uniq_jrs_report_id`(`report_id` ASC) USING BTREE COMMENT '报表id唯一索引'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '积木报表预览权限表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of jimu_report_share
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for joa_demo
 -- ----------------------------
 DROP TABLE IF EXISTS `joa_demo`;
-CREATE TABLE `joa_demo` (
-  `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'ID',
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请假人',
-  `days` int DEFAULT NULL COMMENT '请假天数',
-  `begin_date` datetime DEFAULT NULL COMMENT '开始时间',
-  `end_date` datetime DEFAULT NULL COMMENT '请假结束时间',
-  `reason` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请假原因',
-  `bpm_status` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '1' COMMENT '流程状态',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人id',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人id'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='流程测试';
+CREATE TABLE `joa_demo`  (
+  `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'ID',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请假人',
+  `days` int NULL DEFAULT NULL COMMENT '请假天数',
+  `begin_date` datetime NULL DEFAULT NULL COMMENT '开始时间',
+  `end_date` datetime NULL DEFAULT NULL COMMENT '请假结束时间',
+  `reason` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请假原因',
+  `bpm_status` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '1' COMMENT '流程状态',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人id',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人id'
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '流程测试' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of joa_demo
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for lite_flow_chain
 -- ----------------------------
 DROP TABLE IF EXISTS `lite_flow_chain`;
-CREATE TABLE `lite_flow_chain` (
-  `id` varchar(36) NOT NULL,
-  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) DEFAULT NULL COMMENT '所属部门',
-  `chain_name` varchar(64) DEFAULT NULL COMMENT '流程名称',
-  `el_data` text COMMENT 'EL表达式',
-  `application_name` varchar(256) DEFAULT NULL COMMENT '应用名称',
-  `enable` int DEFAULT NULL COMMENT '启用',
-  `asset_type` varchar(256) DEFAULT NULL COMMENT '适用资产',
-  `icon` varchar(64) DEFAULT NULL COMMENT '图标',
-  `config` text COMMENT '默认配置',
-  `processor_class_name` varchar(128) DEFAULT NULL COMMENT '结果处理类名',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `lite_flow_chain`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `chain_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '流程名称',
+  `el_data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT 'EL表达式',
+  `application_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '应用名称',
+  `enable` int NULL DEFAULT NULL COMMENT '启用',
+  `asset_type` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '适用资产',
+  `icon` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '图标',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '默认配置',
+  `processor_class_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '结果处理类名',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lite_flow_chain
 -- ----------------------------
-BEGIN;
 INSERT INTO `lite_flow_chain` VALUES ('1770706623340822530', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'OneForAll子域名扫描', 'THEN(oneforall).maxWaitSeconds(1800)', 'testnet-client', 1, 'domain', 'ant-design:search-outlined', 'command: \'python3 /testnet-client/OneForAll/oneforall.py --target %s --req False --fmt json --path %s run\'', 'domainToSubDomainAndIPProcessor');
 INSERT INTO `lite_flow_chain` VALUES ('1771160646011400194', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'ICP备案查询', 'THEN(icp1).maxWaitSeconds(30)', 'testnet-client', 1, 'domain', 'ant-design:idcard-twotone', NULL, 'domainToCompanyProcessor');
 INSERT INTO `lite_flow_chain` VALUES ('1773262628750667777', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'Httpx web探测', 'THEN(httpx).maxWaitSeconds(120)', 'testnet-client', 1, 'port,sub_domain,ip', 'ant-design:chrome-filled', 'command: \'httpx -disable-update-check -no-stdin -fr -fhr -hash md5 -favicon -jarm -cdn -json -cname -title -threads 100 -timeout 3 -verbose -location -web-server -status-code -tech-detect -content-type -content-length -irh  -u %s -o %s\'\nenableScreenshot: false\nsecretId: AKIxxxx\nsecretKey: xxx\nbucketName: xxx\nregionName: ap-xxx', 'ipOrSubDomainOrPortToWebProcessor');
@@ -1090,57 +1203,59 @@ INSERT INTO `lite_flow_chain` VALUES ('1806627814112346114', 'admin', '2024-05-0
 INSERT INTO `lite_flow_chain` VALUES ('1806641867920621569', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'Ffuf敏感目录扫描', 'THEN(ffuf)', 'testnet-client', 1, 'api', 'ant-design:bug-twotone', 'command: \'ffuf -u %s/FUZZ -w xxxx -mc 200,301,302,403 -of json -o %s\'', 'apiToApiProcessor');
 INSERT INTO `lite_flow_chain` VALUES ('1808797510794235906', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'Katana爬虫', 'THEN(katana)', 'testnet-client', 1, 'api', 'ant-design:bug-twotone', 'command: \'katana -u %s -o %s -j -duc -or -ob -silent -jc\'', 'apiToApiProcessor');
 INSERT INTO `lite_flow_chain` VALUES ('1810995080047456258', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'Xpoc漏洞扫描', 'THEN(xpoc)', 'testnet-client', 1, 'web,ip,sub_domain', 'ant-design:bug-twotone', 'command: \'/testnet-client/xpoc -t %s -o %s\'', 'ipOrWebOrSubDomainToVulProcessor');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for lite_flow_instance
 -- ----------------------------
 DROP TABLE IF EXISTS `lite_flow_instance`;
-CREATE TABLE `lite_flow_instance` (
-  `id` varchar(36) NOT NULL,
-  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) DEFAULT NULL COMMENT '所属部门',
-  `instance_params` text COMMENT '实例参数',
-  `chain_id` varchar(32) DEFAULT NULL COMMENT '流程ID',
-  `redis_message_id` varchar(64) DEFAULT NULL COMMENT 'Redis消息ID',
-  `instance_status` varchar(32) DEFAULT NULL COMMENT '实例状态',
-  `config` text COMMENT '配置',
-  `pid` varchar(32) DEFAULT NULL COMMENT '父级节点',
-  `has_child` varchar(3) DEFAULT NULL COMMENT '是否有子节点',
-  `asset_type` varchar(32) DEFAULT NULL COMMENT '资产类型',
-  `client_id` varchar(1000) DEFAULT NULL COMMENT '执行节点',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `lite_flow_instance`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `instance_params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '实例参数',
+  `chain_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '流程ID',
+  `redis_message_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'Redis消息ID',
+  `instance_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '实例状态',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '配置',
+  `pid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '父级节点',
+  `has_child` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '是否有子节点',
+  `asset_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '资产类型',
+  `client_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行节点',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of lite_flow_instance
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for lite_flow_script
 -- ----------------------------
 DROP TABLE IF EXISTS `lite_flow_script`;
-CREATE TABLE `lite_flow_script` (
-  `id` varchar(36) NOT NULL,
-  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) DEFAULT NULL COMMENT '所属部门',
-  `script_name` varchar(256) DEFAULT NULL COMMENT '脚本名称',
-  `script_type` varchar(32) DEFAULT NULL COMMENT '脚本类型',
-  `script_data` text COMMENT '脚本内容',
-  `script_language` varchar(32) DEFAULT NULL COMMENT '脚本语言',
-  `enable` int DEFAULT NULL COMMENT '启用',
-  `application_name` varchar(128) DEFAULT 'testnet-client' COMMENT '客户端名称',
-  `script_id` varchar(128) DEFAULT NULL COMMENT '脚本ID',
-  `script_dict` varchar(10) DEFAULT NULL COMMENT '脚本分类',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `lite_flow_script`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `script_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '脚本名称',
+  `script_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '脚本类型',
+  `script_data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '脚本内容',
+  `script_language` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '脚本语言',
+  `enable` int NULL DEFAULT NULL COMMENT '启用',
+  `application_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'testnet-client' COMMENT '客户端名称',
+  `script_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '脚本ID',
+  `script_dict` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '脚本分类',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of lite_flow_script
 -- ----------------------------
-BEGIN;
 INSERT INTO `lite_flow_script` VALUES ('1771160040651698177', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', '查询ICP备案信息', 'script', 'import testnet.client.service.ILiteFlowMessageSendService;\nimport com.alibaba.fastjson.JSONObject;\nimport com.yomahub.liteflow.script.ScriptExecuteWrap;\nimport com.yomahub.liteflow.script.body.JaninoCommonScriptBody;\nimport com.yomahub.liteflow.spi.holder.ContextAwareHolder;\nimport testnet.common.dto.DomainToCompanyDTO;\nimport testnet.common.entity.HttpResponse;\nimport testnet.common.entity.liteflow.TaskExecuteMessage;\nimport testnet.common.utils.HttpUtils;\n\n/**\n * 脚本名称：查询ICP备案信息\n * 适用资产：域名\n * 配置：\n * 结果处理类名: domainToCompanyProcessor\n */\npublic class ICPApi1 implements JaninoCommonScriptBody {\n    public Void body(ScriptExecuteWrap wrap) {\n        TaskExecuteMessage taskExecuteMessage = (TaskExecuteMessage) wrap.cmp.getRequestData();\n        ILiteFlowMessageSendService sendService = (ILiteFlowMessageSendService) ContextAwareHolder.loadContextAware().getBean(ILiteFlowMessageSendService.class);\n        JSONObject instanceParams = JSONObject.parseObject(taskExecuteMessage.getTaskParams());\n        sendService.setTaskId(taskExecuteMessage.getTaskId());\n        sendService.INFO(\"开始查询ICP备案信息\");\n        try {\n            String domain = instanceParams.getString(\"domain\");\n            HttpResponse response = HttpUtils.get(\"https://www.fzhan.com/tem/moban/niu/api/tools_domain_name_registration_query.php?domain=\" + domain);\n            if (response.getStatusCode() == 200) {\n                sendService.INFO(\"fzhan.com查询备案成功，返回包:{}\", response.getBody());\n                JSONObject jsonObject = JSONObject.parseObject(response.getBody());\n                if (jsonObject.containsKey(\"data\") && jsonObject.getInteger(\"code\") == 200) {\n                    JSONObject data = jsonObject.getJSONObject(\"data\");\n                    if (data.containsKey(\"organizer\")) {\n                        String company = data.getString(\"organizer\");\n                        String icpNumber = data.getString(\"licenseKey\");\n                        sendService.INFO(\"查询到备案信息，公司名称：{},备案号:{}\", company, icpNumber);\n                        if (!company.equals(\"-\") && !icpNumber.equals(\"-\")) {\n                            DomainToCompanyDTO domainToCompanyDTO = new DomainToCompanyDTO();\n                            domainToCompanyDTO.setIcpNumber(icpNumber);\n                            domainToCompanyDTO.setCompanyName(company);\n                            sendService.sendResult(domainToCompanyDTO);\n                        } else {\n                            sendService.ERROR(\"fzhan.com查询备案失败！备案信息为空\");\n                        }\n                    }\n                }\n            } else {\n                sendService.ERROR(\"fzhan.com查询备案失败！请求状态码： {}\", response.getStatusCode());\n            }\n        } catch (Exception e) {\n            sendService.ERROR(\"fzhan.com查询备案失败！ 错误信息：{}\", e.getMessage());\n            throw new RuntimeException(e);\n        }\n        return null;\n    }\n}', 'java', 1, 'testnet-client', 'icp1', 'API');
 INSERT INTO `lite_flow_script` VALUES ('1773261756402544642', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'httpx探测Web资产', 'script', 'import com.alibaba.fastjson.JSONArray;\nimport com.alibaba.fastjson.JSONObject;\nimport com.yomahub.liteflow.script.ScriptExecuteWrap;\nimport com.yomahub.liteflow.script.body.JaninoCommonScriptBody;\nimport com.yomahub.liteflow.spi.holder.ContextAwareHolder;\nimport org.apache.commons.lang.StringUtils;\nimport testnet.client.service.ILiteFlowMessageSendService;\nimport testnet.client.util.TencentCOSUtils;\nimport testnet.common.dto.IpOrSubDomainOrPortToWebDTO;\nimport testnet.common.entity.liteflow.TaskExecuteMessage;\nimport testnet.common.utils.CommandUtils;\n\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\nimport java.util.HashMap;\nimport java.util.Map;\nimport java.util.UUID;\n\n/**\n * 脚本名称：httpx web探测\n * 适用资产：端口、子域名、IP\n * 配置：\n * command: \'httpx -disable-update-check -no-stdin -hash md5 -favicon -jarm -cdn -json -cname -title -threads 100 -timeout 3 -verbose -location -web-server -status-code -tech-detect -content-type -content-length -irh  -u %s -o \'\n * enableScreenshot: false\n * secretId: AKIxxxx\n * secretKey: xxx\n * bucketName: xxx\n * regionName: ap-xxx\n * 结果处理类名: ipOrSubDomainOrPortToWebProcessor\n */\npublic class Httpx implements JaninoCommonScriptBody {\n\n    private ILiteFlowMessageSendService messageSendService;\n\n    public Void body(ScriptExecuteWrap wrap) {\n        TaskExecuteMessage taskExecuteMessage = (TaskExecuteMessage) wrap.cmp.getRequestData();\n        try {\n            messageSendService = (ILiteFlowMessageSendService) ContextAwareHolder.loadContextAware().getBean(ILiteFlowMessageSendService.class);\n            messageSendService.setTaskId(taskExecuteMessage.getTaskId());\n            messageSendService.INFO(\"开始httpx web探测...\");\n            JSONObject config = JSONObject.parseObject(taskExecuteMessage.getConfig());\n            JSONObject jsonObject = JSONObject.parseObject(taskExecuteMessage.getTaskParams());\n            String resultPath = taskExecuteMessage.getResultPath() + \"httpx_\" + UUID.randomUUID() + \".json\";\n            messageSendService.INFO(\"结果保存路径:{}\", resultPath);\n            String command = config.getString(\"command\");\n            if (config.getBoolean(\"enableScreenshot\")) {\n                command = command + \" -screenshot -exclude-headless-body\";\n            }\n            Map<String, String> taskList = new HashMap<>();\n            switch (taskExecuteMessage.getAssetType()) {\n                case \"port\":\n                    // 端口\n                    JSONArray domains = jsonObject.getJSONArray(\"domains\");\n                    if (domains != null && !domains.isEmpty()) {\n                        for (Object domain : domains) {\n                            JSONObject object = (JSONObject) domain;\n                            String subDomain = object.getString(\"subDomain\");\n                            if (StringUtils.isNotBlank(subDomain)) {\n                                resultPath = taskExecuteMessage.getResultPath() + \"httpx_\" + UUID.randomUUID() + \".json\";\n                                taskList.put(subDomain, String.format(command, subDomain + \":\" + jsonObject.getString(\"port\"), resultPath));\n                            }\n                        }\n                    } else {\n                        String ip = jsonObject.getString(\"ip_dictText\");\n                        taskList.put(\"\", String.format(command, ip + \":\" + jsonObject.getString(\"port\"), resultPath));\n                    }\n                    break;\n                case \"sub_domain\":\n                    // 域名\n                    String sub_domain = jsonObject.getString(\"subDomain\");\n                    taskList.put(sub_domain, String.format(command, sub_domain, resultPath));\n                    break;\n                case \"ip\":\n                    // ip\n                    String ip = jsonObject.getString(\"ip\");\n                    taskList.put(\"\", String.format(command, ip, resultPath));\n                    break;\n                default:\n                    messageSendService.ERROR(\"不支持的资产类型!:{}\", taskExecuteMessage.getAssetType());\n                    break;\n            }\n            for (String s : taskList.keySet()) {\n                executeTask(s, (String) taskList.get(s), config, resultPath);\n            }\n        } catch (\n                Exception e) {\n            throw new RuntimeException(e);\n        }\n        return null;\n    }\n\n    private void executeTask(String domain, String task, JSONObject config, String resultPath) {\n        try {\n            messageSendService.INFO(\"开始执行Web扫描,命令是:{}\", task);\n            CommandUtils.CommandResult result = CommandUtils.executeCommand(task);\n            if (result.getExitCode() == 0) {\n                String resultContent = new String(Files.readAllBytes(Paths.get(resultPath)));\n                JSONObject resultJson = JSONObject.parseObject(resultContent);\n                if (resultJson != null) {\n                    messageSendService.INFO(\"Httpx Web扫描执行完成,结果是:{}\", resultJson);\n                    IpOrSubDomainOrPortToWebDTO ipOrSubDomainOrPortToWebDTO = (IpOrSubDomainOrPortToWebDTO) JSONObject.parseObject(resultContent, IpOrSubDomainOrPortToWebDTO.class);\n                    ipOrSubDomainOrPortToWebDTO.setDomain(domain);\n                    ipOrSubDomainOrPortToWebDTO.setWebUrl(resultJson.getString(\"url\"));\n                    ipOrSubDomainOrPortToWebDTO.setHttpSchema(resultJson.getString(\"scheme\"));\n                    ipOrSubDomainOrPortToWebDTO.setDelayTime(resultJson.getString(\"time\"));\n                    ipOrSubDomainOrPortToWebDTO.setIp(resultJson.getString(\"host\"));\n                    ipOrSubDomainOrPortToWebDTO.setWebHeader(resultJson.getString(\"header\"));\n                    ipOrSubDomainOrPortToWebDTO.setWebTitle(resultJson.getString(\"title\"));\n                    JSONObject hash = resultJson.getJSONObject(\"hash\");\n                    ipOrSubDomainOrPortToWebDTO.setBodyMd5(hash.getString(\"body_md5\"));\n                    ipOrSubDomainOrPortToWebDTO.setHeaderMd5(hash.getString(\"header_md5\"));\n                    JSONArray tech = resultJson.getJSONArray(\"tech\");\n                    if (tech != null) {\n                        JSONArray jsonArray = new JSONArray();\n                        for (Object o : tech) {\n                            JSONObject jsonObject = new JSONObject();\n                            jsonObject.put(\"name\", o.toString());\n                            jsonArray.add(jsonObject);\n                        }\n                        ipOrSubDomainOrPortToWebDTO.setTech(JSONObject.toJSONString(jsonArray));\n                    }\n                    if (config.getBoolean(\"enableScreenshot\")) {\n                        String secretId = config.getString(\"secretId\");\n                        String secretKey = config.getString(\"secretKey\");\n                        String bucketName = config.getString(\"bucketName\");\n                        String regionName = config.getString(\"regionName\");\n                        String screenshot_path = resultJson.getString(\"screenshot_path\");\n                        String screenshot_path_rel = resultJson.getString(\"screenshot_path_rel\");\n                        if (screenshot_path != null && screenshot_path_rel != null) {\n                            ipOrSubDomainOrPortToWebDTO.setScreenshot(TencentCOSUtils.uploadTencentCOS(secretId, secretKey, bucketName, regionName, screenshot_path, screenshot_path_rel));\n                        }\n                        String stored_response_path = resultJson.getString(\"stored_response_path\");\n                        if (stored_response_path != null) {\n                            String path = UUID.randomUUID() + \".txt\";\n                            messageSendService.INFO(\"Httpx返回包存储路径：{}\", path);\n                            ipOrSubDomainOrPortToWebDTO.setResponseBody(TencentCOSUtils.uploadTencentCOS(secretId, secretKey, bucketName, regionName, stored_response_path, path));\n                        }\n                    }\n                    messageSendService.sendResult(ipOrSubDomainOrPortToWebDTO);\n                } else {\n                    messageSendService.INFO(\"Httpx Web扫描执行完成,结果为空\");\n                }\n            } else {\n                messageSendService.ERROR(\"执行Httpx Web扫描执行失败,错误码是:{}\", result.getExitCode());\n            }\n        } catch (Exception e) {\n            messageSendService.ERROR(\"执行Httpx Web扫描执行失败,错误:{}\", e.getMessage());\n        }\n    }\n}', 'java', 1, 'testnet-client', 'httpx', 'PING');
 INSERT INTO `lite_flow_script` VALUES ('1773680693413994497', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'oneforall子域名扫描', 'script', 'import com.alibaba.fastjson.JSON;\nimport com.alibaba.fastjson.JSONArray;\nimport com.alibaba.fastjson.JSONObject;\nimport com.yomahub.liteflow.script.ScriptExecuteWrap;\nimport com.yomahub.liteflow.script.body.JaninoCommonScriptBody;\nimport com.yomahub.liteflow.spi.holder.ContextAwareHolder;\nimport testnet.client.service.ILiteFlowMessageSendService;\nimport testnet.common.dto.DomainToSubdomainsAndIpsDTO;\nimport testnet.common.entity.liteflow.TaskExecuteMessage;\nimport testnet.common.utils.CommandUtils;\n\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.UUID;\n\n/**\n * 脚本名称：OneForAll子域名扫描\n * 适用资产：域名\n * 配置：\n * command: \'python3 /testnet-client/OneForAll/oneforall.py --target %s --req False --fmt json --path %s run\'\n * 结果处理类名: domainToSubDomainAndIPProcessor\n */\npublic class OneForAll implements JaninoCommonScriptBody {\n    public Void body(ScriptExecuteWrap wrap) {\n        TaskExecuteMessage taskExecuteMessage = (TaskExecuteMessage) wrap.cmp.getRequestData();\n        JSONObject instanceParams = JSONObject.parseObject(taskExecuteMessage.getTaskParams());\n        JSONObject config = JSONObject.parseObject(taskExecuteMessage.getConfig());\n        try {\n            ILiteFlowMessageSendService sendService = (ILiteFlowMessageSendService) ContextAwareHolder.loadContextAware().getBean(ILiteFlowMessageSendService.class);\n            sendService.setTaskId(taskExecuteMessage.getTaskId());\n            String domain = instanceParams.getString(\"domain\");\n            String resultPath = taskExecuteMessage.getResultPath() + \"oneforall_\" + UUID.randomUUID() + \".json\";\n            sendService.INFO(\"结果保存路径:{}\", resultPath);\n            String command = config.getString(\"command\");\n            command = String.format(command, domain, resultPath);\n            sendService.INFO(\"开始执行OneForAll,命令是:{}\", command);\n            CommandUtils.CommandResult result = CommandUtils.executeCommand(command);\n            sendService.INFO(\"开始解析OneForAll结果\");\n            if (result.getExitCode() == 0) {\n                sendService.INFO(\"执行成功,输出结果: {}\", result.getOutput());\n                String jsonContent = new String(Files.readAllBytes(Paths.get(resultPath)));\n                JSONArray jsonArray = JSON.parseArray(jsonContent);\n                DomainToSubdomainsAndIpsDTO domainToSubdomainsAndIpsDTO = new DomainToSubdomainsAndIpsDTO();\n                List<DomainToSubdomainsAndIpsDTO.SudDomain> subDomainList = getSudDomains(jsonArray);\n                domainToSubdomainsAndIpsDTO.setSubDomainList(subDomainList);\n                sendService.sendResult(domainToSubdomainsAndIpsDTO);\n            } else {\n                sendService.ERROR(\"执行失败,输出结果: {}\", result.getOutput());\n            }\n        } catch (Exception e) {\n            throw new RuntimeException(e);\n        }\n        return null;\n    }\n\n    private List<DomainToSubdomainsAndIpsDTO.SudDomain> getSudDomains(JSONArray jsonArray) {\n        List<DomainToSubdomainsAndIpsDTO.SudDomain> subDomainList = new ArrayList<>();\n        for (Object o : jsonArray) {\n            JSONObject jsonObject = (JSONObject) o;\n            DomainToSubdomainsAndIpsDTO.SudDomain sudDomain = new DomainToSubdomainsAndIpsDTO.SudDomain();\n            sudDomain.setLevel(jsonObject.getInteger(\"level\"));\n            sudDomain.setSubDomain(jsonObject.getString(\"subdomain\"));\n            sudDomain.setIpList(jsonObject.getString(\"ip\"));\n            sudDomain.setSource(\"OneForAll-\" + \":\" + jsonObject.getString(\"source\"));\n            subDomainList.add(sudDomain);\n        }\n        return subDomainList;\n    }\n\n}', 'java', 1, 'testnet-client', 'oneforall', 'SUBDOMAIN');
@@ -1157,138 +1272,178 @@ INSERT INTO `lite_flow_script` VALUES ('1806627700673200129', 'admin', '2024-05-
 INSERT INTO `lite_flow_script` VALUES ('1806641579239260162', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'ffuf目录扫描', 'script', 'import com.alibaba.fastjson.JSON;\nimport com.alibaba.fastjson.JSONArray;\nimport com.alibaba.fastjson.JSONObject;\nimport com.yomahub.liteflow.script.ScriptExecuteWrap;\nimport com.yomahub.liteflow.script.body.JaninoCommonScriptBody;\nimport com.yomahub.liteflow.spi.holder.ContextAwareHolder;\nimport testnet.client.service.ILiteFlowMessageSendService;\nimport testnet.common.dto.AssetApiToApiDTO;\nimport testnet.common.entity.liteflow.TaskExecuteMessage;\nimport testnet.common.utils.CommandUtils;\nimport testnet.common.utils.FileUtils;\n\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.UUID;\n\n/**\n * 脚本名称：FFUF敏感目录扫描\n * 适用资产：API\n * command: \'ffuf -u %s/FUZZ -w /path/to/wordlist -mc all -of json -o %s\'\n * 结果处理类名: ApiToApiProcessor\n */\n\npublic class Ffuf implements JaninoCommonScriptBody {\n    public Void body(ScriptExecuteWrap wrap) {\n        TaskExecuteMessage taskExecuteMessage = (TaskExecuteMessage) wrap.cmp.getRequestData();\n        try {\n            ILiteFlowMessageSendService sendService = (ILiteFlowMessageSendService) ContextAwareHolder.loadContextAware().getBean(ILiteFlowMessageSendService.class);\n            sendService.setTaskId(taskExecuteMessage.getTaskId());\n            JSONObject config = JSONObject.parseObject(taskExecuteMessage.getConfig());\n            String command = config.getString(\"command\");\n            String resultPath = taskExecuteMessage.getResultPath() + \"ffuf_search_\" + UUID.randomUUID() + \".json\";\n            sendService.INFO(\"结果保存路径:{}\", resultPath);\n            JSONObject jsonObject = JSONObject.parseObject(taskExecuteMessage.getTaskParams());\n            String webUrl = jsonObject.getString(\"absolutePath\");\n            command = String.format(command, webUrl, resultPath);\n            sendService.INFO(\"开始执行FFUF敏感目录扫描,命令是:{}\", command);\n            CommandUtils.CommandResult result = CommandUtils.executeCommand(command);\n            if (result.getExitCode() == 0) {\n                if (FileUtils.fileExists(resultPath)) {\n                    String content = new String(Files.readAllBytes(Paths.get(resultPath)));\n                    JSONObject resultJson = JSON.parseObject(content);\n                    if (resultJson != null) {\n                        sendService.INFO(\"FFUF敏感目录扫描成功，结果是：{}\", content);\n                        JSONArray results = resultJson.getJSONArray(\"results\");\n                        AssetApiToApiDTO assetApiToApiDTO = new AssetApiToApiDTO();\n                        if (results != null && !results.isEmpty()) {\n                            List<AssetApiToApiDTO.AssetApiDTO> assetApiDTOList = new ArrayList<>();\n                            for (int i = 0; i < results.size(); i++) {\n                                JSONObject resultItem = results.getJSONObject(i);\n                                AssetApiToApiDTO.AssetApiDTO assetApiDTO = new AssetApiToApiDTO.AssetApiDTO();\n                                assetApiDTO.setAbsolutePath(resultItem.getString(\"url\"));\n                                assetApiDTO.setStatusCode(resultItem.getInteger(\"status\"));\n                                assetApiDTO.setContentLength(resultItem.getInteger(\"length\"));\n                                assetApiDTO.setContentType(resultItem.getString(\"content-type\"));\n                                assetApiDTO.setHttpMethod(\"GET\");\n                                assetApiDTOList.add(assetApiDTO);\n                            }\n                            assetApiToApiDTO.setAssetApiDTOList(assetApiDTOList);\n                            sendService.sendResult(assetApiToApiDTO);\n                        } else {\n                            sendService.INFO(\"FFUF敏感目录扫描执行成功，结果文件为空\");\n                        }\n                    }\n                } else {\n                    sendService.INFO(\"FFUF敏感目录扫描执行成功，结果文件不存在，可能扫描结果为空！\");\n                }\n            } else {\n                sendService.ERROR(\"FFUF敏感目录扫描执行失败,状态码是:{}\", result.getExitCode());\n            }\n        } catch (Exception e) {\n            throw new RuntimeException(e);\n        }\n        return null;\n    }\n}', 'java', 1, 'testnet-client', 'ffuf', 'CRAWLER');
 INSERT INTO `lite_flow_script` VALUES ('1808796498016620546', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'Katana爬虫', 'script', 'import com.alibaba.fastjson.JSONObject;\nimport com.yomahub.liteflow.script.ScriptExecuteWrap;\nimport com.yomahub.liteflow.script.body.JaninoCommonScriptBody;\nimport com.yomahub.liteflow.spi.holder.ContextAwareHolder;\nimport testnet.client.service.ILiteFlowMessageSendService;\nimport testnet.common.dto.AssetApiToApiDTO;\nimport testnet.common.entity.liteflow.TaskExecuteMessage;\nimport testnet.common.utils.CommandUtils;\nimport testnet.common.utils.FileUtils;\n\nimport java.io.BufferedReader;\nimport java.io.FileReader;\nimport java.nio.file.Paths;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.UUID;\n\n/**\n * 脚本名称：Katana爬虫扫描扫描\n * 适用资产：API\n * command: \'katana -u %s -o %s -j -duc -or -ob -silent -jc\'\n * 结果处理类名: ApiToApiProcessor\n */\n\npublic class Katana implements JaninoCommonScriptBody {\n    public Void body(ScriptExecuteWrap wrap) {\n        TaskExecuteMessage taskExecuteMessage = (TaskExecuteMessage) wrap.cmp.getRequestData();\n        try {\n            ILiteFlowMessageSendService sendService = (ILiteFlowMessageSendService) ContextAwareHolder.loadContextAware().getBean(ILiteFlowMessageSendService.class);\n            sendService.setTaskId(taskExecuteMessage.getTaskId());\n            JSONObject config = JSONObject.parseObject(taskExecuteMessage.getConfig());\n            String command = config.getString(\"command\");\n            String resultPath = taskExecuteMessage.getResultPath() + \"katana_\" + UUID.randomUUID() + \".json\";\n            sendService.INFO(\"结果保存路径:{}\", resultPath);\n            JSONObject jsonObject = JSONObject.parseObject(taskExecuteMessage.getTaskParams());\n            String webUrl = jsonObject.getString(\"absolutePath\");\n            command = String.format(command, webUrl, resultPath);\n            sendService.INFO(\"开始执行Katana工具扫描,命令是:{}\", command);\n            CommandUtils.CommandResult result = CommandUtils.executeCommand(command);\n            if (result.getExitCode() == 0) {\n                if (FileUtils.fileExists(resultPath)) {\n                    BufferedReader reader = new BufferedReader(new FileReader(Paths.get(resultPath).toFile()));\n                    String line;\n                    List<AssetApiToApiDTO.AssetApiDTO> assetApiDTOList = new ArrayList<>();\n                    while ((line = reader.readLine()) != null) {\n                        // 处理每一行内容\n                        JSONObject jsonResult = JSONObject.parseObject(line);\n                        sendService.INFO(\"Katana扫描执行结果:{}\", jsonResult);\n                        if (jsonResult != null) {\n                            JSONObject request = jsonResult.getJSONObject(\"request\");\n                            if (request != null) {\n                                AssetApiToApiDTO.AssetApiDTO assetApiDTO = new AssetApiToApiDTO.AssetApiDTO();\n                                assetApiDTO.setHttpMethod(request.getString(\"method\"));\n                                assetApiDTO.setAbsolutePath(request.getString(\"endpoint\"));\n                                JSONObject response = jsonResult.getJSONObject(\"response\");\n                                if (response != null) {\n                                    assetApiDTO.setStatusCode(response.getInteger(\"status_code\"));\n                                    JSONObject headers = response.getJSONObject(\"headers\");\n                                    if (headers != null) {\n                                        if (headers.containsKey(\"content_type\")) {\n                                            assetApiDTO.setContentType(headers.getString(\"content_type\"));\n                                        }\n                                        if (headers.containsKey(\"content_length\")) {\n                                            assetApiDTO.setContentLength(Integer.valueOf(headers.getString(\"content_length\")));\n                                        }\n                                    }\n                                }\n                                assetApiDTOList.add(assetApiDTO);\n                            }\n                        }\n                    }\n                    AssetApiToApiDTO assetApiToApiDTO = new AssetApiToApiDTO();\n                    assetApiToApiDTO.setAssetApiDTOList(assetApiDTOList);\n                    sendService.sendResult(assetApiToApiDTO);\n                } else {\n                    sendService.INFO(\"Katana工具扫描执行成功，结果文件为空\");\n                }\n            } else {\n                sendService.ERROR(\"Katana工具扫描执行失败,状态码是:{}\", result.getExitCode());\n            }\n        } catch (Exception e) {\n            throw new RuntimeException(e);\n        }\n        return null;\n    }\n}', 'java', 1, 'testnet-client', 'katana', 'CRAWLER');
 INSERT INTO `lite_flow_script` VALUES ('1810994896139808770', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'A01', 'xpoc漏洞扫描', 'script', 'import com.alibaba.fastjson.JSON;\nimport com.alibaba.fastjson.JSONArray;\nimport com.alibaba.fastjson.JSONObject;\nimport com.yomahub.liteflow.script.ScriptExecuteWrap;\nimport com.yomahub.liteflow.script.body.JaninoCommonScriptBody;\nimport com.yomahub.liteflow.spi.holder.ContextAwareHolder;\nimport testnet.client.service.ILiteFlowMessageSendService;\nimport testnet.common.dto.IpOrWebOrSubDomainToVulDTO;\nimport testnet.common.entity.liteflow.TaskExecuteMessage;\nimport testnet.common.utils.CommandUtils;\nimport testnet.common.utils.FileUtils;\n\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.UUID;\n\n/**\n * 脚本名称：nuclei漏洞扫描\n * 适用资产：WEB、子域名、ip\n * 配置：\n * command: \'/testnet-client/xpoc -t %s -o %s\'\n * 结果处理类名: ipOrWebOrSubDomainToVulProcessor\n */\n\npublic class Xpoc implements JaninoCommonScriptBody {\n\n    public Void body(ScriptExecuteWrap wrap) {\n        TaskExecuteMessage taskExecuteMessage = (TaskExecuteMessage) wrap.cmp.getRequestData();\n        JSONObject instanceParams = JSONObject.parseObject(taskExecuteMessage.getTaskParams());\n        JSONObject config = JSONObject.parseObject(taskExecuteMessage.getConfig());\n        try {\n            ILiteFlowMessageSendService sendService = (ILiteFlowMessageSendService) ContextAwareHolder.loadContextAware().getBean(ILiteFlowMessageSendService.class);\n            sendService.setTaskId(taskExecuteMessage.getTaskId());\n            String resultPath = taskExecuteMessage.getResultPath() + \"xpoc_\" + UUID.randomUUID() + \".json\";\n            sendService.INFO(\"结果保存路径:{}\", resultPath);\n            String command = config.getString(\"command\");\n            String asset = \"\";\n            switch (taskExecuteMessage.getAssetType()) {\n                case \"ip\":\n                    asset = instanceParams.getString(\"ip\");\n                    break;\n                case \"web\":\n                    asset = instanceParams.getString(\"webUrl\");\n                    break;\n                case \"sub_domain\":\n                    asset = instanceParams.getString(\"subDomain\");\n                    break;\n            }\n            command = String.format(command, asset, resultPath);\n            sendService.INFO(\"开始执行Xpoc漏洞扫描,命令是：{}\", command);\n            CommandUtils.CommandResult result = CommandUtils.executeCommand(command);\n            if (result.getExitCode() == 0) {\n                if (FileUtils.fileExists(resultPath)) {\n                    String content = new String(Files.readAllBytes(Paths.get(resultPath)));\n                    JSONArray jsonArray = JSON.parseArray(content);\n                    if (jsonArray != null) {\n                        IpOrWebOrSubDomainToVulDTO ipOrWebOrSubDomainToVulDTO = new IpOrWebOrSubDomainToVulDTO();\n                        List<IpOrWebOrSubDomainToVulDTO.AssetVul> assetVulList = new ArrayList<>();\n                        for (Object o : jsonArray) {\n                            JSONObject json = (JSONObject) o;\n                            if (json.getString(\"type\") != null && json.getString(\"type\").equals(\"*event.Vulnerability\")) {\n                                sendService.INFO(\"Xpoc漏洞扫描发现漏洞，结果是：\" + json);\n                                IpOrWebOrSubDomainToVulDTO.AssetVul assetVul = new IpOrWebOrSubDomainToVulDTO.AssetVul();\n                                assetVul.setVulName(json.getJSONObject(\"value\").getString(\"name\"));\n                                assetVul.setVulDesc(json.getJSONObject(\"value\").getString(\"links\"));\n                                assetVul.setPayload(JSONObject.toJSONString(json.getJSONObject(\"value\").getJSONObject(\"proof\").getJSONArray(\"steps\")));\n                                assetVul.setSeverity(\"high\");\n                                assetVulList.add(assetVul);\n                            }\n                        }\n                        ipOrWebOrSubDomainToVulDTO.setAssetVulList(assetVulList);\n                        sendService.sendResult(ipOrWebOrSubDomainToVulDTO);\n                    }\n                } else {\n                    sendService.INFO(\"Xpoc漏洞扫描执行成功，结果文件不存在，可能扫描结果为空！\");\n                }\n            } else {\n                sendService.ERROR(\"Xpoc漏洞扫描执行失败,状态码是:{}\", result.getExitCode());\n            }\n        } catch (Exception e) {\n            throw new RuntimeException(e);\n        }\n        return null;\n    }\n\n}', 'java', 1, 'testnet-client', 'xpoc', 'VUL');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for lite_flow_sub_task
 -- ----------------------------
 DROP TABLE IF EXISTS `lite_flow_sub_task`;
-CREATE TABLE `lite_flow_sub_task` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '所属部门',
-  `sub_task_param` text COLLATE utf8mb4_unicode_ci COMMENT '子任务参数',
-  `task_status` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '任务状态',
-  `client_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '执行节点',
-  `task_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '任务',
-  `config` text COLLATE utf8mb4_unicode_ci COMMENT '参数',
-  `version` int DEFAULT NULL COMMENT '版本',
-  `redis_message_id` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Redis消息ID',
-  PRIMARY KEY (`id`),
-  KEY `idx_status` (`task_status`),
-  KEY `idx_client_id` (`client_id`,`task_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `lite_flow_sub_task`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `sub_task_param` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '子任务参数',
+  `task_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '任务状态',
+  `client_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '执行节点',
+  `task_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '任务',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '参数',
+  `version` int NULL DEFAULT NULL COMMENT '版本',
+  `redis_message_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'Redis消息ID',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_status`(`task_status` ASC) USING BTREE,
+  INDEX `idx_client_id`(`client_id` ASC, `task_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of lite_flow_sub_task
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for lite_flow_task
 -- ----------------------------
 DROP TABLE IF EXISTS `lite_flow_task`;
-CREATE TABLE `lite_flow_task` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '所属部门',
-  `task_name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '扫描任务名称',
-  `job_cron` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'CRON表达式',
-  `search_param` text COLLATE utf8mb4_unicode_ci COMMENT '查询参数',
-  `is_alarm` int DEFAULT NULL COMMENT '执行通知',
-  `is_cron` int DEFAULT NULL COMMENT '定时执行',
-  `asset_type` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '资产类型',
-  `asset_num` int DEFAULT NULL COMMENT '资产数量',
-  `chain_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '流程',
-  `version` int DEFAULT '0' COMMENT '版本',
-  `un_finished_chain` int DEFAULT NULL COMMENT '未完成任务数量',
-  `priority` int DEFAULT NULL COMMENT '优先级',
-  `client_id` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '节点',
-  `router` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '路由策略',
-  `quartz_job_id` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '定时任务',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `lite_flow_task`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `task_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '扫描任务名称',
+  `job_cron` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'CRON表达式',
+  `search_param` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '查询参数',
+  `is_alarm` int NULL DEFAULT NULL COMMENT '执行通知',
+  `is_cron` int NULL DEFAULT NULL COMMENT '定时执行',
+  `asset_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '资产类型',
+  `asset_num` int NULL DEFAULT NULL COMMENT '资产数量',
+  `chain_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '流程',
+  `version` int NULL DEFAULT 0 COMMENT '版本',
+  `un_finished_chain` int NULL DEFAULT NULL COMMENT '未完成任务数量',
+  `priority` int NULL DEFAULT NULL COMMENT '优先级',
+  `client_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '节点',
+  `router` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '路由策略',
+  `quartz_job_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '定时任务',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of lite_flow_task
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for lite_flow_task_asset
+-- ----------------------------
+DROP TABLE IF EXISTS `lite_flow_task_asset`;
+CREATE TABLE `lite_flow_task_asset`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `asset_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '资产id',
+  `asset_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '资产类型',
+  `lite_flow_task_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '任务id',
+  `version` int NULL DEFAULT NULL COMMENT '任务版本',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of lite_flow_task_asset
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_auth_data
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_auth_data`;
-CREATE TABLE `onl_auth_data` (
+CREATE TABLE `onl_auth_data`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'online表ID',
-  `rule_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则名',
-  `rule_column` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则列',
-  `rule_operator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则条件 大于小于like',
-  `rule_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则值',
-  `status` int DEFAULT NULL COMMENT '1有效 0无效',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表ID',
+  `rule_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则名',
+  `rule_column` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则列',
+  `rule_operator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则条件 大于小于like',
+  `rule_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则值',
+  `status` int NULL DEFAULT NULL COMMENT '1有效 0无效',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_auth_data
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_auth_page
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_auth_page`;
-CREATE TABLE `onl_auth_page` (
+CREATE TABLE `onl_auth_page`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 主键',
-  `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'online表id',
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '字段名/按钮编码',
-  `type` int DEFAULT NULL COMMENT '1字段 2按钮',
-  `control` int DEFAULT NULL COMMENT '3可编辑 5可见(仅支持两种状态值3,5)',
-  `page` int DEFAULT NULL COMMENT '3列表 5表单(仅支持两种状态值3,5)',
-  `status` int DEFAULT NULL COMMENT '1有效 0无效',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表id',
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字段名/按钮编码',
+  `type` int NULL DEFAULT NULL COMMENT '1字段 2按钮',
+  `control` int NULL DEFAULT NULL COMMENT '3可编辑 5可见(仅支持两种状态值3,5)',
+  `page` int NULL DEFAULT NULL COMMENT '3列表 5表单(仅支持两种状态值3,5)',
+  `status` int NULL DEFAULT NULL COMMENT '1有效 0无效',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_auth_page
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_auth_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_auth_relation`;
-CREATE TABLE `onl_auth_relation` (
+CREATE TABLE `onl_auth_relation`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色id',
-  `auth_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限id',
-  `type` int DEFAULT NULL COMMENT '1字段 2按钮 3数据权限',
-  `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'online表单ID',
-  `auth_mode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '授权方式role角色，depart部门，user人',
+  `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色id',
+  `auth_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限id',
+  `type` int NULL DEFAULT NULL COMMENT '1字段 2按钮 3数据权限',
+  `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表单ID',
+  `auth_mode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '授权方式role角色，depart部门，user人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_auth_relation
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_cgform_button
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_button`;
-CREATE TABLE `onl_cgform_button` (
+CREATE TABLE `onl_cgform_button`  (
   `ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
-  `BUTTON_CODE` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮编码',
-  `BUTTON_ICON` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮图标',
-  `BUTTON_NAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮名称',
-  `BUTTON_STATUS` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮状态',
-  `BUTTON_STYLE` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮样式',
-  `EXP` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表达式',
-  `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表单ID',
-  `OPT_TYPE` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮类型',
-  `ORDER_NUM` int DEFAULT NULL COMMENT '排序',
-  `OPT_POSITION` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮位置1侧面 2底部',
+  `BUTTON_CODE` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮编码',
+  `BUTTON_ICON` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮图标',
+  `BUTTON_NAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮名称',
+  `BUTTON_STATUS` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮状态',
+  `BUTTON_STYLE` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮样式',
+  `EXP` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表达式',
+  `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表单ID',
+  `OPT_TYPE` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮类型',
+  `ORDER_NUM` int NULL DEFAULT NULL COMMENT '排序',
+  `OPT_POSITION` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮位置1侧面 2底部',
   PRIMARY KEY (`ID`) USING BTREE,
-  KEY `idx_ocb_CGFORM_HEAD_ID` (`CGFORM_HEAD_ID`) USING BTREE,
-  KEY `idx_ocb_BUTTON_CODE` (`BUTTON_CODE`) USING BTREE,
-  KEY `idx_ocb_BUTTON_STATUS` (`BUTTON_STATUS`) USING BTREE,
-  KEY `idx_ocb_ORDER_NUM` (`ORDER_NUM`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='Online表单自定义按钮';
+  INDEX `idx_ocb_CGFORM_HEAD_ID`(`CGFORM_HEAD_ID` ASC) USING BTREE,
+  INDEX `idx_ocb_BUTTON_CODE`(`BUTTON_CODE` ASC) USING BTREE,
+  INDEX `idx_ocb_BUTTON_STATUS`(`BUTTON_STATUS` ASC) USING BTREE,
+  INDEX `idx_ocb_ORDER_NUM`(`ORDER_NUM` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = 'Online表单自定义按钮' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgform_button
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgform_button` VALUES ('007de67711d08337f7c246b6cfe306ae', 'jihuo', NULL, '激活', '1', 'link', NULL, '9ab817fd4c2e4e7ba6652c4fa46af389', 'js', 2, '2');
 INSERT INTO `onl_cgform_button` VALUES ('108a564643763de3f4c81bc2deb463df', 'bt1', NULL, '激活', '1', 'button', NULL, '05a3a30dada7411c9109306aa4117068', 'js', NULL, '2');
 INSERT INTO `onl_cgform_button` VALUES ('5173e0b138c808f03d17d08ec4e66f3a', 'hangjihuo', NULL, '行激活', '0', 'link', NULL, '9ab817fd4c2e4e7ba6652c4fa46af389', 'js', NULL, '2');
@@ -1298,113 +1453,123 @@ INSERT INTO `onl_cgform_button` VALUES ('cc1d12de57a1a41d3986ed6d13e3ac11', '链
 INSERT INTO `onl_cgform_button` VALUES ('e2a339b9fdb4091bee98408c233ab36d', 'zuofei', NULL, '作废', '1', 'form', NULL, '05a3a30dada7411c9109306aa4117068', 'js', NULL, '2');
 INSERT INTO `onl_cgform_button` VALUES ('e95e84b749761b574a9cc0967c06c2a9', 'test1', NULL, '弹出表单', '1', 'button', NULL, '9ab817fd4c2e4e7ba6652c4fa46af389', 'js', 1, '2');
 INSERT INTO `onl_cgform_button` VALUES ('ebcc48ef0bde4433a6faf940a5e170c1', 'button按钮测试', 'icon-edit', '自定义button', '1', 'button', NULL, 'd35109c3632c4952a19ecc094943dd71', 'js', NULL, '2');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_cgform_enhance_java
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_enhance_java`;
-CREATE TABLE `onl_cgform_enhance_java` (
+CREATE TABLE `onl_cgform_enhance_java`  (
   `ID` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `BUTTON_CODE` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮编码',
+  `BUTTON_CODE` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮编码',
   `CG_JAVA_TYPE` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '类型',
   `CG_JAVA_VALUE` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '数值',
   `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '表单ID',
-  `ACTIVE_STATUS` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '1' COMMENT '生效状态',
+  `ACTIVE_STATUS` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '1' COMMENT '生效状态',
   `EVENT` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'end' COMMENT '事件状态(end:结束，start:开始)',
   PRIMARY KEY (`ID`) USING BTREE,
-  KEY `idx_ejava_cgform_head_id` (`CGFORM_HEAD_ID`) USING BTREE,
-  KEY `idx_ocej_BUTTON_CODE` (`BUTTON_CODE`) USING BTREE,
-  KEY `idx_ocej_ACTIVE_STATUS` (`ACTIVE_STATUS`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_ejava_cgform_head_id`(`CGFORM_HEAD_ID` ASC) USING BTREE,
+  INDEX `idx_ocej_BUTTON_CODE`(`BUTTON_CODE` ASC) USING BTREE,
+  INDEX `idx_ocej_ACTIVE_STATUS`(`ACTIVE_STATUS` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_cgform_enhance_java
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_cgform_enhance_js
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_enhance_js`;
-CREATE TABLE `onl_cgform_enhance_js` (
+CREATE TABLE `onl_cgform_enhance_js`  (
   `ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
-  `CG_JS` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'JS增强内容',
-  `CG_JS_TYPE` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '类型',
-  `CONTENT` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '备注',
-  `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表单ID',
+  `CG_JS` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'JS增强内容',
+  `CG_JS_TYPE` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `CONTENT` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表单ID',
   PRIMARY KEY (`ID`) USING BTREE,
-  KEY `idx_ejs_cgform_head_id` (`CGFORM_HEAD_ID`) USING BTREE,
-  KEY `idx_ejs_cg_js_type` (`CG_JS_TYPE`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_ejs_cgform_head_id`(`CGFORM_HEAD_ID` ASC) USING BTREE,
+  INDEX `idx_ejs_cg_js_type`(`CG_JS_TYPE` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_cgform_enhance_js
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_cgform_enhance_sql
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_enhance_sql`;
-CREATE TABLE `onl_cgform_enhance_sql` (
+CREATE TABLE `onl_cgform_enhance_sql`  (
   `ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
-  `BUTTON_CODE` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮编码',
-  `CGB_SQL` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT 'SQL内容',
-  `CGB_SQL_NAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'Sql名称',
-  `CONTENT` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '备注',
-  `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表单ID',
+  `BUTTON_CODE` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮编码',
+  `CGB_SQL` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'SQL内容',
+  `CGB_SQL_NAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'Sql名称',
+  `CONTENT` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表单ID',
   PRIMARY KEY (`ID`) USING BTREE,
-  KEY `idx_oces_CGFORM_HEAD_ID` (`CGFORM_HEAD_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_oces_CGFORM_HEAD_ID`(`CGFORM_HEAD_ID` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_cgform_enhance_sql
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_cgform_field
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_field`;
-CREATE TABLE `onl_cgform_field` (
+CREATE TABLE `onl_cgform_field`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
   `cgform_head_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '表ID',
   `db_field_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字段名字',
-  `db_field_txt` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段备注',
-  `db_field_name_old` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '原字段名',
-  `db_is_key` tinyint(1) DEFAULT NULL COMMENT '是否主键 0否 1是',
-  `db_is_null` tinyint(1) DEFAULT NULL COMMENT '是否允许为空0否 1是',
-  `db_is_persist` tinyint(1) DEFAULT NULL COMMENT '是否需要同步数据库字段， 1是0否',
+  `db_field_txt` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段备注',
+  `db_field_name_old` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '原字段名',
+  `db_is_key` tinyint(1) NULL DEFAULT NULL COMMENT '是否主键 0否 1是',
+  `db_is_null` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许为空0否 1是',
+  `db_is_persist` tinyint(1) NULL DEFAULT NULL COMMENT '是否需要同步数据库字段， 1是0否',
   `db_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '数据库字段类型',
   `db_length` int NOT NULL COMMENT '数据库字段长度',
-  `db_point_length` int DEFAULT NULL COMMENT '小数点',
-  `db_default_val` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表字段默认值',
-  `dict_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典code',
-  `dict_table` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典表',
-  `dict_text` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典Text',
-  `field_show_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表单控件类型',
-  `field_href` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '跳转URL',
-  `field_length` int DEFAULT NULL COMMENT '表单控件长度',
-  `field_valid_type` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表单字段校验规则',
-  `field_must_input` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段是否必填',
-  `field_extend_json` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '扩展参数JSON',
-  `field_default_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '控件默认值，不同的表达式展示不同的结果。\r\n1. 纯字符串直接赋给默认值；\r\n2. #{普通变量}；\r\n3. {{ 动态JS表达式 }}；\r\n4. ${填值规则编码}；\r\n填值规则表达式只允许存在一个，且不能和其他规则混用。',
-  `is_query` tinyint(1) DEFAULT NULL COMMENT '是否查询条件0否 1是',
-  `is_show_form` tinyint(1) DEFAULT NULL COMMENT '表单是否显示0否 1是',
-  `is_show_list` tinyint(1) DEFAULT NULL COMMENT '列表是否显示0否 1是',
-  `is_read_only` tinyint(1) DEFAULT '0' COMMENT '是否是只读（1是 0否）',
-  `query_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询模式',
-  `main_table` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '外键主表名',
-  `main_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '外键主键字段',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `converter` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '自定义值转换器',
-  `query_def_val` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询默认值',
-  `query_dict_text` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询配置字典text',
-  `query_dict_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询配置字典code',
-  `query_dict_table` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询配置字典table',
-  `query_show_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询显示控件',
-  `query_config_flag` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否启用查询配置1是0否',
-  `query_valid_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询字段校验类型',
-  `query_must_input` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询字段是否必填1是0否',
-  `sort_flag` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否支持排序1是0否',
+  `db_point_length` int NULL DEFAULT NULL COMMENT '小数点',
+  `db_default_val` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表字段默认值',
+  `dict_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典code',
+  `dict_table` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典表',
+  `dict_text` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典Text',
+  `field_show_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表单控件类型',
+  `field_href` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '跳转URL',
+  `field_length` int NULL DEFAULT NULL COMMENT '表单控件长度',
+  `field_valid_type` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表单字段校验规则',
+  `field_must_input` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段是否必填',
+  `field_extend_json` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '扩展参数JSON',
+  `field_default_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '控件默认值，不同的表达式展示不同的结果。\r\n1. 纯字符串直接赋给默认值；\r\n2. #{普通变量}；\r\n3. {{ 动态JS表达式 }}；\r\n4. ${填值规则编码}；\r\n填值规则表达式只允许存在一个，且不能和其他规则混用。',
+  `is_query` tinyint(1) NULL DEFAULT NULL COMMENT '是否查询条件0否 1是',
+  `is_show_form` tinyint(1) NULL DEFAULT NULL COMMENT '表单是否显示0否 1是',
+  `is_show_list` tinyint(1) NULL DEFAULT NULL COMMENT '列表是否显示0否 1是',
+  `is_read_only` tinyint(1) NULL DEFAULT 0 COMMENT '是否是只读（1是 0否）',
+  `query_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询模式',
+  `main_table` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '外键主表名',
+  `main_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '外键主键字段',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `converter` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '自定义值转换器',
+  `query_def_val` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询默认值',
+  `query_dict_text` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询配置字典text',
+  `query_dict_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询配置字典code',
+  `query_dict_table` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询配置字典table',
+  `query_show_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询显示控件',
+  `query_config_flag` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否启用查询配置1是0否',
+  `query_valid_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询字段校验类型',
+  `query_must_input` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询字段是否必填1是0否',
+  `sort_flag` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否支持排序1是0否',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_ocf_cgform_head_id` (`cgform_head_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_ocf_cgform_head_id`(`cgform_head_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgform_field
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgform_field` VALUES ('0021c969dc23a9150d6f70a13b52e73e', '402860816aa5921f016aa5921f480000', 'begin_date', '开始时间', 'begin_date', 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'date', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 4, 'admin', '2019-05-11 15:31:54', '2019-05-11 14:26:19', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('004fc2f203b745fc3239dbf72c78b9ba', 'adba8df54862409c9367bdcb3ab22cc2', 'id', '主键', NULL, 1, 0, 1, 'string', 36, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 1, 'single', '', '', 0, 'admin', '2024-06-27 17:04:08', '2024-06-25 14:38:45', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('020c1622c3df0aef30185f57874f6959', '79091e8277c744158530321513119c68', 'bpm_status', '流程状态', NULL, 0, 1, 1, 'string', 32, 0, '1', 'bpm_status', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 1, 0, 'single', '', '', 8, 'admin', '2019-05-11 15:29:47', '2019-05-11 15:29:26', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -1415,6 +1580,7 @@ INSERT INTO `onl_cgform_field` VALUES ('03709092184fdf4a66b0cdb4dd10a159', '4028
 INSERT INTO `onl_cgform_field` VALUES ('03c105d2706c8286416833684de67406', '79091e8277c744158530321513119c68', 'create_by', '创建人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 2, 'admin', '2019-05-11 15:29:47', '2019-05-11 15:27:17', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('03fd5ab69f331ff760c3f7d86b4a93f8', '4028318169e81b970169e81b97650000', 'log_content', '日志内容', 'log_content', 0, 1, 1, 'string', 1000, 0, NULL, NULL, NULL, NULL, 'text', NULL, 120, NULL, '0', NULL, NULL, 0, 1, 1, 0, 'group', NULL, NULL, 3, NULL, NULL, '2019-04-04 19:28:36', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('045eb432c418b2b103b1e1b8e8a8a75d', 'fb7125a344a649b990c12949945cb6c1', 'age', '年龄', NULL, 0, 1, 1, 'int', 32, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', NULL, NULL, NULL, '2019-03-26 19:24:11', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `onl_cgform_field` VALUES ('0463c3d61c7b754c95581a59c87f28c6', '67fc3563a54a43bb8730d27272a6c0a8', 'version', '任务版本', NULL, 0, 1, 1, 'int', 10, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 9, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('04ff134cb4aae845059e10b3b85f1451', '7ea60a25fa27470e9080d6a921aabbd1', 'update_time', '更新日期', NULL, 0, 1, 1, 'Datetime', 20, 0, '', '', '', '', 'datetime', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 5, NULL, NULL, '2019-04-17 00:22:21', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('051dd70c504c97a028daab2af261ea35', '1acb6f81a1d9439da6cc4e868617b565', 'update_time', '更新日期', NULL, 0, 1, 1, 'Datetime', 20, 0, '', '', '', '', 'datetime', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 5, 'admin', '2019-06-10 14:47:14', '2019-04-23 22:58:19', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('052dcc6f34976b66754fd99415bd22ce', '79091e8277c744158530321513119c68', 'update_time', '更新日期', NULL, 0, 1, 1, 'Datetime', 20, 0, '', '', '', '', 'datetime', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 5, 'admin', '2019-05-11 15:29:47', '2019-05-11 15:27:17', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -1462,6 +1628,7 @@ INSERT INTO `onl_cgform_field` VALUES ('0e157503e648653836a602f5bbad4e83', '4028
 INSERT INTO `onl_cgform_field` VALUES ('0e5fb96c3f5a37c758eb7f5d1322694f', '402880e5721355dd01721355dd390000', 'good_name', '商品名字', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', NULL, NULL, 7, NULL, NULL, '2020-05-14 21:18:14', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('0fb6fa76c5c78a1e957dbb411e110738', '402860816bff91c0016bff91d8830007', 'politically_status', '政治面貌', 'politically_status', 0, 1, 1, 'string', 100, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 7, 'admin', '2019-07-19 18:04:41', '2019-07-17 18:54:37', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('0fd6b83f09ea78d32094aabbdf639a36', '553a4172fde446419cb602dc70f9ee67', 'wenjian', '文件', NULL, 0, 1, 1, 'string', 250, 0, NULL, '', '', '', 'file', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 16, 'admin', '2022-10-14 09:31:05', '2022-10-13 20:59:58', 'admin', '', '', '', '', '', NULL, '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('0ffdd783502db6f26b000a50f7452b43', '67fc3563a54a43bb8730d27272a6c0a8', 'update_time', '更新日期', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 4, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('105be0f7d827a0324216cf8af268fb9e', '09fd28e4b7184c1a9668496a5c496450', 'birthday', '客户生日', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 9, 'admin', '2022-05-07 19:05:56', '2020-05-08 23:51:49', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('105c8e44ad13026b641f0363601f30f3', 'e5464aa8fa7b47c580e91593cf9b46dc', 'num', '循环数量', NULL, 0, 1, 1, 'int', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 9, 'admin', '2019-04-24 17:09:49', '2019-04-24 11:05:10', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('10cfb512423f929b6a488f5e50923199', '402881fd812267500181226750e90000', 'contents', '商品简介', NULL, 0, 1, 1, 'Text', 0, 0, '', '', '', '', 'umeditor', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', NULL, NULL, 10, NULL, NULL, '2022-06-02 11:13:25', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
@@ -1494,6 +1661,7 @@ INSERT INTO `onl_cgform_field` VALUES ('16a86ac742bbdd4fb3269a231ba65ae4', '2c90
 INSERT INTO `onl_cgform_field` VALUES ('16bebc7a1856c7385c7ca737666eb275', 'f878028baf224f8c8b95f6721171978f', 'header_md5', '返回头hash', NULL, 0, 1, 1, 'string', 128, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 25, 'admin', '2024-07-08 13:40:39', '2024-05-10 16:49:43', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('17352056d686fbc7dee24362251aaf20', 'ff808081906cdb5201906ce20df10003', 'update_time', '更新日期', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 200, '', '0', '', '', 0, 0, 1, 0, 'single', '', '', 9, 'admin', '2024-07-01 15:48:46', '2024-07-01 14:01:13', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('179c290e383009810fb738f07bd5af8d', '402860816bff91c0016bff91d2810005', 'id', 'id', 'id', 1, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'group', '', '', 1, 'admin', '2019-07-19 18:05:55', '2019-07-17 18:54:35', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `onl_cgform_field` VALUES ('17baa8212f6e23f08152c0ee681a3151', '67fc3563a54a43bb8730d27272a6c0a8', 'id', '主键', NULL, 1, 0, 1, 'string', 36, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 1, 'single', '', '', 0, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('17cbda69da9dd3632625a0647c259070', '73162c3b8161413e8ecdca7eb288d0c9', 'wl_name', '物料名字', NULL, 0, 1, 1, 'string', 200, 0, '', '', '', '', 'text', '', 120, NULL, '1', '', '', 0, 1, 1, 0, 'single', '', '', 7, 'admin', '2019-07-01 14:23:32', '2019-06-10 15:18:34', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('182d038554a6ee7ddfd07763aaa10686', '53a3e82b54b946c2b904f605875a275c', 'update_time', '更新日期', NULL, 0, 1, 1, 'Datetime', 20, 0, '', '', '', '', 'datetime', '', 120, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 4, 'admin', '2022-10-25 11:10:48', '2020-05-07 22:49:47', 'admin', '', '', '', '', '', NULL, '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('18fefb2257901f05508f8ec13ada78a3', 'e5464aa8fa7b47c580e91593cf9b46dc', 'id', '主键', NULL, 1, 0, 1, 'string', 36, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 1, 'admin', '2019-04-24 17:09:48', '2019-04-24 11:05:10', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -1538,6 +1706,7 @@ INSERT INTO `onl_cgform_field` VALUES ('272b69ea8b657f035e043394bbc0d3b1', '1ca1
 INSERT INTO `onl_cgform_field` VALUES ('2739ab1ece4d6053ba931bb6572f4ed8', '4028839a6de2ebd3016de2ebd3870000', 'iz_valid', '启用状态', 'iz_valid', 0, 1, 1, 'string', 2, 0, NULL, NULL, NULL, NULL, 'text', NULL, 120, NULL, '0', NULL, NULL, 0, 1, 1, 0, 'group', NULL, NULL, 9, NULL, NULL, '2019-10-19 15:29:30', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('273b0fd37640a9ef1614e987e2bc44a0', '8d66ea41c7cc4ef9ab3aab9055657fc9', 'pics', '图片', NULL, 0, 1, 1, 'string', 500, 0, '', '', '', '', 'image', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 9, NULL, NULL, '2020-05-07 22:46:32', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('278e7f55f93be4677c4e7fde07e136e0', '1777936891785834497', 'create_time', '创建日期', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', NULL, NULL, 2, 'admin', '2024-06-26 15:34:24', '2024-04-10 13:49:22', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('27a53c708da51d9774400dc06a18fec2', '67fc3563a54a43bb8730d27272a6c0a8', 'update_by', '更新人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 3, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('281ce0b5343cd42b28825d7df16422f1', 'b81de38db24047b497d476516f8a0865', 'vv', 'vv', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 8, NULL, NULL, '2020-02-24 14:56:08', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('283f42283b9d0bf3b95ba3384ab2d255', '758334cb1e7445e2822b60e807aec4a3', 'update_by', '更新人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 4, NULL, NULL, '2019-10-18 18:02:09', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('284864d99fddfdcb00e188e3a512cb28', '1acb6f81a1d9439da6cc4e868617b565', 'no', '预算表序号', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 10, 'admin', '2019-06-10 14:47:14', '2019-04-23 22:58:19', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -1571,6 +1740,7 @@ INSERT INTO `onl_cgform_field` VALUES ('30143cc3de69c413828f9fba20662026', '4028
 INSERT INTO `onl_cgform_field` VALUES ('304884ba4b611b2a9a53ef7b9ed01968', 'ff8080818aa7ceb9018aa861ffea0002', 'sys_org_code', '所属部门', NULL, 0, 1, 1, 'string', 64, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 5, 'admin', '2023-09-18 21:02:18', '2023-09-18 21:01:49', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('306e3fb9c87ca6442cefbd61f498f1f7', '402881e6760269a201760269a2af0000', 'dep_sel', '选择部门', NULL, 0, 1, 1, 'string', 200, 0, '', '', '', '', 'sel_depart', '', 120, NULL, '0', '', '#{sysOrgCode}', 0, 1, 1, 0, 'single', NULL, NULL, 19, NULL, NULL, '2020-11-26 10:37:26', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('30bd545e37ab764968b7435f729d1523', '40c6949da3ac407fa8a052fe99c3d987', 'vul_type', '漏洞类型', NULL, 0, 1, 1, 'string', 128, 0, '', '', '', '', 'list', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 11, 'admin', '2024-07-04 11:25:28', '2024-04-10 21:19:27', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('313bee970b679b3877ef101473080ac2', '67fc3563a54a43bb8730d27272a6c0a8', 'create_by', '创建人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 1, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('31d8f2b7285ea13a5f3fe0047b58376d', 'adba8df54862409c9367bdcb3ab22cc2', 'job_cron', 'CRON表达式', NULL, 0, 1, 1, 'string', 128, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 11, 'admin', '2024-06-27 17:04:08', '2024-06-25 15:16:39', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('31fd90306c3942f09cb79deabbf2f541', '402860816bff91c0016bff91d2810005', 'employee_id', '员工ID', 'employee_id', 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', 'oa_employee_info', 'id', 2, 'admin', '2019-07-19 18:05:55', '2019-07-17 18:54:35', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('321d28c99ad71f956604809c4eaaa001', '73f7cb796d844ac4925c431e677f5ef5', 'version', '版本', NULL, 0, 1, 1, 'int', 10, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 11, 'admin', '2024-07-16 09:43:10', '2024-06-25 20:39:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
@@ -1659,6 +1829,7 @@ INSERT INTO `onl_cgform_field` VALUES ('488822387d01c0de08899322d0c4dc2f', '7b2d
 INSERT INTO `onl_cgform_field` VALUES ('492a462b212fc34b0ee70e872684ed7e', '7ea60a25fa27470e9080d6a921aabbd1', 'name', '用户名', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 6, NULL, NULL, '2019-04-17 00:22:21', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('4958777a89c38af456c284631a4f3bf2', '98215632eed0462aad364930e4b59caa', 'region', '地区', NULL, 0, 1, 1, 'string', 64, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 17, 'admin', '2024-07-08 13:41:10', '2024-04-29 14:28:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('499a5dac033a01ce58009e4c5b786697', 'e9faf717024b4aae95cff224ae9b6d97', 'age', '员工年龄', NULL, 0, 1, 1, 'int', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 7, 'admin', '2019-07-03 18:23:49', '2019-07-03 18:22:35', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `onl_cgform_field` VALUES ('49aa0934ffb52cb6fde2b3ba96ad9532', '67fc3563a54a43bb8730d27272a6c0a8', 'asset_id', '资产id', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 6, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('49cd3dbd4f7f7cf0d19b1ee1045cfa69', 'e67d26b610dd414c884c4dbb24e71ce3', 'post_code', '岗位编码', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 6, 'admin', '2019-04-24 11:03:32', '2019-04-24 11:02:57', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('49e63c23573b545ca3c6c25328464eb7', '5592f6bda73840378b38af867298199f', 'id', '主键', NULL, 1, 0, 1, 'string', 36, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 1, 'single', '', '', 0, 'admin', '2024-07-09 12:55:00', '2023-09-18 18:15:35', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('4a39d139fae5d546262532595b9dccde', '40c6949da3ac407fa8a052fe99c3d987', 'severity', '漏洞级别', 'severity', 0, 1, 1, 'string', 32, 0, '', 'severity', '', '', 'list', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 14, 'admin', '2024-07-04 11:25:28', '2024-04-10 21:19:27', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
@@ -1834,6 +2005,7 @@ INSERT INTO `onl_cgform_field` VALUES ('7910b55d1bb18b853db9bde9b9dce68e', 'f878
 INSERT INTO `onl_cgform_field` VALUES ('795cc8c52271d63846f8ff509515f413', 'adba8df54862409c9367bdcb3ab22cc2', 'task_name', '扫描任务名称', NULL, 0, 1, 1, 'string', 200, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 6, 'admin', '2024-06-27 17:04:08', '2024-06-25 14:38:45', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('7a198e05a4756ced57ce55086e6ca242', '5592f6bda73840378b38af867298199f', 'company_id', '所属公司', NULL, 0, 1, 1, 'string', 36, 0, '', 'id', 'asset_company', 'company_name', 'text', '', 200, '', '0', '', '', 0, 0, 1, 0, 'single', '', '', 10, 'admin', '2024-07-09 12:55:00', '2023-09-20 11:39:13', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('7a519854bab08c7cf2a2873f93482d58', '4fd43b14a0c84434af1f306a9ffe2a7a', 'name_server', 'name_server', NULL, 0, 1, 1, 'string', 255, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 1, 1, 1, 0, 'single', '', '', 9, 'admin', '2024-07-08 13:42:00', '2023-09-15 17:06:26', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('7a5fb593f68d85e3bfaa335184cf499c', '67fc3563a54a43bb8730d27272a6c0a8', 'asset_type', '资产类型', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 7, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('7a665ed90ef64b4d65632c941e5795b2', '4b556f0168f64976a3d20bfb932bc798', 'sex', '性别', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 7, NULL, NULL, '2019-04-12 23:38:29', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('7a697e4053445f07ad1a56a246f593e7', '86bf17839a904636b7ed96201b2fa6ea', 'good_name', '商品名字', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 7, 'admin', '2020-05-14 21:18:49', '2020-05-08 23:48:31', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('7abeac6fc087540a289e6f8871bbc9de', 'bfa7f86d9f2746b4ac3e28a0a6e8fedb', 'status', '节点状态', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'switch', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 3, 'admin', '2023-10-30 14:38:23', '2023-10-30 14:36:32', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
@@ -1987,6 +2159,7 @@ INSERT INTO `onl_cgform_field` VALUES ('a232d608434d15fcecd8a3f31a9044b2', '86bf
 INSERT INTO `onl_cgform_field` VALUES ('a23d39dfa53868407614658261b0aa08', 'ff808081907bcc2f01907bcc2f4c0000', 'ip_id', '所属IP', 'ip_id', 0, 1, 1, 'string', 36, 0, NULL, 'id', 'asset_ip', 'ip', 'text', NULL, 120, '', '0', NULL, NULL, 0, 1, 1, 0, 'single', NULL, NULL, 2, 'admin', '2024-07-04 11:33:17', '2024-07-04 11:31:38', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('a2865e79c4eaa45f9d41fcc24c99dd65', 'ff808081906cdb5201906ce20df10003', 'task_id', '任务', NULL, 0, 1, 1, 'string', 32, 0, '', 'id', 'lite_flow_task', 'task_name', 'list', '', 120, '', '0', '', '', 1, 1, 1, 0, 'single', 'lite_flow_task', 'id', 4, 'admin', '2024-07-01 15:48:46', '2024-07-01 14:01:13', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('a2baa3a18062f28e3d8a81178027f171', '402881fd812267500181226750e90000', 'create_time', '创建日期', NULL, 0, 1, 1, 'Datetime', 20, 0, '', '', '', '', 'datetime', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', NULL, NULL, 3, NULL, NULL, '2022-06-02 11:13:25', 'admin', '', '', '', '', '', NULL, '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('a33772a001a8c965abe2193131c72e58', '67fc3563a54a43bb8730d27272a6c0a8', 'sys_org_code', '所属部门', NULL, 0, 1, 1, 'string', 64, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 5, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('a399de0d38cbb4d2e4aff4f9576e256c', '98215632eed0462aad364930e4b59caa', 'create_time', '创建日期', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 2, 'admin', '2024-07-08 13:41:10', '2023-09-15 16:13:33', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('a3dea64c8009780e213d16c69704c030', '53a3e82b54b946c2b904f605875a275c', 'id', '主键', NULL, 1, 0, 1, 'string', 36, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 0, 0, 1, 'single', '', '', 0, 'admin', '2022-10-25 11:10:48', '2020-05-07 22:49:47', 'admin', '', '', '', '', '', NULL, '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('a4350abf1ac9e3a884a336fe18245734', 'ff8080818aa7ceb9018aa861ffea0002', 'product', '产品', NULL, 0, 1, 1, 'string', 128, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 17, NULL, NULL, '2024-05-14 11:14:11', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
@@ -2014,6 +2187,7 @@ INSERT INTO `onl_cgform_field` VALUES ('aa07931514727913413880b7a2b76dcb', 'd3ae
 INSERT INTO `onl_cgform_field` VALUES ('aa4780601419c21dabb6c42fc511e71c', '402860816bff91c0016bffa220a9000b', 'have_children', '有无子女', 'have_children', 0, 1, 1, 'string', 20, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 25, 'admin', '2019-07-22 16:15:32', '2019-07-17 19:12:24', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('aa687ad6911c7797951276271bf9a85b', '5517e93b148a42a7b82d5f3f94542dcf', 'create_time', '创建日期', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 120, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 2, NULL, NULL, '2022-07-19 19:36:53', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('aad2c4a0a894fefd999092b42e3b2b2e', '6ba5f36a05764b7bad085eb648c78d3d', 'config_path', '配置文件路径', NULL, 0, 1, 1, 'string', 500, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 10, 'admin', '2024-06-29 12:50:28', '2024-06-11 14:51:12', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('aada7092c1297102b4044ec836524680', '67fc3563a54a43bb8730d27272a6c0a8', 'create_time', '创建日期', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 2, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('ab10e0aa029ded2f4420a33420de225d', '1acb6f81a1d9439da6cc4e868617b565', 'wl_code', '物料编码', NULL, 0, 1, 1, 'string', 60, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 6, 'admin', '2019-06-10 14:47:14', '2019-04-23 22:58:19', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('ab1f880ba593f3757dac70e003945aa2', '402860816bff91c0016bff91c0cb0000', 'depart_id', '部门ID', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 6, 'admin', '2019-07-19 18:09:01', '2019-07-17 19:38:45', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('ab58f43f853fd1f65f83c22966883afb', 'beee191324fd40c1afec4fda18bd9d47', 'create_by', '创建人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 2, 'admin', '2019-04-13 13:41:13', '2019-04-13 13:40:56', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -2172,6 +2346,7 @@ INSERT INTO `onl_cgform_field` VALUES ('d1efefd31e31a766c5b3097fd47e6c3e', '5592
 INSERT INTO `onl_cgform_field` VALUES ('d2551b70dc96a45a73b304bf755a996f', '402860816bff91c0016bff91d8830007', 'workplace', '工作单位', 'workplace', 0, 1, 1, 'string', 255, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 6, 'admin', '2019-07-19 18:04:41', '2019-07-17 18:54:37', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('d29dcdba14ea61808391fff2d927efea', '402860816bff91c0016bff91c0cb0000', 'work_summary', '工作总结', 'work_summary', 0, 1, 1, 'Text', 65535, 0, '', '', '', '', 'textarea', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 10, 'admin', '2019-07-19 18:09:01', '2019-07-17 18:54:32', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('d3ba5f990e14f9a1a0bbf6aa4cfa26dc', '56efb74326e74064b60933f6f8af30ea', 'xd_date', '下单时间', NULL, 0, 1, 1, 'Datetime', 0, 0, '', '', '', '', 'datetime', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'single', '', '', 8, 'admin', '2020-07-10 16:53:27', '2020-05-08 23:45:32', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
+INSERT INTO `onl_cgform_field` VALUES ('d3db82398ea63e929a5afa4680e8cc08', '67fc3563a54a43bb8730d27272a6c0a8', 'lite_flow_task_id', '任务id', NULL, 0, 1, 1, 'string', 32, 0, '', '', '', '', 'text', '', 120, '', '0', '', '', 0, 1, 1, 0, 'single', '', '', 8, NULL, NULL, '2024-07-16 18:17:15', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('d454a1aab2dfe7cd86aad6182f697927', '6e91442577a64d64bc99cce82b156e2c', 'company_name', '公司名称', NULL, 0, 1, 1, 'string', 255, 0, '', '', '', '', 'text', '', 200, '', '1', '', '', 1, 1, 1, 0, 'single', '', '', 6, 'admin', '2024-07-08 13:40:19', '2023-09-18 20:11:52', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('d45f84588913710cc67a37dc418eeaf4', '4fd43b14a0c84434af1f306a9ffe2a7a', 'create_by', '创建人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 200, '', '0', '', '', 0, 0, 0, 0, 'single', '', '', 5, 'admin', '2024-07-08 13:41:59', '2023-09-15 17:06:26', 'admin', '', '', '', '', '', 'text', '0', NULL, NULL, '0');
 INSERT INTO `onl_cgform_field` VALUES ('d48bfd2a840f9b1d00bd3b5599dca0f0', '402860816bff91c0016bff91cda80003', 'post', '职务', 'post', 0, 1, 1, 'string', 100, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 7, 'admin', '2019-07-19 18:06:36', '2019-07-17 18:54:34', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -2346,58 +2521,56 @@ INSERT INTO `onl_cgform_field` VALUES ('ff49b468e54e137032f7e4d976b83b5a', '4028
 INSERT INTO `onl_cgform_field` VALUES ('ff601f75d0e7ced226748eb8fba2c896', '402860816bff91c0016bff91d8830007', 'relation', '关系', 'relation', 0, 1, 1, 'string', 100, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 4, 'admin', '2019-07-19 18:04:41', '2019-07-17 18:54:37', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('ffacafee9fa46eb297ca3252f95acef9', '402860816bff91c0016bffa220a9000b', 'school', '毕业学校', 'school', 0, 1, 1, 'string', 100, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 1, 1, 0, 'group', '', '', 9, 'admin', '2019-07-22 16:15:32', '2019-07-17 19:12:24', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `onl_cgform_field` VALUES ('ffcbf379fffabbd13aa2c22ce565ec12', '79091e8277c744158530321513119c68', 'update_by', '更新人', NULL, 0, 1, 1, 'string', 50, 0, '', '', '', '', 'text', '', 120, NULL, '0', '', '', 0, 0, 0, 0, 'single', '', '', 4, 'admin', '2019-05-11 15:29:47', '2019-05-11 15:27:17', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_cgform_head
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_head`;
-CREATE TABLE `onl_cgform_head` (
+CREATE TABLE `onl_cgform_head`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
   `table_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '表名',
   `table_type` int NOT NULL COMMENT '表类型: 0单表、1主表、2附表',
-  `table_version` int DEFAULT '1' COMMENT '表版本',
+  `table_version` int NULL DEFAULT 1 COMMENT '表版本',
   `table_txt` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '表说明',
   `is_checkbox` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '是否带checkbox',
   `is_db_synch` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'N' COMMENT '同步数据库状态',
   `is_page` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '是否分页',
   `is_tree` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '是否是树',
-  `id_sequence` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '主键生成序列',
-  `id_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '主键类型',
-  `query_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询模式',
-  `relation_type` int DEFAULT NULL COMMENT '映射关系 0一对多  1一对一',
-  `sub_table_str` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '子表',
-  `tab_order_num` int DEFAULT NULL COMMENT '附表排序序号',
-  `tree_parent_id_field` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '树形表单父id',
-  `tree_id_field` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '树表主键字段',
-  `tree_fieldname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '树开表单列字段',
+  `id_sequence` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '主键生成序列',
+  `id_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '主键类型',
+  `query_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询模式',
+  `relation_type` int NULL DEFAULT NULL COMMENT '映射关系 0一对多  1一对一',
+  `sub_table_str` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '子表',
+  `tab_order_num` int NULL DEFAULT NULL COMMENT '附表排序序号',
+  `tree_parent_id_field` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '树形表单父id',
+  `tree_id_field` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '树表主键字段',
+  `tree_fieldname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '树开表单列字段',
   `form_category` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'bdfl_ptbd' COMMENT '表单分类',
-  `form_template` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'PC表单模板',
-  `form_template_mobile` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表单模板样式(移动端)',
-  `scroll` int DEFAULT '0' COMMENT '是否有横向滚动条',
-  `copy_version` int DEFAULT NULL COMMENT '复制版本号',
-  `copy_type` int DEFAULT '0' COMMENT '复制表类型1为复制表 0为原始表',
-  `physic_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '原始表ID',
-  `ext_config_json` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '扩展JSON',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `theme_template` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '主题模板',
-  `is_des_form` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否用设计器表单',
-  `des_form_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '设计器表单编码',
-  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '关联的应用ID',
+  `form_template` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'PC表单模板',
+  `form_template_mobile` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表单模板样式(移动端)',
+  `scroll` int NULL DEFAULT 0 COMMENT '是否有横向滚动条',
+  `copy_version` int NULL DEFAULT NULL COMMENT '复制版本号',
+  `copy_type` int NULL DEFAULT 0 COMMENT '复制表类型1为复制表 0为原始表',
+  `physic_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '原始表ID',
+  `ext_config_json` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '扩展JSON',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `theme_template` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '主题模板',
+  `is_des_form` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否用设计器表单',
+  `des_form_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '设计器表单编码',
+  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '关联的应用ID',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_och_cgform_head_id` (`table_name`) USING BTREE,
-  KEY `idx_och_table_name` (`form_template`) USING BTREE,
-  KEY `idx_och_form_template_mobile` (`form_template_mobile`) USING BTREE,
-  KEY `idx_och_table_version` (`table_version`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_och_cgform_head_id`(`table_name` ASC) USING BTREE,
+  INDEX `idx_och_table_name`(`form_template` ASC) USING BTREE,
+  INDEX `idx_och_form_template_mobile`(`form_template_mobile` ASC) USING BTREE,
+  INDEX `idx_och_table_version`(`table_version` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgform_head
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgform_head` VALUES ('1777936782243196930', 'lite_flow_script', 1, 4, '脚本', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\"}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('1777936891785834497', 'lite_flow_chain', 1, 24, '流程管理', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('1777946087369535489', 'lite_flow_instance', 1, 10, '流程实例', 'Y', 'Y', 'Y', 'Y', NULL, 'UUID', 'single', NULL, NULL, NULL, 'pid', 'has_child', 'chain_id', 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\"}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
@@ -2410,6 +2583,7 @@ INSERT INTO `onl_cgform_head` VALUES ('402881fd812267500181226750e90000', 'ces_s
 INSERT INTO `onl_cgform_head` VALUES ('40c6949da3ac407fa8a052fe99c3d987', 'asset_vul', 1, 9, '漏洞', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('4fd43b14a0c84434af1f306a9ffe2a7a', 'asset_sub_domain', 1, 95, '子域名', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', 0, NULL, 1, NULL, NULL, NULL, 'temp', '2', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":1,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('5592f6bda73840378b38af867298199f', 'asset_domain', 1, 47, '主域名', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, '', NULL, NULL, NULL, NULL, 'temp', '2', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":1,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
+INSERT INTO `onl_cgform_head` VALUES ('67fc3563a54a43bb8730d27272a6c0a8', 'lite_flow_task_asset', 1, 2, '任务关联资产表', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('6ba5f36a05764b7bad085eb648c78d3d', 'client_config', 1, 12, '节点配置', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('6e91442577a64d64bc99cce82b156e2c', 'asset_company', 1, 13, '公司', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '2', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('73f7cb796d844ac4925c431e677f5ef5', 'lite_flow_sub_task', 3, 11, '子任务表', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'single', 0, NULL, 1, NULL, NULL, NULL, 'temp', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
@@ -2424,33 +2598,31 @@ INSERT INTO `onl_cgform_head` VALUES ('f878028baf224f8c8b95f6721171978f', 'asset
 INSERT INTO `onl_cgform_head` VALUES ('ff8080818aa7ceb9018aa861ffea0002', 'asset_port$2', 1, 2, '端口', 'Y', 'N', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, 7, 1, 'd055cb1dcd5b4f5ba0a74f7c012ce175', '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\"}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('ff808081906cdb5201906ce20df10003', 'lite_flow_sub_task$3', 1, 5, '子任务表', 'Y', 'N', 'Y', 'N', NULL, 'UUID', 'single', NULL, NULL, NULL, NULL, NULL, NULL, 'temp', '1', NULL, 1, 10, 1, '73f7cb796d844ac4925c431e677f5ef5', '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
 INSERT INTO `onl_cgform_head` VALUES ('ff808081907bcc2f01907bcc2f4c0000', 'asset_ip_sub_domain', 1, 3, 'asset_ip_sub_domain', 'Y', 'Y', 'Y', 'N', NULL, 'UUID', 'group', NULL, NULL, NULL, NULL, NULL, NULL, 'bdfl_include', '1', NULL, 1, NULL, 0, NULL, '{\"reportPrintShow\":0,\"reportPrintUrl\":\"\",\"joinQuery\":0,\"modelFullscreen\":0,\"modalMinWidth\":\"\",\"commentStatus\":0,\"tableFixedAction\":1,\"tableFixedActionType\":\"right\",\"formLabelLengthShow\":0,\"formLabelLength\":null}', 'admin', '2024-05-01 00:00:00', 'admin', '2024-05-01 00:00:00', 'normal', 'N', '', NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_cgform_index
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgform_index`;
-CREATE TABLE `onl_cgform_index` (
+CREATE TABLE `onl_cgform_index`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `cgform_head_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '主表id',
-  `index_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '索引名称',
-  `index_name_old` varchar(100) DEFAULT NULL COMMENT '原索引名称',
-  `index_field` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '索引栏位',
-  `index_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '索引类型',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `is_db_synch` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'N' COMMENT '是否同步数据库 N未同步 Y已同步',
-  `del_flag` int DEFAULT '0' COMMENT '是否删除 0未删除 1删除',
+  `cgform_head_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '主表id',
+  `index_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '索引名称',
+  `index_name_old` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '原索引名称',
+  `index_field` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '索引栏位',
+  `index_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '索引类型',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `is_db_synch` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'N' COMMENT '是否同步数据库 N未同步 Y已同步',
+  `del_flag` int NULL DEFAULT 0 COMMENT '是否删除 0未删除 1删除',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_oci_cgform_head_id` (`cgform_head_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_oci_cgform_head_id`(`cgform_head_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgform_index
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgform_index` VALUES ('020604e51c01efd9810a264fa84ccfa8', '1ca149bb53ab44c98db66b1e10dce309', 'idx_tree_id', NULL, 'asset_web_tree_id', 'normal', 'admin', '2024-07-04 11:24:26', 'admin', '2024-07-04 11:24:29', 'Y', 0);
 INSERT INTO `onl_cgform_index` VALUES ('04c32149e7801db37f31152f3f75ac48', '73f7cb796d844ac4925c431e677f5ef5', 'idx_status', NULL, 'task_status', 'normal', 'admin', '2024-07-16 09:43:10', 'admin', '2024-07-16 09:43:14', 'Y', 0);
 INSERT INTO `onl_cgform_index` VALUES ('0e9720fd77a402a14b4d1bce60e6912f', '6e91442577a64d64bc99cce82b156e2c', 'company_name', '', 'company_name,project_id', 'unique', 'admin', '2024-04-16 11:24:38', 'admin', '2024-07-08 13:49:05', 'Y', 0);
@@ -2479,36 +2651,34 @@ INSERT INTO `onl_cgform_index` VALUES ('e473c7865318511888dea1b456035dca', '40c6
 INSERT INTO `onl_cgform_index` VALUES ('e6de528de3a45e252b9ca1cb96a5c954', '2140f58bc892477986e2d7d4ef8420da', 'idx_pid', NULL, 'pid', 'normal', 'admin', '2024-07-01 11:35:01', 'admin', '2024-07-02 13:45:41', 'Y', 0);
 INSERT INTO `onl_cgform_index` VALUES ('e716544401f4b650faf2d79042520320', '2140f58bc892477986e2d7d4ef8420da', 'idx_relative_path', NULL, 'relative_path', 'normal', 'admin', '2024-07-01 11:35:30', 'admin', '2024-07-02 13:45:41', 'Y', 0);
 INSERT INTO `onl_cgform_index` VALUES ('f908220cec2a6c4fcd977bb088a5d4a5', '5592f6bda73840378b38af867298199f', 'idx_project_id', NULL, 'project_id', 'normal', 'admin', '2024-07-04 11:26:36', 'admin', '2024-07-09 12:55:00', 'Y', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_cgreport_head
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgreport_head`;
-CREATE TABLE `onl_cgreport_head` (
+CREATE TABLE `onl_cgreport_head`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '报表编码',
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '报表名字',
   `cgr_sql` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '报表SQL',
-  `return_val_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '返回值字段',
-  `return_txt_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '返回文本字段',
-  `return_type` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '1' COMMENT '返回类型，单选或多选',
-  `db_source` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '动态数据源',
-  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '关联的应用ID',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人id',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人id',
+  `return_val_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '返回值字段',
+  `return_txt_field` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '返回文本字段',
+  `return_type` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '1' COMMENT '返回类型，单选或多选',
+  `db_source` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '动态数据源',
+  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '关联的应用ID',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人id',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人id',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `index_onlinereport_code` (`code`) USING BTREE,
-  KEY `idx_och_code` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `index_onlinereport_code`(`code` ASC) USING BTREE,
+  INDEX `idx_och_code`(`code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgreport_head
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgreport_head` VALUES ('1256627801873821698', 'report002', '统计登录每日登录次数', 'select DATE_FORMAT(create_time,  \'%Y-%m-%d\') as date,count(*) as num from sys_log group by DATE_FORMAT(create_time, \'%Y-%m-%d\')', NULL, NULL, '1', NULL, NULL, NULL, '2022-10-13 16:47:57', 'admin', '2020-05-03 00:53:10', 'admin');
 INSERT INTO `onl_cgreport_head` VALUES ('1260179852088135681', 'tj_user_report', '统一有效系统用户', 'select id,realname,username,sex,birthday,avatar,phone,email from sys_user', NULL, NULL, '1', NULL, NULL, NULL, '2022-11-07 19:09:25', 'admin', '2020-05-12 20:07:44', 'admin');
 INSERT INTO `onl_cgreport_head` VALUES ('1590154651759259649', 'withparamreport', '带参数报表', 'select * from demo where sex = \'${sex}\'', NULL, NULL, '1', NULL, NULL, NULL, '2022-11-09 14:38:04', 'admin', '2022-11-09 09:29:47', 'admin');
@@ -2524,43 +2694,41 @@ INSERT INTO `onl_cgreport_head` VALUES ('1810992903413395458', 'select_port', '�
 INSERT INTO `onl_cgreport_head` VALUES ('1811027883992641537', 'select_api_tree', 'API列表', 'select \nid,\nabsolute_path\nfrom asset_api_tree \nwhere pid = \'0\'', NULL, NULL, '1', NULL, NULL, NULL, '2024-07-11 19:50:54', 'admin', '2024-07-10 21:21:09', 'admin');
 INSERT INTO `onl_cgreport_head` VALUES ('6c7f59741c814347905a938f06ee003c', 'report_user', '统计在线用户', 'select realname,username,sex,birthday,avatar,phone,email from sys_user', NULL, NULL, '1', '', NULL, NULL, '2022-10-25 11:41:18', 'admin', '2019-03-25 11:20:45', 'admin');
 INSERT INTO `onl_cgreport_head` VALUES ('87b55a515d3441b6b98e48e5b35474a6', 'demo', 'Report Demo', 'select * from demo', NULL, NULL, '1', '', NULL, NULL, '2020-05-03 01:14:35', 'admin', '2019-03-12 11:25:16', 'admin');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_cgreport_item
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgreport_item`;
-CREATE TABLE `onl_cgreport_item` (
+CREATE TABLE `onl_cgreport_item`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `cgrhead_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '报表ID',
   `field_name` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字段名字',
-  `field_txt` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段文本',
-  `field_width` int DEFAULT NULL,
-  `field_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段类型',
-  `search_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询模式',
-  `is_order` int DEFAULT '0' COMMENT '是否排序  0否,1是',
-  `is_search` int DEFAULT '0' COMMENT '是否查询  0否,1是',
-  `dict_code` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典CODE',
-  `field_href` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段跳转URL',
-  `is_show` int DEFAULT '1' COMMENT '是否显示  0否,1显示',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `replace_val` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '取值表达式',
-  `is_total` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否合计 0否,1是（仅对数值有效）',
-  `group_title` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '分组标题',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `field_txt` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段文本',
+  `field_width` int NULL DEFAULT NULL,
+  `field_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段类型',
+  `search_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询模式',
+  `is_order` int NULL DEFAULT 0 COMMENT '是否排序  0否,1是',
+  `is_search` int NULL DEFAULT 0 COMMENT '是否查询  0否,1是',
+  `dict_code` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典CODE',
+  `field_href` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段跳转URL',
+  `is_show` int NULL DEFAULT 1 COMMENT '是否显示  0否,1显示',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `replace_val` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '取值表达式',
+  `is_total` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否合计 0否,1是（仅对数值有效）',
+  `group_title` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '分组标题',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_oci_cgrhead_id` (`cgrhead_id`) USING BTREE,
-  KEY `idx_oci_is_show` (`is_show`) USING BTREE,
-  KEY `idx_oci_order_num` (`order_num`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_oci_cgrhead_id`(`cgrhead_id` ASC) USING BTREE,
+  INDEX `idx_oci_is_show`(`is_show` ASC) USING BTREE,
+  INDEX `idx_oci_order_num`(`order_num` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgreport_item
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgreport_item` VALUES ('1256627802020622337', '1256627801873821698', 'date', '日期', NULL, 'String', NULL, 0, 0, '', '', 1, 0, '', NULL, NULL, 'admin', '2020-09-11 14:50:45', NULL, NULL);
 INSERT INTO `onl_cgreport_item` VALUES ('1256627802075148289', '1256627801873821698', 'num', '登录次数', NULL, 'String', NULL, 0, 0, '', '', 1, 1, '', '1', NULL, 'admin', '2020-09-11 14:50:45', NULL, NULL);
 INSERT INTO `onl_cgreport_item` VALUES ('1260179881129496577', '1260179852088135681', 'id', 'ID', NULL, 'String', NULL, 0, 0, '', '', 0, 0, '', NULL, NULL, 'admin', '2020-09-11 14:07:38', NULL, NULL);
@@ -2642,59 +2810,55 @@ INSERT INTO `onl_cgreport_item` VALUES ('df365cd357699eea96c29763d1dd7f9d', '6c7
 INSERT INTO `onl_cgreport_item` VALUES ('edf9932912b81ad01dd557d3d593a559', '87b55a515d3441b6b98e48e5b35474a6', 'age', '年龄', NULL, 'String', NULL, 0, 0, '', '', 1, 4, '', NULL, NULL, 'admin', '2020-05-03 01:14:35', NULL, NULL);
 INSERT INTO `onl_cgreport_item` VALUES ('f985883e509a6faaaf62ca07fd24a73c', '87b55a515d3441b6b98e48e5b35474a6', 'birthday', '生日', NULL, 'Date', 'single', 0, 1, '', '', 1, 5, '', NULL, NULL, 'admin', '2020-05-03 01:14:35', NULL, NULL);
 INSERT INTO `onl_cgreport_item` VALUES ('fce83e4258de3e2f114ab3116397670c', '87b55a515d3441b6b98e48e5b35474a6', 'punch_time', '发布时间', NULL, 'String', NULL, 0, 0, '', '', 1, 6, '', NULL, NULL, 'admin', '2020-05-03 01:14:35', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_cgreport_param
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_cgreport_param`;
-CREATE TABLE `onl_cgreport_param` (
+CREATE TABLE `onl_cgreport_param`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `cgrhead_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '动态报表ID',
   `param_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '参数字段',
-  `param_txt` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数文本',
-  `param_value` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数默认值',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `param_txt` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数文本',
+  `param_value` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数默认值',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_ocp_cgrhead_id` (`cgrhead_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_ocp_cgrhead_id`(`cgrhead_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_cgreport_param
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_cgreport_param` VALUES ('1590154651838951425', '1590154651759259649', 'sex', 'sex', '', 0, 'admin', '2022-11-09 09:29:47', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_drag_comp
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_drag_comp`;
-CREATE TABLE `onl_drag_comp` (
+CREATE TABLE `onl_drag_comp`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `parent_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `comp_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '组件名称',
-  `comp_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '图标',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `type_id` int DEFAULT NULL COMMENT '组件类型',
-  `comp_config` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '组件配置',
-  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT '状态0:无效 1:有效',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `parent_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `comp_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '组件名称',
+  `comp_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `type_id` int NULL DEFAULT NULL COMMENT '组件类型',
+  `comp_config` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '组件配置',
+  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '状态0:无效 1:有效',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='组件库';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '组件库' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_drag_comp
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_drag_comp` VALUES ('100', '0', '常用', '', 'ant-design:setting-twotone', 2, NULL, NULL, '1', NULL, NULL, 'jeecg', '2022-04-24 11:02:19');
 INSERT INTO `onl_drag_comp` VALUES ('100102', '0', '数据', 'dataList', 'ant-design:table-outlined', 3, NULL, NULL, '1', NULL, NULL, 'admin', '2022-04-29 09:49:48');
 INSERT INTO `onl_drag_comp` VALUES ('100102100', '100102', '动态表格', 'JTable', 'bi:table', 12, NULL, '{\n  \"w\": 24,\n  \"h\": 42,\n  \"dataType\": 1,\n  \"url\": \"http://api.jeecg.com/mock/42/tableData\",\n  \"tableList\": \"http://api.jeecg.com/mock/42/tableList\",\n  \"timeOut\": 0,\n  \"chartData\": [\n    {\n      \"fieldTxt\": \"姓名\",\n      \"fieldName\": \"name\",\n      \"type\": \"field\",\n      \"isShow\": \"Y\",\n      \"isTotal\": \"N\"\n    },\n    {\n      \"fieldTxt\": \"年龄\",\n      \"fieldName\": \"age\",\n      \"type\": \"field\",\n      \"isShow\": \"Y\",\n      \"isTotal\": \"Y\"\n    },\n    {\n      \"fieldTxt\": \"性别\",\n      \"fieldName\": \"sex\",\n      \"type\": \"field\",\n      \"isShow\": \"Y\",\n      \"isTotal\": \"N\"\n    },\n    {\n      \"fieldTxt\": \"住址\",\n      \"fieldName\": \"address\",\n      \"type\": \"field\",\n      \"isShow\": \"Y\",\n      \"isTotal\": \"N\"\n    },\n    {\n      \"title\": \"新增\",\n      \"show\": 1,\n      \"position\": \"top\",\n      \"type\": \"button\",\n      \"key\": \"add\"\n    },\n    {\n      \"title\": \"编辑\",\n      \"show\": 1,\n      \"position\": \"row\",\n      \"type\": \"button\",\n      \"key\": \"edit\"\n    },\n    {\n      \"title\": \"导出\",\n      \"show\": 1,\n      \"position\": \"top\",\n      \"type\": \"button\",\n      \"key\": \"export\"\n    }\n  ]\n}', '0', NULL, NULL, NULL, '2022-04-28 15:37:26');
@@ -2743,36 +2907,34 @@ INSERT INTO `onl_drag_comp` VALUES ('728116316742778880', '100', '自定义按�
 INSERT INTO `onl_drag_comp` VALUES ('72811631742776660', '100', '查询条件', 'JFilterQuery', 'ant-design:filter-filled', 100, NULL, '{\r\n	\"w\": 12,\r\n	\"h\": 12,\r\n	\"dataType\": 1,\r\n	\"url\": \"\",\r\n	\"timeOut\": 0,\r\n	\"chartData\": []\r\n}', '1', 'jeecg', '2022-09-09 15:21:08', 'jeecg', '2022-09-09 15:41:56');
 INSERT INTO `onl_drag_comp` VALUES ('729550825967222784', '100102', '透视表', 'JPivotTable', 'ant-design:table-outlined', 13, NULL, '{\n  \"w\": 24,\n  \"h\": 42,\n  \"dataType\": 1,\n  \"timeOut\": 0,\n  \"chartData\": {\n    \"x\": [\n      {\n        \"62eb2e00c349cde9883d3c1c\": [\n          \"测试1\",\n          \"测试1\",\n          \"测试2\",\n          \"测试3\"\n        ]\n      },\n      {\n        \"62f37518df6db6d3e0c9b7ad\": [\n          \"1\",\n          \"2\",\n          \"3\",\n          \"4\"\n        ]\n      }\n    ],\n    \"data\": [\n      {\n        \"y\": [\n          \"2022/09\",\n          \"2022\"\n        ],\n        \"t_id\": \"62f37456cf07c28f9312dd13\",\n        \"data\": [\n          111,\n          null,\n          null,\n          null\n        ],\n        \"sum\": 111,\n        \"summary_col\": false\n      },\n      {\n        \"y\": [\n          \"2022/09\",\n          \"2022\"\n        ],\n        \"t_id\": \"62f37456cf07c28f9312dd14\",\n        \"data\": [\n          444,\n          null,\n          null,\n          null\n        ],\n        \"sum\": 444,\n        \"summary_col\": false\n      },\n      {\n        \"y\": [\n          \"2022/08\",\n          \"2022\"\n        ],\n        \"t_id\": \"62f37456cf07c28f9312dd13\",\n        \"data\": [\n          null,\n          222,\n          333,\n          444\n        ],\n        \"sum\": 999,\n        \"summary_col\": false\n      },\n      {\n        \"y\": [\n          \"2022/08\",\n          \"2022\"\n        ],\n        \"t_id\": \"62f37456cf07c28f9312dd14\",\n        \"data\": [\n          null,\n          333,\n          222,\n          111\n        ],\n        \"sum\": 666,\n        \"summary_col\": false\n      },\n      {\n        \"y\": [],\n        \"t_id\": \"62f37456cf07c28f9312dd13\",\n        \"data\": [\n          111,\n          222,\n          333,\n          444\n        ],\n        \"sum\": 278,\n        \"summary_col\": true\n      },\n      {\n        \"y\": [],\n        \"t_id\": \"62f37456cf07c28f9312dd14\",\n        \"data\": [\n          444,\n          333,\n          222,\n          111\n        ],\n        \"sum\": 1110,\n        \"summary_col\": true\n      }\n    ]\n  },\n  \"option\": {\r\n		\"card\": {\r\n			\"title\": \"未命名标题\",\r\n			\"extra\": \"\",\r\n			\"rightHref\": \"\",\r\n			\"size\": \"default\"\r\n		}\r\n  }\n}', '1', 'jeecg', '2022-09-13 14:21:21', 'jeecg', '2022-09-13 20:13:32');
 INSERT INTO `onl_drag_comp` VALUES ('932219134883299328', '100', '当前时间', 'JCurrentTime', 'ant-design:field-time-outlined', 100, NULL, '{\n  \"w\": 12,\n  \"h\": 6,\n  \"dataType\": 1,\n  \"url\": \"http://api.jeecg.com/mock/42/nav\",\n  \"timeOut\": 0,\n	\"background\": \"#3F7DD4\",\n  \"turnConfig\": {\n    \"url\": \"\"\n  },\n  \"chartData\": \"\",\n  \"option\": {\r\n	  \"showWeek\":\"show\",\n    \"card\": {\n      \"title\": \"\",\n      \"extra\": \"\",\n      \"rightHref\": \"\",\n      \"size\": \"default\"\n    },\n    \"body\": {\n      \"text\": \"\",\n      \"color\": \"#FFFFFF\",\n      \"fontWeight\": \"normal\",\n      \"marginLeft\": 0,\n      \"marginTop\": 0\n    }\n  }\n}', '1', 'jeecg', '2024-03-25 20:32:51', 'jeecg', '2024-03-25 20:34:14');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_drag_dataset_head
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_drag_dataset_head`;
-CREATE TABLE `onl_drag_dataset_head` (
+CREATE TABLE `onl_drag_dataset_head`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'id',
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
-  `code` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '编码',
-  `parent_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '父id',
-  `db_source` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '动态数据源',
-  `query_sql` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT '查询数据SQL',
-  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `iz_agent` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT 'iz_agent',
-  `data_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据类型',
-  `api_method` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'api方法：get/post',
-  `create_time` datetime DEFAULT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '应用ID',
-  `tenant_id` int DEFAULT NULL COMMENT '租户ID',
+  `code` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `parent_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父id',
+  `db_source` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '动态数据源',
+  `query_sql` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '查询数据SQL',
+  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `iz_agent` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT 'iz_agent',
+  `data_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据类型',
+  `api_method` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'api方法：get/post',
+  `create_time` datetime NULL DEFAULT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '应用ID',
+  `tenant_id` int NULL DEFAULT NULL COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_drag_dataset_head
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_drag_dataset_head` VALUES ('1516317603268657153', '示例_参数查询', '', '1516743332632494082', '707437208002265088', 'select * from demo where name like \'%${name}%\'', '', '', 'sql', 'get', '2022-04-21 15:59:43', 'admin', '2022-04-21 17:28:44', 'admin', NULL, NULL);
 INSERT INTO `onl_drag_dataset_head` VALUES ('1516743332632494082', '示例数据集', NULL, NULL, NULL, '0', NULL, '0', NULL, NULL, '2022-04-20 19:39:25', 'admin', NULL, NULL, NULL, NULL);
 INSERT INTO `onl_drag_dataset_head` VALUES ('1516743766914924546', '统计近十日的登陆次数', '', '1516743332632494082', '707437208002265088', 'SELECT\n	count(*) num,\n	DATE_FORMAT(create_time, \'%Y-%m-%d\') AS `day`\nFROM\n	sys_log\nWHERE\n	log_type = 1\nAND create_time > DATE_SUB(NOW(), INTERVAL 10 DAY)\nGROUP BY\n	DATE_FORMAT(create_time, \'%Y-%m-%d\')', '', '', 'sql', 'get', '2022-04-20 19:41:08', 'admin', '2023-06-06 15:25:30', 'admin', NULL, NULL);
@@ -2853,37 +3015,35 @@ INSERT INTO `onl_drag_dataset_head` VALUES ('911888877589413888', '本月重点�
 INSERT INTO `onl_drag_dataset_head` VALUES ('911889006916583424', '本月产品销售', '', '911878648998969344', '', 'https://api.jeecg.com/mock/51/productSales?type=productSalesThisMonth', '', '0', 'api', 'get', '2024-01-29 18:08:11', 'admin', NULL, NULL, NULL, NULL);
 INSERT INTO `onl_drag_dataset_head` VALUES ('911889086163763200', '本月产品小类销售排行', '', '911878648998969344', '', 'https://api.jeecg.com/mock/51/productSales?type=rankingCategorySales', '', '0', 'api', 'get', '2024-01-29 18:08:30', 'admin', NULL, NULL, NULL, NULL);
 INSERT INTO `onl_drag_dataset_head` VALUES ('945191934428377088', '项目数量', '', '1516743332632494082', '707437208002265088', 'select count(*) from project', '', '0', 'sql', 'get', '2024-04-30 15:42:08', 'admin', NULL, NULL, NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_drag_dataset_item
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_drag_dataset_item`;
-CREATE TABLE `onl_drag_dataset_item` (
+CREATE TABLE `onl_drag_dataset_item`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'id',
   `head_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主表ID',
-  `field_name` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段名',
-  `field_txt` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段文本',
-  `field_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段类型',
-  `widget_type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '控件类型',
-  `dict_code` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典Code',
-  `iz_show` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否列表显示',
-  `iz_search` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否查询',
-  `iz_total` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否计算总计（仅对数值有效）',
-  `search_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询模式',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `field_name` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段名',
+  `field_txt` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段文本',
+  `field_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段类型',
+  `widget_type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '控件类型',
+  `dict_code` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典Code',
+  `iz_show` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否列表显示',
+  `iz_search` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否查询',
+  `iz_total` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否计算总计（仅对数值有效）',
+  `search_mode` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询模式',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_oddi_head_id` (`head_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_oddi_head_id`(`head_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_drag_dataset_item
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_drag_dataset_item` VALUES ('1516748630361407489', '1516748630344630273', 'column1', '项目性质', 'String', NULL, '', 'Y', NULL, 'Y', NULL, NULL, 'admin', '2022-04-20 20:00:28', NULL, NULL);
 INSERT INTO `onl_drag_dataset_item` VALUES ('1516748630373990402', '1516748630344630273', 'column5', '保险公估费', 'Integer', NULL, '', 'Y', NULL, 'Y', NULL, NULL, 'admin', '2022-04-20 20:00:28', NULL, NULL);
 INSERT INTO `onl_drag_dataset_item` VALUES ('1516748630382379010', '1516748630344630273', 'column4', '承保公估评估费', 'Integer', NULL, '', 'Y', NULL, 'Y', NULL, NULL, 'admin', '2022-04-20 20:00:28', NULL, NULL);
@@ -3105,169 +3265,194 @@ INSERT INTO `onl_drag_dataset_item` VALUES ('911889006987886592', '9118890069165
 INSERT INTO `onl_drag_dataset_item` VALUES ('911889086197317632', '911889086163763200', 'name', 'name', 'String', NULL, NULL, 'Y', NULL, NULL, NULL, 0, 'admin', '2024-01-29 18:08:30', NULL, NULL);
 INSERT INTO `onl_drag_dataset_item` VALUES ('911889086230872064', '911889086163763200', 'value', 'value', 'String', NULL, NULL, 'Y', NULL, NULL, NULL, 1, 'admin', '2024-01-29 18:08:30', NULL, NULL);
 INSERT INTO `onl_drag_dataset_item` VALUES ('945191934529040384', '945191934428377088', 'count(*)', 'count(*)', 'Integer', 'String', NULL, 'Y', NULL, 'Y', NULL, 0, 'admin', '2024-04-30 15:42:08', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_drag_dataset_param
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_drag_dataset_param`;
-CREATE TABLE `onl_drag_dataset_param` (
+CREATE TABLE `onl_drag_dataset_param`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `head_id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '动态报表ID',
   `param_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '参数字段',
-  `param_txt` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数文本',
-  `param_value` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数默认值',
-  `order_num` int DEFAULT NULL COMMENT '排序',
-  `iz_search` int DEFAULT NULL COMMENT '查询标识0否1是 默认0',
-  `widget_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '查询控件类型',
-  `search_mode` int DEFAULT NULL COMMENT '查询模式1简单2范围',
-  `dict_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `param_txt` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数文本',
+  `param_value` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数默认值',
+  `order_num` int NULL DEFAULT NULL COMMENT '排序',
+  `iz_search` int NULL DEFAULT NULL COMMENT '查询标识0否1是 默认0',
+  `widget_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '查询控件类型',
+  `search_mode` int NULL DEFAULT NULL COMMENT '查询模式1简单2范围',
+  `dict_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_oddp_head_id` (`head_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_oddp_head_id`(`head_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of onl_drag_dataset_param
 -- ----------------------------
-BEGIN;
 INSERT INTO `onl_drag_dataset_param` VALUES ('1517072834441019393', '1516317603268657153', 'name', 'name', '', NULL, NULL, NULL, NULL, NULL, 'admin', '2022-04-21 17:28:44', NULL, NULL);
 INSERT INTO `onl_drag_dataset_param` VALUES ('1522831994378051586', '1522824721899511810', 'sex', 'sex', '1', NULL, NULL, NULL, NULL, 'sex', 'admin', '2022-05-07 14:50:53', NULL, NULL);
 INSERT INTO `onl_drag_dataset_param` VALUES ('1522902540256075778', '1522853857095376898', 'createTime_begin', 'createTime_begin', '2011-01-01', NULL, NULL, NULL, NULL, NULL, 'admin', '2022-05-07 16:20:28', NULL, NULL);
 INSERT INTO `onl_drag_dataset_param` VALUES ('1522902540272852993', '1522853857095376898', 'createTime_end', 'createTime_end', '2022-12-31', NULL, NULL, NULL, NULL, NULL, 'admin', '2022-05-07 16:20:28', NULL, NULL);
 INSERT INTO `onl_drag_dataset_param` VALUES ('811451544792772608', '1517071247723233281', 'age', 'age', '0', NULL, NULL, NULL, NULL, NULL, 'admin', '2023-04-27 14:25:35', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for onl_drag_page
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_drag_page`;
-CREATE TABLE `onl_drag_page` (
+CREATE TABLE `onl_drag_page`  (
   `id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '界面名称',
-  `path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '访问路径',
-  `background_color` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '背景色',
-  `background_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '背景图',
-  `design_type` int DEFAULT NULL COMMENT '设计模式(1:pc,2:手机,3:平板)',
-  `theme` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '主题色',
-  `style` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '面板主题',
-  `cover_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '封面图',
-  `template` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '布局json',
-  `protection_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '保护码',
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分类(1:仪表盘设计 2:门户设计)',
-  `iz_template` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '是否模板(1:是；0不是)',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `low_app_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '应用ID',
-  `tenant_id` int DEFAULT NULL COMMENT '租户ID',
-  `update_count` int DEFAULT '1',
-  `visits_num` int DEFAULT NULL COMMENT '访问次数',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '界面名称',
+  `path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '访问路径',
+  `background_color` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '背景色',
+  `background_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '背景图',
+  `design_type` int NULL DEFAULT NULL COMMENT '设计模式(1:pc,2:手机,3:平板)',
+  `theme` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主题色',
+  `style` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '面板主题',
+  `cover_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面图',
+  `template` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '布局json',
+  `protection_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '保护码',
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分类(1:仪表盘设计 2:门户设计)',
+  `iz_template` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '是否模板(1:是；0不是)',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `low_app_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '应用ID',
+  `tenant_id` int NULL DEFAULT NULL COMMENT '租户ID',
+  `update_count` int NULL DEFAULT 1,
+  `visits_num` int NULL DEFAULT NULL COMMENT '访问次数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='可视化拖拽界面';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '可视化拖拽界面' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_drag_page
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for onl_drag_page_comp
 -- ----------------------------
 DROP TABLE IF EXISTS `onl_drag_page_comp`;
-CREATE TABLE `onl_drag_page_comp` (
+CREATE TABLE `onl_drag_page_comp`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `parent_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '父组件ID',
-  `page_Id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '界面ID',
-  `comp_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '组件库ID',
-  `component` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '组件名称',
-  `config` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '组件配置',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `parent_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父组件ID',
+  `page_Id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '界面ID',
+  `comp_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '组件库ID',
+  `component` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '组件名称',
+  `config` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '组件配置',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='可视化拖拽页面组件';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '可视化拖拽页面组件' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of onl_drag_page_comp
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for oss_file
 -- ----------------------------
 DROP TABLE IF EXISTS `oss_file`;
-CREATE TABLE `oss_file` (
+CREATE TABLE `oss_file`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `file_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文件名称',
-  `url` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文件地址',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `file_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `url` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件地址',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='Oss File';
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = 'Oss File' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of oss_file
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for project
 -- ----------------------------
 DROP TABLE IF EXISTS `project`;
-CREATE TABLE `project` (
+CREATE TABLE `project`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   `project_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '项目名称',
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '项目地址',
-  `level` int DEFAULT '0' COMMENT '优先级',
-  `commnet` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  `mail` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
-  `weibo_link` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微博链接',
-  `wechat` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信公众号',
-  `weibo` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微博',
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目地址',
+  `level` int NULL DEFAULT 0 COMMENT '优先级',
+  `commnet` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `mail` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `weibo_link` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微博链接',
+  `wechat` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信公众号',
+  `weibo` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微博',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of project
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_blob_triggers`;
-CREATE TABLE `qrtz_blob_triggers` (
+CREATE TABLE `qrtz_blob_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `BLOB_DATA` blob,
-  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`) USING BTREE,
+  `BLOB_DATA` blob NULL,
+  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_blob_triggers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_calendars
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_calendars`;
-CREATE TABLE `qrtz_calendars` (
+CREATE TABLE `qrtz_calendars`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `CALENDAR_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `CALENDAR` blob NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`CALENDAR_NAME`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  PRIMARY KEY (`SCHED_NAME`, `CALENDAR_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_calendars
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_cron_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_cron_triggers`;
-CREATE TABLE `qrtz_cron_triggers` (
+CREATE TABLE `qrtz_cron_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `CRON_EXPRESSION` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `TIME_ZONE_ID` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`) USING BTREE,
+  `TIME_ZONE_ID` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_cron_triggers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_fired_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_fired_triggers`;
-CREATE TABLE `qrtz_fired_triggers` (
+CREATE TABLE `qrtz_fired_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ENTRY_ID` varchar(95) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -3277,190 +3462,231 @@ CREATE TABLE `qrtz_fired_triggers` (
   `SCHED_TIME` bigint NOT NULL,
   `PRIORITY` int NOT NULL,
   `STATE` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `JOB_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `JOB_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`ENTRY_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  `JOB_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `JOB_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`, `ENTRY_ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_fired_triggers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_job_details
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_job_details`;
-CREATE TABLE `qrtz_job_details` (
+CREATE TABLE `qrtz_job_details`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `JOB_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `JOB_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `JOB_CLASS_NAME` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `IS_DURABLE` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `IS_UPDATE_DATA` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `JOB_DATA` blob,
-  PRIMARY KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  `JOB_DATA` blob NULL,
+  PRIMARY KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_job_details
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_locks
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_locks`;
-CREATE TABLE `qrtz_locks` (
+CREATE TABLE `qrtz_locks`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `LOCK_NAME` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  PRIMARY KEY (`SCHED_NAME`, `LOCK_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_locks
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_paused_trigger_grps
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
-CREATE TABLE `qrtz_paused_trigger_grps` (
+CREATE TABLE `qrtz_paused_trigger_grps`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_GROUP`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_paused_trigger_grps
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_scheduler_state
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_scheduler_state`;
-CREATE TABLE `qrtz_scheduler_state` (
+CREATE TABLE `qrtz_scheduler_state`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `INSTANCE_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `LAST_CHECKIN_TIME` bigint NOT NULL,
   `CHECKIN_INTERVAL` bigint NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  PRIMARY KEY (`SCHED_NAME`, `INSTANCE_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_scheduler_state
+-- ----------------------------
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'TestNet1721133075057', 1721133697597, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_simple_triggers`;
-CREATE TABLE `qrtz_simple_triggers` (
+CREATE TABLE `qrtz_simple_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `REPEAT_COUNT` bigint NOT NULL,
   `REPEAT_INTERVAL` bigint NOT NULL,
   `TIMES_TRIGGERED` bigint NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`) USING BTREE,
+  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_simple_triggers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_simprop_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
-CREATE TABLE `qrtz_simprop_triggers` (
+CREATE TABLE `qrtz_simprop_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `STR_PROP_1` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `STR_PROP_2` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `STR_PROP_3` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `INT_PROP_1` int DEFAULT NULL,
-  `INT_PROP_2` int DEFAULT NULL,
-  `LONG_PROP_1` bigint DEFAULT NULL,
-  `LONG_PROP_2` bigint DEFAULT NULL,
-  `DEC_PROP_1` decimal(13,4) DEFAULT NULL,
-  `DEC_PROP_2` decimal(13,4) DEFAULT NULL,
-  `BOOL_PROP_1` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `BOOL_PROP_2` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`) USING BTREE,
+  `STR_PROP_1` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `STR_PROP_2` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `STR_PROP_3` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `INT_PROP_1` int NULL DEFAULT NULL,
+  `INT_PROP_2` int NULL DEFAULT NULL,
+  `LONG_PROP_1` bigint NULL DEFAULT NULL,
+  `LONG_PROP_2` bigint NULL DEFAULT NULL,
+  `DEC_PROP_1` decimal(13, 4) NULL DEFAULT NULL,
+  `DEC_PROP_2` decimal(13, 4) NULL DEFAULT NULL,
+  `BOOL_PROP_1` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `BOOL_PROP_2` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_simprop_triggers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_triggers`;
-CREATE TABLE `qrtz_triggers` (
+CREATE TABLE `qrtz_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `JOB_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `JOB_GROUP` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `NEXT_FIRE_TIME` bigint DEFAULT NULL,
-  `PREV_FIRE_TIME` bigint DEFAULT NULL,
-  `PRIORITY` int DEFAULT NULL,
+  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint NULL DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint NULL DEFAULT NULL,
+  `PRIORITY` int NULL DEFAULT NULL,
   `TRIGGER_STATE` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TRIGGER_TYPE` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `START_TIME` bigint NOT NULL,
-  `END_TIME` bigint DEFAULT NULL,
-  `CALENDAR_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `MISFIRE_INSTR` smallint DEFAULT NULL,
-  `JOB_DATA` blob,
-  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`) USING BTREE,
-  KEY `SCHED_NAME` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`) USING BTREE,
+  `END_TIME` bigint NULL DEFAULT NULL,
+  `CALENDAR_NAME` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `MISFIRE_INSTR` smallint NULL DEFAULT NULL,
+  `JOB_DATA` blob NULL,
+  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
+  INDEX `SCHED_NAME`(`SCHED_NAME` ASC, `JOB_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
   CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `qrtz_job_details` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of qrtz_triggers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for rep_demo_dxtj
 -- ----------------------------
 DROP TABLE IF EXISTS `rep_demo_dxtj`;
-CREATE TABLE `rep_demo_dxtj` (
+CREATE TABLE `rep_demo_dxtj`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '姓名',
-  `gtime` datetime DEFAULT NULL COMMENT '雇佣日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职务',
-  `jphone` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '家庭电话',
-  `birth` datetime DEFAULT NULL COMMENT '出生日期',
-  `hukou` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '户口所在地',
-  `laddress` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系地址',
-  `jperson` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '紧急联系人',
-  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'xingbie',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `gtime` datetime NULL DEFAULT NULL COMMENT '雇佣日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '职务',
+  `jphone` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '家庭电话',
+  `birth` datetime NULL DEFAULT NULL COMMENT '出生日期',
+  `hukou` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '户口所在地',
+  `laddress` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系地址',
+  `jperson` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '紧急联系人',
+  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'xingbie',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of rep_demo_dxtj
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for rep_demo_employee
 -- ----------------------------
 DROP TABLE IF EXISTS `rep_demo_employee`;
-CREATE TABLE `rep_demo_employee` (
+CREATE TABLE `rep_demo_employee`  (
   `id` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `num` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '姓名',
-  `sex` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '性别',
-  `birthday` datetime DEFAULT NULL COMMENT '出生日期',
-  `nation` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '民族',
-  `political` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '政治面貌',
-  `native_place` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '籍贯',
-  `height` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '身高',
-  `weight` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '体重',
-  `health` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '健康状况',
-  `id_card` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '身份证号',
-  `education` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '学历',
-  `school` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '毕业学校',
-  `major` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '专业',
-  `address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '联系地址',
-  `zip_code` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '邮编',
-  `email` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'Email',
-  `phone` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '手机号',
-  `foreign_language` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '外语语种',
-  `foreign_language_level` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '外语水平',
-  `computer_level` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '计算机水平',
-  `graduation_time` datetime DEFAULT NULL COMMENT '毕业时间',
-  `arrival_time` datetime DEFAULT NULL COMMENT '到职时间',
-  `positional_titles` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '职称',
-  `education_experience` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '教育经历',
-  `work_experience` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '工作经历',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `del_flag` tinyint(1) DEFAULT NULL COMMENT '删除标识0-正常,1-已删除',
+  `num` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编号',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `sex` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `birthday` datetime NULL DEFAULT NULL COMMENT '出生日期',
+  `nation` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '民族',
+  `political` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '政治面貌',
+  `native_place` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '籍贯',
+  `height` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '身高',
+  `weight` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '体重',
+  `health` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '健康状况',
+  `id_card` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '身份证号',
+  `education` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '学历',
+  `school` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '毕业学校',
+  `major` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '专业',
+  `address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '联系地址',
+  `zip_code` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '邮编',
+  `email` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'Email',
+  `phone` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `foreign_language` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '外语语种',
+  `foreign_language_level` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '外语水平',
+  `computer_level` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '计算机水平',
+  `graduation_time` datetime NULL DEFAULT NULL COMMENT '毕业时间',
+  `arrival_time` datetime NULL DEFAULT NULL COMMENT '到职时间',
+  `positional_titles` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '职称',
+  `education_experience` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '教育经历',
+  `work_experience` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '工作经历',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `del_flag` tinyint(1) NULL DEFAULT NULL COMMENT '删除标识0-正常,1-已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of rep_demo_employee
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for rep_demo_gongsi
 -- ----------------------------
 DROP TABLE IF EXISTS `rep_demo_gongsi`;
-CREATE TABLE `rep_demo_gongsi` (
+CREATE TABLE `rep_demo_gongsi`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `gname` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '货品名称',
   `gdata` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '返利',
@@ -3469,13 +3695,17 @@ CREATE TABLE `rep_demo_gongsi` (
   `zhaiyao` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `num` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of rep_demo_gongsi
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for rep_demo_jianpiao
 -- ----------------------------
 DROP TABLE IF EXISTS `rep_demo_jianpiao`;
-CREATE TABLE `rep_demo_jianpiao` (
+CREATE TABLE `rep_demo_jianpiao`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `bnum` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `ftime` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
@@ -3487,131 +3717,150 @@ CREATE TABLE `rep_demo_jianpiao` (
   `shihelv` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `s_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of rep_demo_jianpiao
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for rep_demo_order_main
 -- ----------------------------
 DROP TABLE IF EXISTS `rep_demo_order_main`;
-CREATE TABLE `rep_demo_order_main` (
+CREATE TABLE `rep_demo_order_main`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `order_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '订单编码',
-  `order_date` datetime DEFAULT NULL COMMENT '下单时间',
-  `descc` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `xiala` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '下拉多选',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `order_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单编码',
+  `order_date` datetime NULL DEFAULT NULL COMMENT '下单时间',
+  `descc` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `xiala` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '下拉多选',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of rep_demo_order_main
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for rep_demo_order_product
 -- ----------------------------
 DROP TABLE IF EXISTS `rep_demo_order_product`;
-CREATE TABLE `rep_demo_order_product` (
+CREATE TABLE `rep_demo_order_product`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `product_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '产品名字',
-  `price` double(32,0) DEFAULT NULL COMMENT '价格',
-  `num` int DEFAULT NULL COMMENT '数量',
-  `descc` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `product_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品名字',
+  `price` double(32, 0) NULL DEFAULT NULL COMMENT '价格',
+  `num` int NULL DEFAULT NULL COMMENT '数量',
+  `descc` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
   `order_fk_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '订单外键ID',
-  `pro_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '产品类型',
+  `pro_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品类型',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of rep_demo_order_product
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_announcement
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_announcement`;
-CREATE TABLE `sys_announcement` (
+CREATE TABLE `sys_announcement`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `titile` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '标题',
-  `msg_content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '内容',
-  `start_time` datetime DEFAULT NULL COMMENT '开始时间',
-  `end_time` datetime DEFAULT NULL COMMENT '结束时间',
-  `sender` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '发布人',
-  `priority` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '优先级（L低，M中，H高）',
+  `titile` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '标题',
+  `msg_content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '内容',
+  `start_time` datetime NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime NULL DEFAULT NULL COMMENT '结束时间',
+  `sender` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发布人',
+  `priority` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '优先级（L低，M中，H高）',
   `msg_category` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '2' COMMENT '消息类型1:通知公告2:系统消息',
-  `msg_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '通告对象类型（USER:指定用户，ALL:全体用户）',
-  `send_status` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '发布状态（0未发布，1已发布，2已撤销）',
-  `send_time` datetime DEFAULT NULL COMMENT '发布时间',
-  `cancel_time` datetime DEFAULT NULL COMMENT '撤销时间',
-  `del_flag` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '删除状态（0，正常，1已删除）',
-  `bus_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '业务类型(email:邮件 bpm:流程 tenant_invite:租户邀请)',
-  `bus_id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '业务id',
-  `open_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '打开方式(组件：component 路由：url)',
-  `open_page` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组件/路由 地址',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `user_ids` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '指定用户',
-  `msg_abstract` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '摘要/扩展业务参数',
-  `dt_task_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '钉钉task_id，用于撤回消息',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
+  `msg_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '通告对象类型（USER:指定用户，ALL:全体用户）',
+  `send_status` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发布状态（0未发布，1已发布，2已撤销）',
+  `send_time` datetime NULL DEFAULT NULL COMMENT '发布时间',
+  `cancel_time` datetime NULL DEFAULT NULL COMMENT '撤销时间',
+  `del_flag` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '删除状态（0，正常，1已删除）',
+  `bus_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '业务类型(email:邮件 bpm:流程 tenant_invite:租户邀请)',
+  `bus_id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '业务id',
+  `open_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '打开方式(组件：component 路由：url)',
+  `open_page` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件/路由 地址',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `user_ids` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '指定用户',
+  `msg_abstract` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '摘要/扩展业务参数',
+  `dt_task_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '钉钉task_id，用于撤回消息',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sanno_endtime` (`end_time`) USING BTREE,
-  KEY `idx_sanno_start_time` (`start_time`) USING BTREE,
-  KEY `idx_sanno_msg_type` (`msg_type`) USING BTREE,
-  KEY `idx_sanno_send_status` (`send_status`) USING BTREE,
-  KEY `idx_sanno_del_flag` (`del_flag`) USING BTREE,
-  KEY `idx_sanno_tenant_id` (`tenant_id`) USING BTREE,
-  KEY `idx_sanno_sender` (`sender`) USING BTREE,
-  KEY `idx_sanno_create_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='系统通告表';
+  INDEX `idx_sanno_endtime`(`end_time` ASC) USING BTREE,
+  INDEX `idx_sanno_start_time`(`start_time` ASC) USING BTREE,
+  INDEX `idx_sanno_msg_type`(`msg_type` ASC) USING BTREE,
+  INDEX `idx_sanno_send_status`(`send_status` ASC) USING BTREE,
+  INDEX `idx_sanno_del_flag`(`del_flag` ASC) USING BTREE,
+  INDEX `idx_sanno_tenant_id`(`tenant_id` ASC) USING BTREE,
+  INDEX `idx_sanno_sender`(`sender` ASC) USING BTREE,
+  INDEX `idx_sanno_create_time`(`create_time` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统通告表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_announcement
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_announcement_send
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_announcement_send`;
-CREATE TABLE `sys_announcement_send` (
-  `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `annt_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '通告ID',
-  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户id',
-  `read_flag` int DEFAULT NULL COMMENT '阅读状态（0未读，1已读）',
-  `read_time` datetime DEFAULT NULL COMMENT '阅读时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `star_flag` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '标星状态( 1为标星 空/0没有标星)',
-  KEY `idx_sacm_annt_id` (`annt_id`) USING BTREE,
-  KEY `idx_sacm_user_id` (`user_id`) USING BTREE,
-  KEY `idx_sacm_read_flag` (`read_flag`) USING BTREE,
-  KEY `idx_sacm_star_flag` (`star_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户通告阅读标记表';
+CREATE TABLE `sys_announcement_send`  (
+  `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `annt_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '通告ID',
+  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `read_flag` int NULL DEFAULT NULL COMMENT '阅读状态（0未读，1已读）',
+  `read_time` datetime NULL DEFAULT NULL COMMENT '阅读时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `star_flag` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '标星状态( 1为标星 空/0没有标星)',
+  INDEX `idx_sacm_annt_id`(`annt_id` ASC) USING BTREE,
+  INDEX `idx_sacm_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_sacm_read_flag`(`read_flag` ASC) USING BTREE,
+  INDEX `idx_sacm_star_flag`(`star_flag` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户通告阅读标记表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_announcement_send
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_category
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_category`;
-CREATE TABLE `sys_category` (
+CREATE TABLE `sys_category`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `pid` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '父级节点',
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '类型名称',
-  `code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '类型编码',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属部门',
-  `has_child` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否有子节点',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
+  `pid` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父级节点',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型名称',
+  `code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型编码',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `has_child` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否有子节点',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `index_code` (`code`) USING BTREE,
-  KEY `idx_sc_code` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `index_code`(`code` ASC) USING BTREE,
+  INDEX `idx_sc_code`(`code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_category
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_category` VALUES ('1183693424827564034', '0', '物料树', 'B02', 'admin', '2019-10-14 18:37:59', 'admin', '2019-10-14 18:38:15', 'A01', '1', 0);
 INSERT INTO `sys_category` VALUES ('1183693491043041282', '1183693424827564034', '上衣', 'B02A01', 'admin', '2019-10-14 18:38:15', 'admin', '2019-10-14 18:38:43', 'A01', '1', 0);
 INSERT INTO `sys_category` VALUES ('1183693534173069314', '1183693424827564034', '裤子', 'B02A02', 'admin', '2019-10-14 18:38:25', NULL, NULL, 'A01', NULL, 0);
@@ -3641,236 +3890,252 @@ INSERT INTO `sys_category` VALUES ('5c8f68845e57f68ab93a2c8d82d26ae1', '0', '笔
 INSERT INTO `sys_category` VALUES ('937fd2e9aa13b8bab1da1ca36d3fd344', 'e9ded10fd33e5753face506f4f1564b5', '台式机', 'B01-2-2', 'admin', '2019-06-10 15:43:32', 'admin', '2019-08-21 12:01:59', 'A01', NULL, 0);
 INSERT INTO `sys_category` VALUES ('e9ded10fd33e5753face506f4f1564b5', '5c8f68845e57f68ab93a2c8d82d26ae1', '苹果电脑', 'B01-2', 'admin', '2019-06-10 15:41:14', 'admin', '2019-06-10 15:43:13', 'A01', '1', 0);
 INSERT INTO `sys_category` VALUES ('f39a06bf9f390ba4a53d11bc4e0018d7', '5c8f68845e57f68ab93a2c8d82d26ae1', '华为', 'B01-1', 'admin', '2019-06-10 15:34:24', 'admin', '2019-08-21 12:01:56', 'A01', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_check_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_check_rule`;
-CREATE TABLE `sys_check_rule` (
+CREATE TABLE `sys_check_rule`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `rule_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则名称',
-  `rule_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则Code',
-  `rule_json` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则JSON',
-  `rule_description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则描述',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `rule_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则名称',
+  `rule_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则Code',
+  `rule_json` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则JSON',
+  `rule_description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则描述',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_scr_rule_code` (`rule_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uk_scr_rule_code`(`rule_code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_check_rule
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_check_rule` VALUES ('1224980593992388610', '通用编码规则', 'common', '[{\"digits\":\"1\",\"pattern\":\"^[a-z|A-Z]$\",\"message\":\"第一位只能是字母\"},{\"digits\":\"*\",\"pattern\":\"^[0-9|a-z|A-Z|_]{0,}$\",\"message\":\"只能填写数字、大小写字母、下划线\"},{\"digits\":\"*\",\"pattern\":\"^.{3,}$\",\"message\":\"最少输入3位数\"},{\"digits\":\"*\",\"pattern\":\"^.{3,12}$\",\"message\":\"最多输入12位数\"}]', '规则：1、首位只能是字母；2、只能填写数字、大小写字母、下划线；3、最少3位数，最多12位数。', 'admin', '2020-02-07 11:25:48', 'admin', '2020-02-05 16:58:27');
 INSERT INTO `sys_check_rule` VALUES ('1225001845524004866', '负责的功能测试', 'test', '[{\"digits\":\"*\",\"pattern\":\"^.{3,12}$\",\"message\":\"只能输入3-12位字符\"},{\"digits\":\"3\",\"pattern\":\"^\\\\d{3}$\",\"message\":\"前3位必须是数字\"},{\"digits\":\"*\",\"pattern\":\"^[^pP]*$\",\"message\":\"不能输入P\"},{\"digits\":\"4\",\"pattern\":\"^@{4}$\",\"message\":\"第4-7位必须都为 @\"},{\"digits\":\"2\",\"pattern\":\"^#=$\",\"message\":\"第8-9位必须是 #=\"},{\"digits\":\"1\",\"pattern\":\"^O$\",\"message\":\"第10位必须为大写的O\"},{\"digits\":\"*\",\"pattern\":\"^.*。$\",\"message\":\"必须以。结尾\"}]', '包含长度校验、特殊字符校验等', 'admin', '2020-02-07 11:57:31', 'admin', '2020-02-05 18:22:54');
 INSERT INTO `sys_check_rule` VALUES ('1703950488547127298', 'URL合法性校验', 'url_check', '[{\"digits\":4,\"pattern\":\"http\",\"message\":\"必须是合法的URL\"}]', NULL, 'admin', '2023-09-19 09:54:36', 'admin', '2023-09-19 09:53:49');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_comment`;
-CREATE TABLE `sys_comment` (
+CREATE TABLE `sys_comment`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `table_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '表名',
   `table_data_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '数据id',
   `from_user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '来源用户id',
-  `to_user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '发送给用户id(允许为空)',
-  `comment_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '评论id(允许为空，不为空时，则为回复)',
-  `comment_content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '回复内容',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `to_user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发送给用户id(允许为空)',
+  `comment_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '评论id(允许为空，不为空时，则为回复)',
+  `comment_content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复内容',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_table_data_id` (`table_name`,`table_data_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='系统评论回复表';
+  INDEX `idx_table_data_id`(`table_name` ASC, `table_data_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统评论回复表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_comment
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_data_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_data_log`;
-CREATE TABLE `sys_data_log` (
+CREATE TABLE `sys_data_log`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'id',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人真实名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `data_table` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '表名',
-  `data_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据ID',
-  `data_content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '数据内容',
-  `data_version` int DEFAULT NULL COMMENT '版本号',
-  `type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'json' COMMENT '类型',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人真实名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `data_table` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表名',
+  `data_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据ID',
+  `data_content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '数据内容',
+  `data_version` int NULL DEFAULT NULL COMMENT '版本号',
+  `type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'json' COMMENT '类型',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sdl_data_table_id` (`data_table`,`data_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_sdl_data_table_id`(`data_table` ASC, `data_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_data_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_data_source
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_data_source`;
-CREATE TABLE `sys_data_source` (
+CREATE TABLE `sys_data_source`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据源编码',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据源名称',
-  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  `db_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据库类型',
-  `db_driver` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '驱动类',
-  `db_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据源地址',
-  `db_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据库名称',
-  `db_username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名',
-  `db_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
+  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源编码',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
+  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `db_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据库类型',
+  `db_driver` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '驱动类',
+  `db_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源地址',
+  `db_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据库名称',
+  `db_username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `db_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_sdc_rule_code` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uk_sdc_rule_code`(`code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_data_source
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_data_source` VALUES ('1209779538310004737', 'local_mysql', 'MySQL5.7', '本地数据库MySQL5.7', '1', 'com.mysql.jdbc.Driver', 'jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false', 'jeecg-boot', 'root', 'f5b6775e8d1749483f2320627de0e706', 'admin', '2019-12-25 18:14:53', 'admin', '2020-07-10 16:54:42', 'A01', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_depart
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_depart`;
-CREATE TABLE `sys_depart` (
+CREATE TABLE `sys_depart`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'ID',
-  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '父机构ID',
+  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父机构ID',
   `depart_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '机构/部门名称',
-  `depart_name_en` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '英文名',
-  `depart_name_abbr` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '缩写',
-  `depart_order` int DEFAULT '0' COMMENT '排序',
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
+  `depart_name_en` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '英文名',
+  `depart_name_abbr` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '缩写',
+  `depart_order` int NULL DEFAULT 0 COMMENT '排序',
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
   `org_category` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '1' COMMENT '机构类别 1公司，2组织机构，3岗位',
-  `org_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '机构类型 1一级部门 2子部门',
+  `org_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '机构类型 1一级部门 2子部门',
   `org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '机构编码',
-  `mobile` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '手机号',
-  `fax` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '传真',
-  `address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '地址',
-  `memo` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '备注',
-  `status` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '状态（1启用，0不启用）',
-  `del_flag` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '删除状态（0，正常，1已删除）',
-  `qywx_identifier` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '对接企业微信的ID',
-  `ding_identifier` varchar(100) DEFAULT NULL COMMENT '对接钉钉部门的ID',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
-  `iz_leaf` tinyint(1) DEFAULT '1' COMMENT '是否有叶子节点: 1是0否',
+  `mobile` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `fax` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '传真',
+  `address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '地址',
+  `memo` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '状态（1启用，0不启用）',
+  `del_flag` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '删除状态（0，正常，1已删除）',
+  `qywx_identifier` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '对接企业微信的ID',
+  `ding_identifier` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '对接钉钉部门的ID',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
+  `iz_leaf` tinyint(1) NULL DEFAULT 1 COMMENT '是否有叶子节点: 1是0否',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_depart_org_code` (`org_code`) USING BTREE,
-  KEY `idx_sd_parent_id` (`parent_id`) USING BTREE,
-  KEY `idx_sd_depart_order` (`depart_order`) USING BTREE,
-  KEY `idx_sd_org_code` (`org_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='组织机构表';
+  UNIQUE INDEX `uniq_depart_org_code`(`org_code` ASC) USING BTREE,
+  INDEX `idx_sd_parent_id`(`parent_id` ASC) USING BTREE,
+  INDEX `idx_sd_depart_order`(`depart_order` ASC) USING BTREE,
+  INDEX `idx_sd_org_code`(`org_code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '组织机构表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_depart
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_depart` VALUES ('1795015370490580993', '', '安全测试', NULL, NULL, 0, NULL, '1', '1', 'A01', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, 'admin', '2024-05-27 16:53:09', NULL, NULL, 0, 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_depart_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_depart_permission`;
-CREATE TABLE `sys_depart_permission` (
+CREATE TABLE `sys_depart_permission`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `depart_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '部门id',
-  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '权限id',
-  `data_rule_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据规则id',
+  `depart_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门id',
+  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限id',
+  `data_rule_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据规则id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='部门权限表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门权限表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_depart_permission
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_depart_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_depart_role`;
-CREATE TABLE `sys_depart_role` (
+CREATE TABLE `sys_depart_role`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `depart_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '部门id',
-  `role_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '部门角色名称',
-  `role_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '部门角色编码',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `depart_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门id',
+  `role_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门角色名称',
+  `role_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门角色编码',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='部门角色表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门角色表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_depart_role
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_depart_role_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_depart_role_permission`;
-CREATE TABLE `sys_depart_role_permission` (
+CREATE TABLE `sys_depart_role_permission`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `depart_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '部门id',
-  `role_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '角色id',
-  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '权限id',
-  `data_rule_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据权限ids',
-  `operate_date` datetime DEFAULT NULL COMMENT '操作时间',
-  `operate_ip` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '操作ip',
+  `depart_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门id',
+  `role_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '角色id',
+  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限id',
+  `data_rule_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据权限ids',
+  `operate_date` datetime NULL DEFAULT NULL COMMENT '操作时间',
+  `operate_ip` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '操作ip',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sdrp_role_per_id` (`role_id`,`permission_id`) USING BTREE,
-  KEY `idx_sdrp_role_id` (`role_id`) USING BTREE,
-  KEY `idx_sdrp_per_id` (`permission_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='部门角色权限表';
+  INDEX `idx_sdrp_role_per_id`(`role_id` ASC, `permission_id` ASC) USING BTREE,
+  INDEX `idx_sdrp_role_id`(`role_id` ASC) USING BTREE,
+  INDEX `idx_sdrp_per_id`(`permission_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门角色权限表' ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of sys_depart_role_permission
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_depart_role_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_depart_role_user`;
-CREATE TABLE `sys_depart_role_user` (
+CREATE TABLE `sys_depart_role_user`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户id',
-  `drole_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '角色id',
+  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `drole_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sdr_user_id` (`user_id`) USING BTREE,
-  KEY `idx_sdr_role_id` (`drole_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='部门角色用户表';
+  INDEX `idx_sdr_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_sdr_role_id`(`drole_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门角色用户表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_depart_role_user
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict` (
+CREATE TABLE `sys_dict`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `dict_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典名称',
   `dict_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典编码',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `del_flag` int DEFAULT NULL COMMENT '删除状态',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `type` int(1) unsigned zerofill DEFAULT '0' COMMENT '字典类型0为string,1为number',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
-  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '低代码应用ID',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `del_flag` int NULL DEFAULT NULL COMMENT '删除状态',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `type` int(1) UNSIGNED ZEROFILL NULL DEFAULT 0 COMMENT '字典类型0为string,1为number',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
+  `low_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '低代码应用ID',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_sd_dict_code` (`dict_code`) USING BTREE,
-  KEY `uk_sd_tenant_id` (`tenant_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uk_sd_dict_code`(`dict_code` ASC) USING BTREE,
+  INDEX `uk_sd_tenant_id`(`tenant_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dict` VALUES ('0b5d19e1fce4b2e6647e6b4a17760c14', '通告类型', 'msg_category', '消息类型1:通知公告2:系统消息', 0, 'admin', '2019-04-22 18:01:35', NULL, NULL, 0, 0, NULL);
 INSERT INTO `sys_dict` VALUES ('1174509082208395266', '职务职级', 'position_rank', '职务表职级字典', 0, 'admin', '2019-09-19 10:22:41', NULL, NULL, 0, 0, NULL);
 INSERT INTO `sys_dict` VALUES ('1174511106530525185', '机构类型', 'org_category', '机构类型 1公司，2部门 3岗位', 0, 'admin', '2019-09-19 10:30:43', NULL, NULL, 0, 0, NULL);
@@ -3931,36 +4196,34 @@ INSERT INTO `sys_dict` VALUES ('c36169beb12de8a71c8683ee7c28a503', '部门状态
 INSERT INTO `sys_dict` VALUES ('c5a14c75172783d72cbee6ee7f5df5d1', 'Online图表类型', 'online_graph_type', 'Online图表类型', 0, 'admin', '2019-04-12 17:04:06', NULL, NULL, 0, 0, NULL);
 INSERT INTO `sys_dict` VALUES ('d6e1152968b02d69ff358c75b48a6ee1', '流程类型', 'bpm_process_type', NULL, 0, 'admin', '2021-02-22 19:26:54', 'admin', '2019-03-30 18:14:44', 0, 0, NULL);
 INSERT INTO `sys_dict` VALUES ('fc6cd58fde2e8481db10d3a1e68ce70c', '用户状态', 'user_status', NULL, 0, 'admin', '2019-03-18 21:57:25', 'admin', '2019-03-18 23:11:58', 1, 0, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_dict_item
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_item`;
-CREATE TABLE `sys_dict_item` (
+CREATE TABLE `sys_dict_item`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `dict_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典id',
+  `dict_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典id',
   `item_text` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典项文本',
   `item_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典项值',
-  `item_color` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字典项颜色',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `sort_order` int DEFAULT NULL COMMENT '排序',
-  `status` int DEFAULT NULL COMMENT '状态（1启用 0不启用）',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
+  `item_color` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字典项颜色',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `sort_order` int NULL DEFAULT NULL COMMENT '排序',
+  `status` int NULL DEFAULT NULL COMMENT '状态（1启用 0不启用）',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sdi_role_dict_id` (`dict_id`) USING BTREE,
-  KEY `idx_sdi_role_sort_order` (`sort_order`) USING BTREE,
-  KEY `idx_sdi_status` (`status`) USING BTREE,
-  KEY `idx_sdi_dict_val` (`dict_id`,`item_value`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_sdi_role_dict_id`(`dict_id` ASC) USING BTREE,
+  INDEX `idx_sdi_role_sort_order`(`sort_order` ASC) USING BTREE,
+  INDEX `idx_sdi_status`(`status` ASC) USING BTREE,
+  INDEX `idx_sdi_dict_val`(`dict_id` ASC, `item_value` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_item
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dict_item` VALUES ('0072d115e07c875d76c9b022e2179128', '4d7fec1a7799a436d26d02325eff295e', '低', '0', NULL, '低', 0, 1, 'admin', '2019-04-16 17:04:59', 'admin', '2024-05-13 20:50:47');
 INSERT INTO `sys_dict_item` VALUES ('05a2e732ce7b00aa52141ecc3e330b4e', '3486f32803bb953e7155dab3513dc68b', '已删除', '1', NULL, NULL, NULL, 1, 'admin', '2025-10-18 21:46:56', 'admin', '2019-03-28 22:23:20');
 INSERT INTO `sys_dict_item` VALUES ('096c2e758d823def3855f6376bc736fb', 'bd1b8bc28e65d6feefefb6f3c79f42fd', 'SQL', 'sql', NULL, NULL, 1, 1, 'admin', '2019-04-12 17:26:26', NULL, NULL);
@@ -4204,209 +4467,203 @@ INSERT INTO `sys_dict_item` VALUES ('f753aff60ff3931c0ecb4812d8b5e643', '4c03fca
 INSERT INTO `sys_dict_item` VALUES ('f80a8f6838215753b05e1a5ba3346d22', '880a895c98afeca9d9ac39f29e67c13e', '删除', '4', NULL, '', 4, 1, 'admin', '2019-07-22 10:55:14', 'admin', '2019-07-22 10:55:30');
 INSERT INTO `sys_dict_item` VALUES ('fcec03570f68a175e1964808dc3f1c91', '4c03fca6bf1f0299c381213961566349', 'Tab风格', 'tab', NULL, NULL, 1, 1, 'admin', '2019-04-12 17:43:31', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('fe50b23ae5e68434def76f67cef35d2d', '78bda155fe380b1b3f175f1e88c284c6', '已作废', '4', NULL, '已作废', 4, 1, 'admin', '2021-09-09 16:33:43', 'admin', '2019-05-09 16:34:40');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_files
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_files`;
-CREATE TABLE `sys_files` (
+CREATE TABLE `sys_files`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `file_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文件名称',
-  `url` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文件地址',
-  `file_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文档类型（folder:文件夹 excel:excel doc:word ppt:ppt image:图片  archive:其他文档 video:视频 pdf:pdf）',
-  `store_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文件上传类型(temp/本地上传(临时文件) manage/知识库)',
-  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '父级id',
-  `tenant_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '租户id',
-  `file_size` double(13,2) DEFAULT NULL COMMENT '文件大小（kb）',
-  `iz_folder` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否文件夹(1：是  0：否)',
-  `iz_root_folder` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否为1级文件夹，允许为空 (1：是 )',
-  `iz_star` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否标星(1：是  0：否)',
-  `down_count` int DEFAULT NULL COMMENT '下载次数',
-  `read_count` int DEFAULT NULL COMMENT '阅读次数',
-  `share_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '分享链接',
-  `share_perms` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '分享权限(1.关闭分享 2.允许所有联系人查看 3.允许任何人查看)',
-  `enable_down` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否允许下载(1：是  0：否)',
-  `enable_updat` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否允许修改(1：是  0：否)',
-  `del_flag` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '删除状态(0-正常,1-删除至回收站)',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `file_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `url` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件地址',
+  `file_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文档类型（folder:文件夹 excel:excel doc:word ppt:ppt image:图片  archive:其他文档 video:视频 pdf:pdf）',
+  `store_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件上传类型(temp/本地上传(临时文件) manage/知识库)',
+  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父级id',
+  `tenant_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '租户id',
+  `file_size` double(13, 2) NULL DEFAULT NULL COMMENT '文件大小（kb）',
+  `iz_folder` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否文件夹(1：是  0：否)',
+  `iz_root_folder` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否为1级文件夹，允许为空 (1：是 )',
+  `iz_star` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否标星(1：是  0：否)',
+  `down_count` int NULL DEFAULT NULL COMMENT '下载次数',
+  `read_count` int NULL DEFAULT NULL COMMENT '阅读次数',
+  `share_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '分享链接',
+  `share_perms` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '分享权限(1.关闭分享 2.允许所有联系人查看 3.允许任何人查看)',
+  `enable_down` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否允许下载(1：是  0：否)',
+  `enable_updat` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否允许修改(1：是  0：否)',
+  `del_flag` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '删除状态(0-正常,1-删除至回收站)',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `index_tenant_id` (`tenant_id`) USING BTREE,
-  KEY `index_del_flag` (`del_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='知识库-文档管理';
+  INDEX `index_tenant_id`(`tenant_id` ASC) USING BTREE,
+  INDEX `index_del_flag`(`del_flag` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '知识库-文档管理' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_files
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_files` VALUES ('1580814573568143361', '11.jpg', 'comment/11_1665730539114.jpg', 'image', 'temp', NULL, NULL, 10956.00, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', 'admin', '2022-10-14 14:55:39', NULL, NULL);
 INSERT INTO `sys_files` VALUES ('1584493984691740674', 'jeecg-boot漏洞.pdf', 'comment/jeecg-boot漏洞_1666607779077.pdf', 'pdf', 'temp', NULL, NULL, 842789.00, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', 'admin', '2022-10-24 18:36:19', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_fill_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_fill_rule`;
-CREATE TABLE `sys_fill_rule` (
+CREATE TABLE `sys_fill_rule`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键ID',
-  `rule_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则名称',
-  `rule_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则Code',
-  `rule_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则实现类',
-  `rule_params` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规则参数',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `rule_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则名称',
+  `rule_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则Code',
+  `rule_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则实现类',
+  `rule_params` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则参数',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_sfr_rule_code` (`rule_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uk_sfr_rule_code`(`rule_code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_fill_rule
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_fill_rule` VALUES ('1202551334738382850', '机构编码生成', 'org_num_role', 'org.jeecg.modules.system.rule.OrgCodeRule', '{\"parentId\":\"c6d7cb4deeac411cb3384b1b31278596\"}', 'admin', '2019-12-09 10:37:06', 'admin', '2019-12-05 19:32:35');
 INSERT INTO `sys_fill_rule` VALUES ('1202787623203065858', '分类字典编码生成', 'category_code_rule', 'org.jeecg.modules.system.rule.CategoryCodeRule', '{\"pid\":\"\"}', 'admin', '2022-10-13 16:47:52', 'admin', '2019-12-06 11:11:31');
 INSERT INTO `sys_fill_rule` VALUES ('1260134137920090113', '订单流水号', 'shop_order_num', 'org.jeecg.modules.online.cgform.rule.OrderNumberRule', '{}', 'admin', '2020-12-07 18:29:50', 'admin', '2020-05-12 17:06:05');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_form_file
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_form_file`;
-CREATE TABLE `sys_form_file` (
+CREATE TABLE `sys_form_file`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `table_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '表名',
   `table_data_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '数据id',
-  `file_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '关联文件id',
-  `file_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '文件类型(text:文本, excel:excel doc:word ppt:ppt image:图片  archive:其他文档 video:视频 pdf:pdf）)',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
+  `file_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '关联文件id',
+  `file_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件类型(text:文本, excel:excel doc:word ppt:ppt image:图片  archive:其他文档 video:视频 pdf:pdf）)',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_table_form` (`table_name`,`table_data_id`) USING BTREE,
-  KEY `index_file_id` (`file_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_table_form`(`table_name` ASC, `table_data_id` ASC) USING BTREE,
+  INDEX `index_file_id`(`file_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_form_file
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_form_file` VALUES ('1580814573635252225', 'sys_comment', '1580814573433925634', '1580814573568143361', 'image', 'admin', '2022-10-14 14:55:39');
 INSERT INTO `sys_form_file` VALUES ('1584493984716906497', 'sys_comment', '1584493984364584961', '1584493984691740674', 'pdf', 'admin', '2022-10-24 18:36:19');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_gateway_route
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_gateway_route`;
-CREATE TABLE `sys_gateway_route` (
+CREATE TABLE `sys_gateway_route`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `router_id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '路由ID',
-  `name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '服务名',
-  `uri` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '服务地址',
-  `predicates` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '断言',
-  `filters` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '过滤器',
-  `retryable` int DEFAULT NULL COMMENT '是否重试:0-否 1-是',
-  `strip_prefix` int DEFAULT NULL COMMENT '是否忽略前缀0-否 1-是',
-  `persistable` int DEFAULT NULL COMMENT '是否为保留数据:0-否 1-是',
-  `show_api` int DEFAULT NULL COMMENT '是否在接口文档中展示:0-否 1-是',
-  `status` int DEFAULT NULL COMMENT '状态:0-无效 1-有效',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属部门',
+  `router_id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '路由ID',
+  `name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '服务名',
+  `uri` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '服务地址',
+  `predicates` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '断言',
+  `filters` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '过滤器',
+  `retryable` int NULL DEFAULT NULL COMMENT '是否重试:0-否 1-是',
+  `strip_prefix` int NULL DEFAULT NULL COMMENT '是否忽略前缀0-否 1-是',
+  `persistable` int NULL DEFAULT NULL COMMENT '是否为保留数据:0-否 1-是',
+  `show_api` int NULL DEFAULT NULL COMMENT '是否在接口文档中展示:0-否 1-是',
+  `status` int NULL DEFAULT NULL COMMENT '状态:0-无效 1-有效',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_gateway_route
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_gateway_route` VALUES ('1331051599401857026', 'jeecg-demo-websocket', 'jeecg-demo-websocket', 'lb:ws://jeecg-demo', '[{\"args\":[\"/vxeSocket/**\"],\"name\":\"Path\"}]', '[]', NULL, NULL, NULL, NULL, 1, 'admin', '2020-11-24 09:46:46', NULL, NULL, NULL);
 INSERT INTO `sys_gateway_route` VALUES ('jeecg-cloud-websocket', 'jeecg-system-websocket', 'jeecg-system-websocket', 'lb:ws://jeecg-system', '[{\"args\":[\"/websocket/**\",\"/eoaSocket/**\",\"/newsWebsocket/**\"],\"name\":\"Path\"}]', '[]', NULL, NULL, NULL, NULL, 1, 'admin', '2020-11-16 19:41:51', NULL, NULL, NULL);
 INSERT INTO `sys_gateway_route` VALUES ('jeecg-demo', 'jeecg-demo', 'jeecg-demo', 'lb://jeecg-demo', '[{\"args\":[\"/mock/**\",\"/bigscreen/template1/**\",\"/bigscreen/template2/**\",\"/test/**\"],\"name\":\"Path\"}]', '[]', NULL, NULL, NULL, NULL, 1, 'admin', '2020-11-16 19:41:51', NULL, NULL, NULL);
 INSERT INTO `sys_gateway_route` VALUES ('jeecg-system', 'jeecg-system', 'jeecg-system', 'lb://jeecg-system', '[{\"args\":[\"/sys/**\",\"/online/**\",\"/bigscreen/**\",\"/jmreport/**\",\"/druid/**\",\"/generic/**\"],\"name\":\"Path\"}]', '[]', NULL, NULL, NULL, NULL, 1, 'admin', '2020-11-16 19:41:51', NULL, NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
+CREATE TABLE `sys_log`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `log_type` int DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志, 3.租户操作日志）',
-  `log_content` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '日志内容',
-  `operate_type` int DEFAULT NULL COMMENT '操作类型',
-  `userid` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '操作用户账号',
-  `username` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '操作用户名称',
-  `ip` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'IP',
-  `method` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求java方法',
-  `request_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求路径',
-  `request_param` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '请求参数',
-  `request_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '请求类型',
-  `cost_time` bigint DEFAULT NULL COMMENT '耗时',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `tenant_id` int DEFAULT NULL COMMENT '租户ID',
-  `client_type` varchar(5) DEFAULT NULL COMMENT '客户端类型 pc:电脑端 app:手机端 h5:移动网页端',
+  `log_type` int NULL DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志, 3.租户操作日志）',
+  `log_content` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '日志内容',
+  `operate_type` int NULL DEFAULT NULL COMMENT '操作类型',
+  `userid` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '操作用户账号',
+  `username` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '操作用户名称',
+  `ip` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'IP',
+  `method` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求java方法',
+  `request_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求路径',
+  `request_param` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '请求参数',
+  `request_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求类型',
+  `cost_time` bigint NULL DEFAULT NULL COMMENT '耗时',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `tenant_id` int NULL DEFAULT NULL COMMENT '租户ID',
+  `client_type` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '客户端类型 pc:电脑端 app:手机端 h5:移动网页端',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sl_userid` (`userid`) USING BTREE,
-  KEY `idx_sl_log_type` (`log_type`) USING BTREE,
-  KEY `idx_sl_operate_type` (`operate_type`) USING BTREE,
-  KEY `idx_sl_create_time` (`create_time`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='系统日志表';
+  INDEX `idx_sl_userid`(`userid`) USING BTREE,
+  INDEX `idx_sl_log_type`(`log_type`) USING BTREE,
+  INDEX `idx_sl_operate_type`(`operate_type`) USING BTREE,
+  INDEX `idx_sl_create_time`(`create_time`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统日志表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_permission`;
-CREATE TABLE `sys_permission` (
+CREATE TABLE `sys_permission`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '父id',
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单标题',
-  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '路径',
-  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组件',
-  `is_route` tinyint(1) DEFAULT '1' COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
-  `component_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组件名字',
-  `redirect` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '一级菜单跳转地址',
-  `menu_type` int DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
-  `perms` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单权限编码',
-  `perms_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT '权限策略1显示2禁用',
-  `sort_no` double(8,2) DEFAULT NULL COMMENT '菜单排序',
-  `always_show` tinyint(1) DEFAULT NULL COMMENT '聚合子路由: 1是0否',
-  `icon` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单图标',
-  `is_leaf` tinyint(1) DEFAULT NULL COMMENT '是否叶子节点:    1是0否',
-  `keep_alive` tinyint(1) DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
-  `hidden` tinyint DEFAULT '0' COMMENT '是否隐藏路由: 0否,1是',
-  `hide_tab` tinyint DEFAULT NULL COMMENT '是否隐藏tab: 0否,1是',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `create_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `del_flag` int DEFAULT '0' COMMENT '删除状态 0正常 1已删除',
-  `rule_flag` int DEFAULT '0' COMMENT '是否添加数据权限1是0否',
-  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
-  `internal_or_external` tinyint(1) DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
+  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父id',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单标题',
+  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '路径',
+  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件',
+  `is_route` tinyint(1) NULL DEFAULT 1 COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
+  `component_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件名字',
+  `redirect` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '一级菜单跳转地址',
+  `menu_type` int NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
+  `perms` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单权限编码',
+  `perms_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '权限策略1显示2禁用',
+  `sort_no` double(8, 2) NULL DEFAULT NULL COMMENT '菜单排序',
+  `always_show` tinyint(1) NULL DEFAULT NULL COMMENT '聚合子路由: 1是0否',
+  `icon` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
+  `is_leaf` tinyint(1) NULL DEFAULT NULL COMMENT '是否叶子节点:    1是0否',
+  `keep_alive` tinyint(1) NULL DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
+  `hidden` tinyint NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
+  `hide_tab` tinyint NULL DEFAULT NULL COMMENT '是否隐藏tab: 0否,1是',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `del_flag` int NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
+  `rule_flag` int NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
+  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
+  `internal_or_external` tinyint(1) NULL DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `index_menu_type` (`menu_type`) USING BTREE,
-  KEY `index_menu_hidden` (`hidden`) USING BTREE,
-  KEY `index_menu_status` (`status`) USING BTREE,
-  KEY `index_menu_del_flag` (`del_flag`) USING BTREE,
-  KEY `index_menu_url` (`url`) USING BTREE,
-  KEY `index_menu_sort_no` (`sort_no`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
+  INDEX `index_menu_type`(`menu_type` ASC) USING BTREE,
+  INDEX `index_menu_hidden`(`hidden` ASC) USING BTREE,
+  INDEX `index_menu_status`(`status` ASC) USING BTREE,
+  INDEX `index_menu_del_flag`(`del_flag` ASC) USING BTREE,
+  INDEX `index_menu_url`(`url` ASC) USING BTREE,
+  INDEX `index_menu_sort_no`(`sort_no` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_permission
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_permission` VALUES ('1170592628746878978', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '菜单管理', '/system/menu', 'system/menu/index', 1, NULL, NULL, 1, NULL, '1', 3.00, 0, 'ant-design:menu-fold-outlined', 0, 0, 0, 0, NULL, 'admin', '2019-09-08 15:00:05', 'admin', '2022-11-10 16:42:38', 0, 0, '1', 0);
 INSERT INTO `sys_permission` VALUES ('119213522910765570', '1674708136602542082', '租户用户', '/system/tenant/TenantUserList', 'system/tenant/TenantUserList', 1, 'tenant-system-user', NULL, 1, NULL, NULL, 3.20, 0, 'ant-design:user', 1, 0, 0, 0, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2023-03-09 20:18:16', 0, 0, NULL, 0);
 INSERT INTO `sys_permission` VALUES ('1211885237487923202', '1207203817658105858', 'btn:add', '', '', 1, NULL, NULL, 2, 'btn:add', '1', 1.00, 0, NULL, 1, 0, 0, NULL, NULL, 'admin', '2019-12-31 13:42:11', 'admin', '2020-01-07 20:07:53', 0, 0, '1', 0);
@@ -4889,32 +5146,30 @@ INSERT INTO `sys_permission` VALUES ('5c2f42277948043026b7a14692456828', 'd7d6e2
 INSERT INTO `sys_permission` VALUES ('9502685863ab87f0ad1134142788a385', '1438108176273760258', '首页', '/dashboard/analysis', 'dashboard/Analysis', 1, NULL, NULL, 1, NULL, NULL, 1.00, 0, 'ant-design:bank-filled', 1, 1, 0, NULL, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2021-09-17 15:43:16', 0, 0, NULL, 0);
 INSERT INTO `sys_permission` VALUES ('d7d6e2e4e2934f2c9385a623fd98c6f3', '', '系统管理', '/isystem', 'layouts/RouteView', 1, NULL, NULL, 0, NULL, NULL, 3.00, 0, 'ant-design:setting', 0, 0, 0, 0, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2022-11-11 15:37:11', 0, 0, NULL, 0);
 INSERT INTO `sys_permission` VALUES ('f15543b0263cf6c5fac85afdd3eba3f2', '3f915b2769fc80648e92d04e84ca059d', '用户导入', '', NULL, 0, NULL, NULL, 2, 'system:user:import', '1', 1.00, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2019-05-13 19:15:27', 'admin', '2022-06-30 15:05:12', 0, 0, '1', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_permission_data_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_permission_data_rule`;
-CREATE TABLE `sys_permission_data_rule` (
+CREATE TABLE `sys_permission_data_rule`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'ID',
-  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单ID',
-  `rule_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '规则名称',
-  `rule_column` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '字段',
-  `rule_conditions` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '条件',
-  `rule_value` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '规则值',
-  `status` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '权限有效状态1有0否',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
+  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单ID',
+  `rule_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '规则名称',
+  `rule_column` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '字段',
+  `rule_conditions` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '条件',
+  `rule_value` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '规则值',
+  `status` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限有效状态1有0否',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_spdr_permission_id` (`permission_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_spdr_permission_id`(`permission_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_permission_data_rule
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_permission_data_rule` VALUES ('1260935285157511170', '4148ec82b6acd69f470bea75fe41c357', 'createBy', 'createBy', '=', '#{sys_user_code}', '0', '2020-05-14 22:09:34', 'jeecg', '2020-05-14 22:13:52', 'admin');
 INSERT INTO `sys_permission_data_rule` VALUES ('1260936345293012993', '4148ec82b6acd69f470bea75fe41c357', '年龄', 'age', '>', '20', '1', '2020-05-14 22:13:46', 'admin', NULL, NULL);
 INSERT INTO `sys_permission_data_rule` VALUES ('1260937192290762754', '4148ec82b6acd69f470bea75fe41c357', 'sysOrgCode', 'sysOrgCode', 'RIGHT_LIKE', '#{sys_org_code}', '1', '2020-05-14 22:17:08', 'admin', NULL, NULL);
@@ -4940,55 +5195,53 @@ INSERT INTO `sys_permission_data_rule` VALUES ('4028ab775dca0d1b015dca4183530018
 INSERT INTO `sys_permission_data_rule` VALUES ('4028ef815595a881015595b0ccb60001', '40288088481d019401481d2fcebf000d', '限只能看自己', 'create_by', '=', '#{sys_user_code}', '1', NULL, NULL, '2017-08-14 15:03:56', 'demo');
 INSERT INTO `sys_permission_data_rule` VALUES ('4028ef81574ae99701574aed26530005', '4028ef81574ae99701574aeb97bd0003', '用户名', 'userName', '!=', 'admin', '1', '2016-09-21 12:07:18', 'admin', NULL, NULL);
 INSERT INTO `sys_permission_data_rule` VALUES ('f852d85d47f224990147f2284c0c0005', NULL, '小于', 'test', '<=', '11', '1', '2014-08-20 14:43:52', '8a8ab0b246dc81120146dc8181950052', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_permission_v2
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_permission_v2`;
-CREATE TABLE `sys_permission_v2` (
+CREATE TABLE `sys_permission_v2`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '父id',
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单标题',
-  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '路径',
-  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组件',
-  `component_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组件名字',
-  `redirect` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '一级菜单跳转地址',
-  `menu_type` int DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
-  `perms` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单权限编码',
-  `perms_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT '权限策略1显示2禁用',
-  `sort_no` double(8,2) DEFAULT NULL COMMENT '菜单排序',
-  `always_show` tinyint(1) DEFAULT NULL COMMENT '聚合子路由: 1是0否',
-  `icon` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '菜单图标',
-  `is_route` tinyint(1) DEFAULT '1' COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
-  `is_leaf` tinyint(1) DEFAULT NULL COMMENT '是否叶子节点:    1:是   0:不是',
-  `keep_alive` tinyint(1) DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
-  `hidden` tinyint(1) DEFAULT '0' COMMENT '是否隐藏路由: 0否,1是',
-  `hide_tab` tinyint(1) DEFAULT NULL COMMENT '是否隐藏tab: 0否,1是',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `del_flag` int DEFAULT '0' COMMENT '删除状态 0正常 1已删除',
-  `rule_flag` int DEFAULT '0' COMMENT '是否添加数据权限1是0否',
-  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
-  `internal_or_external` tinyint(1) DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
+  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父id',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单标题',
+  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '路径',
+  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件',
+  `component_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件名字',
+  `redirect` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '一级菜单跳转地址',
+  `menu_type` int NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
+  `perms` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单权限编码',
+  `perms_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '权限策略1显示2禁用',
+  `sort_no` double(8, 2) NULL DEFAULT NULL COMMENT '菜单排序',
+  `always_show` tinyint(1) NULL DEFAULT NULL COMMENT '聚合子路由: 1是0否',
+  `icon` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
+  `is_route` tinyint(1) NULL DEFAULT 1 COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
+  `is_leaf` tinyint(1) NULL DEFAULT NULL COMMENT '是否叶子节点:    1:是   0:不是',
+  `keep_alive` tinyint(1) NULL DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
+  `hidden` tinyint(1) NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
+  `hide_tab` tinyint(1) NULL DEFAULT NULL COMMENT '是否隐藏tab: 0否,1是',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `del_flag` int NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
+  `rule_flag` int NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
+  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
+  `internal_or_external` tinyint(1) NULL DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sp_parent_id` (`parent_id`) USING BTREE,
-  KEY `idx_sp_is_route` (`is_route`) USING BTREE,
-  KEY `idx_sp_is_leaf` (`is_leaf`) USING BTREE,
-  KEY `idx_sp_sort_no` (`sort_no`) USING BTREE,
-  KEY `idx_sp_del_flag` (`del_flag`) USING BTREE,
-  KEY `idx_sp_menu_type` (`menu_type`) USING BTREE,
-  KEY `idx_sp_hidden` (`hidden`) USING BTREE,
-  KEY `idx_sp_status` (`status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
+  INDEX `idx_sp_parent_id`(`parent_id` ASC) USING BTREE,
+  INDEX `idx_sp_is_route`(`is_route` ASC) USING BTREE,
+  INDEX `idx_sp_is_leaf`(`is_leaf` ASC) USING BTREE,
+  INDEX `idx_sp_sort_no`(`sort_no` ASC) USING BTREE,
+  INDEX `idx_sp_del_flag`(`del_flag` ASC) USING BTREE,
+  INDEX `idx_sp_menu_type`(`menu_type` ASC) USING BTREE,
+  INDEX `idx_sp_hidden`(`hidden` ASC) USING BTREE,
+  INDEX `idx_sp_status`(`status` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_permission_v2
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_permission_v2` VALUES ('00a2a0ae65cdca5e93209cdbde97cbe6', '2e42e3835c2b44ec9f7bc26c146ee531', '成功', '/result/success', 'result/Success', NULL, NULL, 1, NULL, NULL, 1.00, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, '2018-12-25 20:34:38', NULL, NULL, 0, 0, NULL, NULL);
 INSERT INTO `sys_permission_v2` VALUES ('020b06793e4de2eee0007f603000c769', 'f0675b52d89100ee88472b6800754a08', 'ViserChartDemo', '/report/ViserChartDemo', 'jeecg/report/ViserChartDemo', NULL, NULL, 1, NULL, NULL, 3.00, 0, NULL, 1, 1, NULL, 0, NULL, NULL, 'admin', '2019-04-03 19:08:53', 'admin', '2019-04-03 19:08:53', 0, 0, NULL, NULL);
 INSERT INTO `sys_permission_v2` VALUES ('024f1fd1283dc632458976463d8984e1', '700b7f95165c46cc7a78bf227aa8fed3', 'Tomcat信息', '/monitor/TomcatInfo', 'modules/monitor/TomcatInfo', NULL, NULL, 1, NULL, NULL, 4.00, 0, NULL, 1, 1, NULL, 0, NULL, NULL, 'admin', '2019-04-02 09:44:29', 'admin', '2019-05-07 15:19:10', 0, 0, NULL, NULL);
@@ -5187,135 +5440,131 @@ INSERT INTO `sys_permission_v2` VALUES ('fba41089766888023411a978d13c0aa4', 'e41
 INSERT INTO `sys_permission_v2` VALUES ('fc810a2267dd183e4ef7c71cc60f4670', '700b7f95165c46cc7a78bf227aa8fed3', '请求追踪', '/monitor/HttpTrace', 'modules/monitor/HttpTrace', NULL, NULL, 1, NULL, NULL, 4.00, 0, NULL, 1, 1, NULL, 0, NULL, NULL, 'admin', '2019-04-02 09:46:19', 'admin', '2019-04-02 11:37:27', 0, 0, NULL, NULL);
 INSERT INTO `sys_permission_v2` VALUES ('fedfbf4420536cacc0218557d263dfea', '6e73eb3c26099c191bf03852ee1310a1', '新消息通知', '/account/settings/notification', 'account/settings/Notification', NULL, NULL, 1, 'NotificationSettings', NULL, NULL, NULL, '', 1, 1, NULL, NULL, NULL, NULL, NULL, '2018-12-26 19:02:05', NULL, NULL, 0, 0, NULL, NULL);
 INSERT INTO `sys_permission_v2` VALUES ('role', '3f915b2769fc80648e92d04e84ca059d', '表单性别可见', '', NULL, NULL, NULL, 2, 'user:sex', '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, NULL, 'admin', '2020-05-14 21:53:59', 'admin', '2020-05-14 21:57:00', 0, 0, '1', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_position
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_position`;
-CREATE TABLE `sys_position` (
+CREATE TABLE `sys_position`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '职务编码',
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '职务名称',
-  `post_rank` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '职级',
-  `company_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '公司id',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `sys_org_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组织机构编码',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
+  `code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '职务编码',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '职务名称',
+  `post_rank` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '职级',
+  `company_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公司id',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `sys_org_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组织机构编码',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_code` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uniq_code`(`code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_position
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_position` VALUES ('1185040064792571906', 'devleader', '研发部经理', '2', NULL, 'admin', '2019-10-18 11:49:03', 'admin', '2022-10-25 11:09:06', 'A01', 0);
 INSERT INTO `sys_position` VALUES ('1256485574212153345', '总经理', 'laozong', '5', NULL, 'admin', '2020-05-02 15:28:00', 'admin', '2022-10-25 00:16:17', '北京国炬公司', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_quartz_job
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_quartz_job`;
-CREATE TABLE `sys_quartz_job` (
+CREATE TABLE `sys_quartz_job`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `del_flag` int DEFAULT NULL COMMENT '删除状态',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `job_class_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '任务类名',
-  `cron_expression` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'cron表达式',
-  `parameter` varchar(2048) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '参数',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `status` int DEFAULT NULL COMMENT '状态 0正常 -1停止',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `del_flag` int NULL DEFAULT NULL COMMENT '删除状态',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `job_class_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '任务类名',
+  `cron_expression` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'cron表达式',
+  `parameter` varchar(2048) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `status` int NULL DEFAULT NULL COMMENT '状态 0正常 -1停止',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_quartz_job
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role` (
+CREATE TABLE `sys_role`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `role_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '角色名称',
+  `role_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '角色名称',
   `role_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '角色编码',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_sys_role_role_code` (`role_code`) USING BTREE,
-  KEY `idx_sr_role_code` (`role_code`) USING BTREE,
-  KEY `idx_sysrole_tenant_id` (`tenant_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+  UNIQUE INDEX `uniq_sys_role_role_code`(`role_code` ASC) USING BTREE,
+  INDEX `idx_sr_role_code`(`role_code` ASC) USING BTREE,
+  INDEX `idx_sysrole_tenant_id`(`tenant_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_role` VALUES ('1795010414274428930', '安全测试', 'sec', NULL, 'admin', '2024-05-27 16:33:27', NULL, NULL, 0);
 INSERT INTO `sys_role` VALUES ('f6817f48af4fb3af11b9e8bf182f618b', '管理员', 'admin', '管理员', NULL, '2018-12-21 18:03:39', 'admin', '2023-03-04 15:00:04', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role_index
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_index`;
-CREATE TABLE `sys_role_index` (
+CREATE TABLE `sys_role_index`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色编码',
-  `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '路由地址',
-  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '组件',
-  `is_route` tinyint(1) DEFAULT '1' COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
-  `priority` int DEFAULT '0' COMMENT '优先级',
-  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0' COMMENT '状态0:无效 1:有效',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属部门',
+  `role_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色编码',
+  `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '路由地址',
+  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件',
+  `is_route` tinyint(1) NULL DEFAULT 1 COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
+  `priority` int NULL DEFAULT 0 COMMENT '优先级',
+  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '状态0:无效 1:有效',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sri_role_code` (`role_code`) USING BTREE,
-  KEY `idx_sri_status` (`status`) USING BTREE,
-  KEY `idx_sri_priority` (`priority`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='角色首页表';
+  INDEX `idx_sri_role_code`(`role_code` ASC) USING BTREE,
+  INDEX `idx_sri_status`(`status` ASC) USING BTREE,
+  INDEX `idx_sri_priority`(`priority` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色首页表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_index
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_role_index` VALUES ('1549658299929718786', 'admin', '/testnet/projectList', 'asset/project/ProjectList', 1, 0, '0', 'admin', '2022-07-20 15:31:45', 'admin', '2024-04-10 21:08:22', 'A01');
 INSERT INTO `sys_role_index` VALUES ('1798290799188774913', 'sec', '/testnet/projectList', 'asset/project/ProjectList', 1, 0, '0', 'admin', '2024-06-05 17:48:32', 'admin', '2024-06-05 17:48:44', 'A01');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_permission`;
-CREATE TABLE `sys_role_permission` (
+CREATE TABLE `sys_role_permission`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `role_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '角色id',
-  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '权限id',
-  `data_rule_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '数据权限ids',
-  `operate_date` datetime DEFAULT NULL COMMENT '操作时间',
-  `operate_ip` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '操作ip',
+  `role_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '角色id',
+  `permission_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限id',
+  `data_rule_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据权限ids',
+  `operate_date` datetime NULL DEFAULT NULL COMMENT '操作时间',
+  `operate_ip` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '操作ip',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_srp_role_per_id` (`role_id`,`permission_id`) USING BTREE,
-  KEY `idx_srp_role_id` (`role_id`) USING BTREE,
-  KEY `idx_srp_permission_id` (`permission_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='角色权限表';
+  INDEX `idx_srp_role_per_id`(`role_id` ASC, `permission_id` ASC) USING BTREE,
+  INDEX `idx_srp_role_id`(`role_id` ASC) USING BTREE,
+  INDEX `idx_srp_permission_id`(`permission_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_permission
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_role_permission` VALUES ('00b0748f04d3ea52c8cfa179c1c9d384', '52b0cf022ac4187b2a70dfa4f8b2d940', 'd7d6e2e4e2934f2c9385a623fd98c6f3', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('00b82058779cca5106fbb84783534c9b', 'f6817f48af4fb3af11b9e8bf182f618b', '4148ec82b6acd69f470bea75fe41c357', '', NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('0254c0b25694ad5479e6d6935bbc176e', 'f6817f48af4fb3af11b9e8bf182f618b', '944abf0a8fc22fe1f1154a389a574154', NULL, NULL, NULL);
@@ -6125,76 +6374,82 @@ INSERT INTO `sys_role_permission` VALUES ('fafe73c4448b977fe42880a6750c3ee8', 'f
 INSERT INTO `sys_role_permission` VALUES ('fced905c7598973b970d42d833f73474', 'f6817f48af4fb3af11b9e8bf182f618b', '4875ebe289344e14844d8e3ea1edd73f', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('fd97963dc5f144d3aecfc7045a883427', 'f6817f48af4fb3af11b9e8bf182f618b', '043780fa095ff1b2bec4dc406d76f023', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('fed41a4671285efb266cd404f24dd378', '52b0cf022ac4187b2a70dfa4f8b2d940', '00a2a0ae65cdca5e93209cdbde97cbe6', NULL, NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_sms
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_sms`;
-CREATE TABLE `sys_sms` (
+CREATE TABLE `sys_sms`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'ID',
-  `es_title` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '消息标题',
-  `es_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '发送方式：参考枚举MessageTypeEnum',
-  `es_receiver` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '接收人',
-  `es_param` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '发送所需参数Json格式',
-  `es_content` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '推送内容',
-  `es_send_time` datetime DEFAULT NULL COMMENT '推送时间',
-  `es_send_status` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '推送状态 0未推送 1推送成功 2推送失败 -1失败不再发送',
-  `es_send_num` int DEFAULT NULL COMMENT '发送次数 超过5次不再发送',
-  `es_result` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '推送失败原因',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '备注',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `es_title` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '消息标题',
+  `es_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发送方式：参考枚举MessageTypeEnum',
+  `es_receiver` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '接收人',
+  `es_param` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发送所需参数Json格式',
+  `es_content` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '推送内容',
+  `es_send_time` datetime NULL DEFAULT NULL COMMENT '推送时间',
+  `es_send_status` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '推送状态 0未推送 1推送成功 2推送失败 -1失败不再发送',
+  `es_send_num` int NULL DEFAULT NULL COMMENT '发送次数 超过5次不再发送',
+  `es_result` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '推送失败原因',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_ss_es_type` (`es_type`) USING BTREE,
-  KEY `idx_ss_es_receiver` (`es_receiver`) USING BTREE,
-  KEY `idx_ss_es_send_time` (`es_send_time`) USING BTREE,
-  KEY `idx_ss_es_send_status` (`es_send_status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  INDEX `idx_ss_es_type`(`es_type` ASC) USING BTREE,
+  INDEX `idx_ss_es_receiver`(`es_receiver` ASC) USING BTREE,
+  INDEX `idx_ss_es_send_time`(`es_send_time` ASC) USING BTREE,
+  INDEX `idx_ss_es_send_status`(`es_send_status` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_sms
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_sms_template
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_sms_template`;
-CREATE TABLE `sys_sms_template` (
+CREATE TABLE `sys_sms_template`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `template_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '模板标题',
+  `template_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '模板标题',
   `template_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '模板CODE',
   `template_type` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '模板类型：1短信 2邮件 3微信',
   `template_content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '模板内容',
-  `template_test_json` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '模板测试json',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `use_status` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '是否使用中 1是0否',
+  `template_test_json` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '模板测试json',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `use_status` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否使用中 1是0否',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_sst_template_code` (`template_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uk_sst_template_code`(`template_code` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_sms_template
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_table_white_list
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_table_white_list`;
-CREATE TABLE `sys_table_white_list` (
+CREATE TABLE `sys_table_white_list`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键id',
-  `table_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '允许的表名',
-  `field_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '允许的字段名，多个用逗号分割',
-  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '状态，1=启用，0=禁用',
-  `create_by` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `table_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '允许的表名',
+  `field_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '允许的字段名，多个用逗号分割',
+  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '状态，1=启用，0=禁用',
+  `create_by` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_sys_table_white_list_table_name` (`table_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='字典表白名单';
+  UNIQUE INDEX `uniq_sys_table_white_list_table_name`(`table_name` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典表白名单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_table_white_list
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_table_white_list` VALUES ('1701578033271521282', 'sys_user', 'phone,work_no,id,email,realname,username', '1', 'admin', '2023-09-12 10:46:32', 'admin', '2024-04-10 21:05:13');
 INSERT INTO `sys_table_white_list` VALUES ('1701581935488385025', 'oa_officialdoc_organcode', 'id,organ_name', '1', 'admin', '2023-09-12 11:02:02', NULL, NULL);
 INSERT INTO `sys_table_white_list` VALUES ('1701581977733414913', 'demo', 'id,name', '1', 'admin', '2023-09-12 11:02:12', NULL, NULL);
@@ -6232,494 +6487,551 @@ INSERT INTO `sys_table_white_list` VALUES ('1793188775429672961', 'asset_api_tre
 INSERT INTO `sys_table_white_list` VALUES ('1801164049048776705', 'sys_data_source', 'code,name', '1', 'admin', '2024-06-13 16:05:48', NULL, NULL);
 INSERT INTO `sys_table_white_list` VALUES ('1805532554367934466', 'lite_flow_task', 'task_name,id', '1', 'admin', '2024-06-25 17:24:41', NULL, NULL);
 INSERT INTO `sys_table_white_list` VALUES ('1811677730248658946', 'liteflow_task', 'task_name,id', '1', 'admin', '2024-07-12 16:23:25', NULL, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_tenant
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tenant`;
-CREATE TABLE `sys_tenant` (
+CREATE TABLE `sys_tenant`  (
   `id` int NOT NULL COMMENT '租户编码',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '租户名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `begin_date` datetime DEFAULT NULL COMMENT '开始时间',
-  `end_date` datetime DEFAULT NULL COMMENT '结束时间',
-  `status` int DEFAULT NULL COMMENT '状态 1正常 0冻结',
-  `trade` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属行业',
-  `company_size` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公司规模',
-  `company_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公司地址',
-  `company_logo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公司logo',
-  `house_number` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '门牌号',
-  `work_place` varchar(100) CHARACTER SET utf32 COLLATE utf32_general_ci DEFAULT NULL COMMENT '工作地点',
-  `secondary_domain` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '二级域名',
-  `login_bkgd_img` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '登录背景图片',
-  `position` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职级',
-  `department` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '部门',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态(0-正常,1-已删除)',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `apply_status` int DEFAULT NULL COMMENT '允许申请管理员 1允许 0不允许',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `begin_date` datetime NULL DEFAULT NULL COMMENT '开始时间',
+  `end_date` datetime NULL DEFAULT NULL COMMENT '结束时间',
+  `status` int NULL DEFAULT NULL COMMENT '状态 1正常 0冻结',
+  `trade` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属行业',
+  `company_size` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公司规模',
+  `company_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公司地址',
+  `company_logo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公司logo',
+  `house_number` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '门牌号',
+  `work_place` varchar(100) CHARACTER SET utf32 COLLATE utf32_general_ci NULL DEFAULT NULL COMMENT '工作地点',
+  `secondary_domain` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '二级域名',
+  `login_bkgd_img` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录背景图片',
+  `position` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '职级',
+  `department` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门',
+  `del_flag` tinyint(1) NULL DEFAULT 0 COMMENT '删除状态(0-正常,1-已删除)',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `apply_status` int NULL DEFAULT NULL COMMENT '允许申请管理员 1允许 0不允许',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='多租户信息表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '多租户信息表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_tenant
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_tenant_pack
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tenant_pack`;
-CREATE TABLE `sys_tenant_pack` (
+CREATE TABLE `sys_tenant_pack`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键id',
-  `tenant_id` int DEFAULT NULL COMMENT '租户id',
-  `pack_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '产品包名',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '开启状态(0 未开启 1开启)',
-  `remarks` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` date DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` date DEFAULT NULL COMMENT '更新时间',
-  `pack_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编码,默认添加的三个管理员需要设置编码',
-  `pack_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'custom' COMMENT '产品包类型(default 默认产品包 custom 自定义产品包)',
+  `tenant_id` int NULL DEFAULT NULL COMMENT '租户id',
+  `pack_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '产品包名',
+  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '开启状态(0 未开启 1开启)',
+  `remarks` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` date NULL DEFAULT NULL COMMENT '更新时间',
+  `pack_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编码,默认添加的三个管理员需要设置编码',
+  `pack_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'custom' COMMENT '产品包类型(default 默认产品包 custom 自定义产品包)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='租户产品包';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户产品包' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_tenant_pack
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_tenant_pack_perms
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tenant_pack_perms`;
-CREATE TABLE `sys_tenant_pack_perms` (
+CREATE TABLE `sys_tenant_pack_perms`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键编号',
-  `pack_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '租户产品包名称',
-  `permission_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '菜单id',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` date DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` date DEFAULT NULL COMMENT '更新时间',
+  `pack_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户产品包名称',
+  `permission_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单id',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` date NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_stpp_pack_id` (`pack_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='租户产品包和菜单关系表';
+  INDEX `idx_stpp_pack_id`(`pack_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户产品包和菜单关系表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_tenant_pack_perms
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_tenant_pack_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tenant_pack_user`;
-CREATE TABLE `sys_tenant_pack_user` (
+CREATE TABLE `sys_tenant_pack_user`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pack_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '租户产品包ID',
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户ID',
-  `tenant_id` int DEFAULT NULL COMMENT '租户ID',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `status` int DEFAULT NULL COMMENT '状态 正常状态1 申请状态0',
+  `pack_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户产品包ID',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户ID',
+  `tenant_id` int NULL DEFAULT NULL COMMENT '租户ID',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `status` int NULL DEFAULT NULL COMMENT '状态 正常状态1 申请状态0',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_tpu_pack_id` (`pack_id`) USING BTREE,
-  KEY `idx_tpu_user_id` (`user_id`) USING BTREE,
-  KEY `idx_tpu_tenant_id` (`tenant_id`) USING BTREE,
-  KEY `idx_tpu_status` (`status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='租户套餐人员表';
+  INDEX `idx_tpu_pack_id`(`pack_id` ASC) USING BTREE,
+  INDEX `idx_tpu_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_tpu_tenant_id`(`tenant_id` ASC) USING BTREE,
+  INDEX `idx_tpu_status`(`status` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户套餐人员表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_tenant_pack_user
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_tenant_pack_user` VALUES ('1633795234318729217', '1633795213938606082', 'a75d45a015c44384a04449ee80dc3503', 1, 'admin', '2023-03-09 19:41:53', NULL, NULL, 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_third_account
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_third_account`;
-CREATE TABLE `sys_third_account` (
+CREATE TABLE `sys_third_account`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '编号',
-  `sys_user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录id',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像',
-  `status` tinyint(1) DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
-  `del_flag` tinyint(1) DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
-  `realname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '真实姓名',
-  `tenant_id` int DEFAULT '0' COMMENT '租户id',
-  `third_user_uuid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方账号',
-  `third_user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方app用户账号',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `third_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '登录来源',
+  `sys_user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方登录id',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
+  `status` tinyint(1) NULL DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
+  `del_flag` tinyint(1) NULL DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
+  `realname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户id',
+  `third_user_uuid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方账号',
+  `third_user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方app用户账号',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `third_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录来源',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_sys_third_account_third_type_third_user_id` (`third_type`,`third_user_id`) USING BTREE,
-  UNIQUE KEY `uniq_sta_third_user_id_third_type` (`third_user_id`,`third_type`,`tenant_id`) USING BTREE,
-  UNIQUE KEY `uniq_sta_third_user_uuid_third_type` (`third_user_uuid`,`third_type`,`tenant_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `uniq_sys_third_account_third_type_third_user_id`(`third_type` ASC, `third_user_id` ASC) USING BTREE,
+  UNIQUE INDEX `uniq_sta_third_user_id_third_type`(`third_user_id` ASC, `third_type` ASC, `tenant_id` ASC) USING BTREE,
+  UNIQUE INDEX `uniq_sta_third_user_uuid_third_type`(`third_user_uuid` ASC, `third_type` ASC, `tenant_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_third_account
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_third_app_config
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_third_app_config`;
-CREATE TABLE `sys_third_app_config` (
+CREATE TABLE `sys_third_app_config`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tenant_id` int NOT NULL DEFAULT '0' COMMENT '租户id',
-  `agent_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '钉钉/企业微信应用id',
-  `client_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '钉钉/企业微信 应用id',
-  `client_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '钉钉/企业微信应用id对应的秘钥',
-  `third_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方类别(dingtalk 钉钉 wechat_enterprise 企业微信)',
-  `agent_app_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '自建应用Secret',
-  `status` int DEFAULT '1' COMMENT '是否启用(0-否,1-是)',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `tenant_id` int NOT NULL DEFAULT 0 COMMENT '租户id',
+  `agent_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '钉钉/企业微信应用id',
+  `client_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '钉钉/企业微信 应用id',
+  `client_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '钉钉/企业微信应用id对应的秘钥',
+  `third_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方类别(dingtalk 钉钉 wechat_enterprise 企业微信)',
+  `agent_app_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '自建应用Secret',
+  `status` int NULL DEFAULT 1 COMMENT '是否启用(0-否,1-是)',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_stac_tenant_id` (`tenant_id`) USING BTREE,
-  KEY `idx_stac_third_type` (`third_type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='租户第三方配置表';
+  INDEX `idx_stac_tenant_id`(`tenant_id` ASC) USING BTREE,
+  INDEX `idx_stac_third_type`(`third_type` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户第三方配置表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_third_app_config
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user` (
+CREATE TABLE `sys_user`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `username` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '登录账号',
-  `realname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '真实姓名',
-  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '密码',
-  `salt` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'md5密码盐',
-  `avatar` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '头像',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `sex` tinyint(1) DEFAULT NULL COMMENT '性别(0-默认未知,1-男,2-女)',
-  `email` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '电子邮件',
-  `phone` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '电话',
-  `org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '登录会话的机构编码',
-  `status` tinyint(1) DEFAULT NULL COMMENT '性别(1-正常,2-冻结)',
-  `del_flag` tinyint(1) DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
-  `third_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '第三方登录的唯一标识',
-  `third_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '第三方类型',
-  `activiti_sync` tinyint(1) DEFAULT NULL COMMENT '同步工作流引擎(1-同步,0-不同步)',
-  `work_no` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '工号，唯一键',
-  `telephone` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '座机号',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `user_identity` tinyint(1) DEFAULT NULL COMMENT '身份（1普通成员 2上级）',
-  `depart_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '负责部门',
-  `client_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '设备ID',
-  `login_tenant_id` int DEFAULT NULL COMMENT '上次登录选择租户ID',
-  `bpm_status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '流程入职离职状态',
+  `username` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '登录账号',
+  `realname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
+  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `salt` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'md5密码盐',
+  `avatar` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '头像',
+  `birthday` date NULL DEFAULT NULL COMMENT '生日',
+  `sex` tinyint(1) NULL DEFAULT NULL COMMENT '性别(0-默认未知,1-男,2-女)',
+  `email` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '电子邮件',
+  `phone` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '电话',
+  `org_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '登录会话的机构编码',
+  `status` tinyint(1) NULL DEFAULT NULL COMMENT '性别(1-正常,2-冻结)',
+  `del_flag` tinyint(1) NULL DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
+  `third_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '第三方登录的唯一标识',
+  `third_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '第三方类型',
+  `activiti_sync` tinyint(1) NULL DEFAULT NULL COMMENT '同步工作流引擎(1-同步,0-不同步)',
+  `work_no` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '工号，唯一键',
+  `telephone` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '座机号',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `user_identity` tinyint(1) NULL DEFAULT NULL COMMENT '身份（1普通成员 2上级）',
+  `depart_ids` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '负责部门',
+  `client_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '设备ID',
+  `login_tenant_id` int NULL DEFAULT NULL COMMENT '上次登录选择租户ID',
+  `bpm_status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '流程入职离职状态',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_sys_user_work_no` (`work_no`) USING BTREE,
-  UNIQUE KEY `uniq_sys_user_username` (`username`) USING BTREE,
-  UNIQUE KEY `uniq_sys_user_phone` (`phone`) USING BTREE,
-  UNIQUE KEY `uniq_sys_user_email` (`email`) USING BTREE,
-  KEY `idx_su_username` (`username`) USING BTREE,
-  KEY `idx_su_status` (`status`) USING BTREE,
-  KEY `idx_su_del_flag` (`del_flag`) USING BTREE,
-  KEY `idx_su_del_username` (`username`,`del_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+  UNIQUE INDEX `uniq_sys_user_work_no`(`work_no` ASC) USING BTREE,
+  UNIQUE INDEX `uniq_sys_user_username`(`username` ASC) USING BTREE,
+  UNIQUE INDEX `uniq_sys_user_phone`(`phone` ASC) USING BTREE,
+  UNIQUE INDEX `uniq_sys_user_email`(`email` ASC) USING BTREE,
+  INDEX `idx_su_username`(`username` ASC) USING BTREE,
+  INDEX `idx_su_status`(`status` ASC) USING BTREE,
+  INDEX `idx_su_del_flag`(`del_flag` ASC) USING BTREE,
+  INDEX `idx_su_del_username`(`username` ASC, `del_flag` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_user` VALUES ('1794992342079651842', 'TestNet', 'TestNet', '607e156cb552b660', 'hKDEZr25', NULL, NULL, NULL, 'testnet@test.com', '13412341234', 'A01', 1, 0, NULL, NULL, 0, '123', NULL, 'admin', '2024-05-27 15:21:38', 'admin', '2024-05-27 16:53:33', 1, '', NULL, 0, NULL);
 INSERT INTO `sys_user` VALUES ('e9ca23d68d884d4ebb19d07889727dae', 'admin', 'admin', 'cb362cfeefbf3d8d', 'RCGTeGiH', '', '2018-12-05', 1, 'jeecg@163.com', '18611111111', 'A01', 1, 0, NULL, NULL, 1, '00001', NULL, NULL, '2019-06-21 17:54:10', 'admin', '2024-05-27 16:53:46', 2, '', NULL, 0, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_agent
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_agent`;
-CREATE TABLE `sys_user_agent` (
+CREATE TABLE `sys_user_agent`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '序号',
-  `user_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户名',
-  `agent_user_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '代理人用户名',
-  `start_time` datetime DEFAULT NULL COMMENT '代理开始时间',
-  `end_time` datetime DEFAULT NULL COMMENT '代理结束时间',
-  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '状态0无效1有效',
-  `create_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人名称',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人名称',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属部门',
-  `sys_company_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '所属公司',
+  `user_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `agent_user_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '代理人用户名',
+  `start_time` datetime NULL DEFAULT NULL COMMENT '代理开始时间',
+  `end_time` datetime NULL DEFAULT NULL COMMENT '代理结束时间',
+  `status` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '状态0无效1有效',
+  `create_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人名称',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人名称',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `sys_company_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '所属公司',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uk_sug_user_name` (`user_name`) USING BTREE,
-  KEY `idx_sug_status` (`status`) USING BTREE,
-  KEY `idx_sug_start_time` (`start_time`) USING BTREE,
-  KEY `idx_sug_end_time` (`end_time`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户代理人设置';
+  UNIQUE INDEX `uk_sug_user_name`(`user_name` ASC) USING BTREE,
+  INDEX `idx_sug_status`(`status` ASC) USING BTREE,
+  INDEX `idx_sug_start_time`(`start_time` ASC) USING BTREE,
+  INDEX `idx_sug_end_time`(`end_time` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户代理人设置' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_agent
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_user_agent` VALUES ('1632029640019922945', 'zhagnxiao', 'jeecg', '2023-03-04 22:45:50', '2023-03-04 05:00:00', '1', NULL, 'admin', '2023-03-04 22:46:02', NULL, NULL, NULL, 'A01', NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_depart
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_depart`;
-CREATE TABLE `sys_user_depart` (
+CREATE TABLE `sys_user_depart`  (
   `ID` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'id',
-  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户id',
-  `dep_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '部门id',
+  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `dep_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门id',
   PRIMARY KEY (`ID`) USING BTREE,
-  UNIQUE KEY `idx_sud_user_dep_id` (`user_id`,`dep_id`) USING BTREE,
-  KEY `idx_sud_user_id` (`user_id`) USING BTREE,
-  KEY `idx_sud_dep_id` (`dep_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+  UNIQUE INDEX `idx_sud_user_dep_id`(`user_id` ASC, `dep_id` ASC) USING BTREE,
+  INDEX `idx_sud_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_sud_dep_id`(`dep_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_depart
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_user_depart` VALUES ('1795015474253467649', '1794992342079651842', '1795015370490580993');
 INSERT INTO `sys_user_depart` VALUES ('1795015527714066434', 'e9ca23d68d884d4ebb19d07889727dae', '1795015370490580993');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_position
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_position`;
-CREATE TABLE `sys_user_position` (
+CREATE TABLE `sys_user_position`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户id',
-  `position_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职位id',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `position_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '职位id',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sup_user_id` (`user_id`) USING BTREE,
-  KEY `idx_sup_position_id` (`position_id`) USING BTREE,
-  KEY `idx_sup_user_position_id` (`user_id`,`position_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  INDEX `idx_sup_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_sup_position_id`(`position_id` ASC) USING BTREE,
+  INDEX `idx_sup_user_position_id`(`user_id` ASC, `position_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_user_position
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
-CREATE TABLE `sys_user_role` (
+CREATE TABLE `sys_user_role`  (
   `id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键id',
-  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户id',
-  `role_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '角色id',
-  `tenant_id` int DEFAULT '0' COMMENT '租户ID',
+  `user_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `role_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '角色id',
+  `tenant_id` int NULL DEFAULT 0 COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sur_user_id` (`user_id`) USING BTREE,
-  KEY `idx_sur_role_id` (`role_id`) USING BTREE,
-  KEY `idx_sur_user_role_id` (`user_id`,`role_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户角色表';
+  INDEX `idx_sur_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_sur_role_id`(`role_id` ASC) USING BTREE,
+  INDEX `idx_sur_user_role_id`(`user_id` ASC, `role_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_user_role` VALUES ('1795015474190553089', '1794992342079651842', '1795010414274428930', 0);
 INSERT INTO `sys_user_role` VALUES ('1795015527638568962', 'e9ca23d68d884d4ebb19d07889727dae', 'f6817f48af4fb3af11b9e8bf182f618b', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_tenant
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_tenant`;
-CREATE TABLE `sys_user_tenant` (
+CREATE TABLE `sys_user_tenant`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键id',
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户id',
-  `tenant_id` int DEFAULT NULL COMMENT '租户id',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '状态(1 正常 2 离职 3 待审核 4 拒绝 5 邀请加入)',
-  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `tenant_id` int NULL DEFAULT NULL COMMENT '租户id',
+  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态(1 正常 2 离职 3 待审核 4 拒绝 5 邀请加入)',
+  `create_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sut_user_id` (`user_id`) USING BTREE,
-  KEY `idx_sut_tenant_id` (`tenant_id`) USING BTREE,
-  KEY `idx_sut_user_rel_tenant` (`user_id`,`tenant_id`) USING BTREE,
-  KEY `idx_sut_status` (`status`) USING BTREE,
-  KEY `idx_sut_userid_status` (`user_id`,`status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户租户关系表';
+  INDEX `idx_sut_user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_sut_tenant_id`(`tenant_id` ASC) USING BTREE,
+  INDEX `idx_sut_user_rel_tenant`(`user_id` ASC, `tenant_id` ASC) USING BTREE,
+  INDEX `idx_sut_status`(`status` ASC) USING BTREE,
+  INDEX `idx_sut_userid_status`(`user_id` ASC, `status` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户租户关系表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_user_tenant
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_demo
 -- ----------------------------
 DROP TABLE IF EXISTS `test_demo`;
-CREATE TABLE `test_demo` (
+CREATE TABLE `test_demo`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人登录名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人登录名称',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户名',
-  `sex` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '性别',
-  `age` int DEFAULT NULL COMMENT '年龄',
-  `descc` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `birthday` datetime DEFAULT NULL COMMENT '生日',
-  `user_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '用户编码',
-  `file_kk` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '附件',
-  `top_pic` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '头像',
-  `chegnshi` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '城市',
-  `ceck` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'checkbox',
-  `xiamuti` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '下拉多选',
-  `search_sel` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '搜索下拉',
-  `pop` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '弹窗',
-  `sel_table` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '下拉字典表',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `sex` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `age` int NULL DEFAULT NULL COMMENT '年龄',
+  `descc` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `birthday` datetime NULL DEFAULT NULL COMMENT '生日',
+  `user_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户编码',
+  `file_kk` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '附件',
+  `top_pic` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '头像',
+  `chegnshi` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '城市',
+  `ceck` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'checkbox',
+  `xiamuti` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '下拉多选',
+  `search_sel` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '搜索下拉',
+  `pop` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '弹窗',
+  `sel_table` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '下拉字典表',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_demo
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_enhance_select
 -- ----------------------------
 DROP TABLE IF EXISTS `test_enhance_select`;
-CREATE TABLE `test_enhance_select` (
+CREATE TABLE `test_enhance_select`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `province` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省份',
-  `city` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '市',
-  `area` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
+  `province` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省份',
+  `city` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '市',
+  `area` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '区',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_enhance_select
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_note
 -- ----------------------------
 DROP TABLE IF EXISTS `test_note`;
-CREATE TABLE `test_note` (
+CREATE TABLE `test_note`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名',
-  `age` int DEFAULT NULL COMMENT '年龄',
-  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '性别',
-  `birthday` datetime DEFAULT NULL COMMENT '生日',
-  `contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请假原因',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `age` int NULL DEFAULT NULL COMMENT '年龄',
+  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `birthday` datetime NULL DEFAULT NULL COMMENT '生日',
+  `contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请假原因',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_note
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_order_customer
 -- ----------------------------
 DROP TABLE IF EXISTS `test_order_customer`;
-CREATE TABLE `test_order_customer` (
+CREATE TABLE `test_order_customer`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '客户名字',
-  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '性别',
-  `age` int DEFAULT NULL COMMENT '年龄',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `order_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '订单id',
-  `address` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '地址',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户名字',
+  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `age` int NULL DEFAULT NULL COMMENT '年龄',
+  `birthday` date NULL DEFAULT NULL COMMENT '生日',
+  `order_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单id',
+  `address` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_order_customer
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_order_main
 -- ----------------------------
 DROP TABLE IF EXISTS `test_order_main`;
-CREATE TABLE `test_order_main` (
+CREATE TABLE `test_order_main`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `order_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '订单编码',
-  `order_date` datetime DEFAULT NULL COMMENT '下单时间',
-  `descc` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
-  `xiala` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '下拉多选',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `order_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单编码',
+  `order_date` datetime NULL DEFAULT NULL COMMENT '下单时间',
+  `descc` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `xiala` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '下拉多选',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_order_main
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_order_product
 -- ----------------------------
 DROP TABLE IF EXISTS `test_order_product`;
-CREATE TABLE `test_order_product` (
+CREATE TABLE `test_order_product`  (
   `id` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `product_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '产品名字',
-  `price` double(32,0) DEFAULT NULL COMMENT '价格',
-  `num` int DEFAULT NULL COMMENT '数量',
-  `descc` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `product_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品名字',
+  `price` double(32, 0) NULL DEFAULT NULL COMMENT '价格',
+  `num` int NULL DEFAULT NULL COMMENT '数量',
+  `descc` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
   `order_fk_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '订单外键ID',
-  `pro_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '产品类型',
+  `pro_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品类型',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_order_product
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_shoptype_tree
 -- ----------------------------
 DROP TABLE IF EXISTS `test_shoptype_tree`;
-CREATE TABLE `test_shoptype_tree` (
+CREATE TABLE `test_shoptype_tree`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `type_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品分类',
-  `pic` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分类图片',
-  `pid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '父级节点',
-  `has_child` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否有子节点',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `type_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品分类',
+  `pic` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分类图片',
+  `pid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父级节点',
+  `has_child` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否有子节点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_shoptype_tree
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for test_v3_hello
 -- ----------------------------
 DROP TABLE IF EXISTS `test_v3_hello`;
-CREATE TABLE `test_v3_hello` (
+CREATE TABLE `test_v3_hello`  (
   `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
-  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名字',
-  `age` int DEFAULT NULL COMMENT '年龄',
-  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '性别',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `cc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  `rel_user` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '关联记录',
-  `rel_filed` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '他表字段',
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新日期',
+  `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名字',
+  `age` int NULL DEFAULT NULL COMMENT '年龄',
+  `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `birthday` date NULL DEFAULT NULL COMMENT '生日',
+  `cc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `rel_user` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关联记录',
+  `rel_filed` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '他表字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test_v3_hello
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tmp_report_data_1
 -- ----------------------------
 DROP TABLE IF EXISTS `tmp_report_data_1`;
-CREATE TABLE `tmp_report_data_1` (
-  `monty` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '月份',
-  `main_income` decimal(10,2) DEFAULT NULL,
-  `total` decimal(10,2) DEFAULT NULL,
-  `his_lowest` decimal(10,2) DEFAULT NULL,
-  `his_average` decimal(10,2) DEFAULT NULL,
-  `his_highest` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+CREATE TABLE `tmp_report_data_1`  (
+  `monty` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '月份',
+  `main_income` decimal(10, 2) NULL DEFAULT NULL,
+  `total` decimal(10, 2) NULL DEFAULT NULL,
+  `his_lowest` decimal(10, 2) NULL DEFAULT NULL,
+  `his_average` decimal(10, 2) NULL DEFAULT NULL,
+  `his_highest` decimal(10, 2) NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of tmp_report_data_1
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tmp_report_data_income
 -- ----------------------------
 DROP TABLE IF EXISTS `tmp_report_data_income`;
-CREATE TABLE `tmp_report_data_income` (
-  `biz_income` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `bx_jj_yongjin` decimal(10,2) DEFAULT NULL,
-  `bx_zx_money` decimal(10,2) DEFAULT NULL,
-  `chengbao_gz_money` decimal(10,2) DEFAULT NULL,
-  `bx_gg_moeny` decimal(10,2) DEFAULT NULL,
-  `tb_zx_money` decimal(10,2) DEFAULT NULL,
-  `neikong_zx_money` decimal(10,2) DEFAULT NULL,
-  `total` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+CREATE TABLE `tmp_report_data_income`  (
+  `biz_income` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `bx_jj_yongjin` decimal(10, 2) NULL DEFAULT NULL,
+  `bx_zx_money` decimal(10, 2) NULL DEFAULT NULL,
+  `chengbao_gz_money` decimal(10, 2) NULL DEFAULT NULL,
+  `bx_gg_moeny` decimal(10, 2) NULL DEFAULT NULL,
+  `tb_zx_money` decimal(10, 2) NULL DEFAULT NULL,
+  `neikong_zx_money` decimal(10, 2) NULL DEFAULT NULL,
+  `total` decimal(10, 2) NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of tmp_report_data_income
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
