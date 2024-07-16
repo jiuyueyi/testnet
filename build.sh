@@ -141,9 +141,16 @@ create_es_data_folder() {
 }
 
 start_testnet() {
+  if confirm "是否使用国内加速"; then
     $compose_command up -d
-    warning "TestNet安装成功，请稍等2分钟打开后台登录..."
-    warning "后台访问地址：https://IP:8099/"
+  else
+    $compose_command -f docker-compose-noproxy.yml up -d
+  fi
+  warning "TestNet安装成功，请稍等2分钟打开后台登录..."
+      warning "后台访问地址：https://IP:8099/"
+      for ip in $ips; do
+        warning https://$ip:8099/
+      done
 }
 
 stop_testnet() {
@@ -184,7 +191,11 @@ local_ips() {
 ips=$(local_ips)
 
 start_testnet_server() {
-    $compose_command -f docker-compose-server.yml up -d
+    if confirm "是否使用国内加速"; then
+      $compose_command -f docker-compose-server.yml up -d
+      else
+        $compose_command -f docker-compose-server-noproxy.yml up -d
+    fi
     warning "TestNet安装成功，请稍等2分钟打开后台登录..."
     warning "后台访问地址：https://0.0.0.0:8099/"
     for ip in $ips; do
@@ -194,7 +205,11 @@ start_testnet_server() {
 
 start_testnet_client() {
     if [ -f ".env" ]; then
-        $compose_command -f docker-compose-client.yml up -d
+        if confirm "是否使用国内加速"; then
+            $compose_command -f docker-compose-client.yml up -d
+          else
+            $compose_command -f docker-compose-client-noproxy.yml up -d
+        fi
     else
         warning "请先复制服务端配置文件到客户端，增加一个IP=你的IP地址"
     fi
@@ -202,7 +217,7 @@ start_testnet_client() {
 
 install_run_environment() {
     if confirm "是否需要自动安装客户端运行环境"; then
-        if confirm "是否使用网络代理"; then
+        if confirm "是否使用国内加速"; then
           docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 1"
           info "客户端环境安装完成"
         else
