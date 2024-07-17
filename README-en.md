@@ -53,4 +53,4 @@ Refer to the help documentation.
   ![](https://raw.githubusercontent.com/testnet0/testnet/main/doc/img/wechat.png)
 ### Detailed Documentation Link
 
-- [TestNet Asset Management System Help Documentation](https://www.yuque.com/testnet-niqki/etr5ls)
+- [TestNet Asset Management System Help Documentation](https://m55giu8f62.feishu.cn/wiki/space/7392494809428508674)
