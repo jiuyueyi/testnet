@@ -1,5 +1,3 @@
-CREATE database if NOT EXISTS `jeecg-boot` default character set utf8mb4 collate utf8mb4_unicode_ci;
-USE `jeecg-boot`;
 /*
  Navicat Premium Dump SQL
 
@@ -13,7 +11,7 @@ USE `jeecg-boot`;
  Target Server Version : 80300 (8.3.0)
  File Encoding         : 65001
 
- Date: 16/07/2024 20:41:46
+ Date: 17/07/2024 13:30:10
 */
 
 SET NAMES utf8mb4;
@@ -1293,6 +1291,7 @@ CREATE TABLE `lite_flow_sub_task`  (
   `redis_message_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'Redis消息ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_status`(`task_status` ASC) USING BTREE,
+  INDEX `idx_task_id`(`task_id` ASC) USING BTREE,
   INDEX `idx_client_id`(`client_id` ASC, `task_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -3538,7 +3537,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'TestNet1721133075057', 1721133697597, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'TestNet1721182418564', 1721194200267, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
