@@ -52,4 +52,4 @@ cd testnet && bash build.sh
   ![](https://raw.githubusercontent.com/testnet0/testnet/main/doc/img/wechat.png)
 ### 详细文档链接
 
-- [TestNet 资产管理系统帮助文档](https://www.yuque.com/testnet-niqki/etr5ls)
+- [TestNet 资产管理系统帮助文档](https://m55giu8f62.feishu.cn/wiki/space/7392494809428508674)
