@@ -161,19 +161,16 @@ stop_testnet() {
 update_testnet_server() {
     info "开始更新 TestNet 服务端..."
     git pull
-    $compose_command stop testnet-server testnet-frontend
-    $compose_command rm -f testnet-server testnet-frontend
     $compose_command pull testnet-server testnet-frontend
-    $compose_command up -d testnet-server testnet-frontend
+    $compose_command up -d --no-deps --build testnet-server testnet-frontend
     info "TestNet 服务端更新完成"
 }
 
 update_testnet_client() {
     info "开始更新 TestNet客户端..."
     if confirm "是否需要更新客户端？已安装工具需要重新安装"; then
-        $compose_command stop testnet-client
         $compose_command pull testnet-client
-        $compose_command up -d testnet-client
+        $compose_command up -d --no-deps --build testnet-client
     else
         abort "取消安装运行环境"
     fi
