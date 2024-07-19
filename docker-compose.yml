@@ -11,7 +11,7 @@ networks:
       com.docker.network.bridge.name: testnet
 services:
   testnet-mysql:
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/mysql:8.3
+    image: ${IMAGE_PREFIX}/mysql:8.3
     container_name: testnet-mysql
     networks:
       testnet:
@@ -29,7 +29,7 @@ services:
       - "33306:3306"
 
   testnet-redis:
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/redis:5.0
+    image: ${IMAGE_PREFIX}/redis:5.0
     container_name: testnet-redis
     networks:
       testnet:
@@ -40,7 +40,7 @@ services:
     restart: always
 
   testnet-es:
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/es:7.10.1
+    image: ${IMAGE_PREFIX}/elasticsearch:7.10.0
     container_name: testnet-es
     networks:
       testnet:
@@ -53,7 +53,7 @@ services:
       - ./es_data:/usr/share/elasticsearch/data
     restart: always
   testnet-server:
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/testnet_server:latest
+    image: ${IMAGE_PREFIX}/testnet_server:latest
     container_name: testnet-server
     networks:
       testnet:
@@ -75,7 +75,7 @@ services:
 
   testnet-frontend:
     container_name: testnet-frontend
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/testnet_frontend:latest
+    image: ${IMAGE_PREFIX}/testnet_frontend:latest
     networks:
       testnet:
         ipv4_address: ${SUBNET_PREFIX}.6
@@ -85,7 +85,7 @@ services:
     depends_on:
       - testnet-server
   testnet-client:
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/testnet_client:latest
+    image: ${IMAGE_PREFIX}/testnet_client:latest
     networks:
       testnet:
         ipv4_address: ${SUBNET_PREFIX}.7
@@ -99,5 +99,4 @@ services:
       - TESTNET_CLIENT_VERSION=V1.2
       - TESTNET_RESULT_PATH=/testnet-client/results/
       - TESTNET_CLIENT_NAME=testnet-client-default
-      - POOL_MAX_SIZE=8
     restart: always

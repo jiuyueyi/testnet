@@ -1,6 +1,6 @@
 services:
  testnet-client:
-    image: registry.cn-hangzhou.aliyuncs.com/testnet0/testnet_client:latest
+    image: ${IMAGE_PREFIX}/testnet_client:latest
     container_name: testnet-client
     environment:
       - MYSQL_URL=jdbc:mysql://${IP}:33306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai

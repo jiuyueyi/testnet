@@ -75,11 +75,7 @@ check_depend() {
     else
         warning "未发现 Docker Compose Plugin"
         if confirm "是否需要自动安装 Docker Compose Plugin"; then
-            install_docker
-            if [ $? -ne "0" ]; then
-                abort "Docker Compose Plugin 安装失败"
-            fi
-            info "Docker Compose Plugin 安装完成"
+            install_docker_compose
         else
             abort "中止安装"
         fi
@@ -89,11 +85,7 @@ check_depend() {
     if ! $compose_command up -d --help > /dev/null 2>&1; then
         warning "Docker Compose Plugin 不支持 '-d' 参数"
         if confirm "是否需要自动升级 Docker Compose Plugin"; then
-            install_docker
-            if [ $? -ne "0" ]; then
-                abort "Docker Compose Plugin 升级失败"
-            fi
-            info "Docker Compose Plugin 升级完成"
+            install_docker_compose
         else
             abort "中止安装"
         fi
@@ -101,15 +93,6 @@ check_depend() {
     start_docker
     info "安装环境确认正常"
 }
-
-if [ -z "$CDN" ]; then
-    if ping -c 1 -W 1 docker.com > /dev/null 2>&1; then
-        CDN=0
-    else
-        CDN=1
-        echo "检测到你的网络环境不支持直接访问 Docker Hub，镜像将从阿里云镜像仓库下载"
-    fi
-fi
 
 start_docker() {
     systemctl enable docker
@@ -134,6 +117,14 @@ get_average_delay() {
 
     average_delay=$(awk "BEGIN {print $total_delay / $iterations}")
     echo "$average_delay"
+}
+
+local_ips() {
+    if command_exists ip; then
+        ip addr show | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | awk '{print $2}'
+    else
+        ifconfig -a | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | awk '{print $2}'
+    fi
 }
 
 install_docker() {
@@ -167,6 +158,22 @@ install_docker() {
     info "Docker 安装成功"
 }
 
+
+install_docker_compose() {
+    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)"
+    curl -L $DOCKER_COMPOSE_URL -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    docker-compose version > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        abort "Docker Compose 安装失败"
+    fi
+    info "Docker Compose 安装成功"
+}
+
+ips=$(local_ips)
+check_depend
+
 create_env_file() {
     if [ -f ".env" ]; then
         info ".env 文件已存在"
@@ -176,10 +183,10 @@ create_env_file() {
             warning "创建 .env 文件失败"
         else
             echo "创建 .env 文件成功"
-            if [ $CDN -eq 0 ]; then
-              echo "IMAGE_PREFIX=testnet0" >>".env"
+            if confirm "是否使用国内加速"; then
+                echo "IMAGE_PREFIX=registry.cn-hangzhou.aliyuncs.com/testnet0" >>".env"
             else
-              echo "IMAGE_PREFIX=registry.cn-hangzhou.aliyuncs.com/testnet0" >>".env"
+                echo "IMAGE_PREFIX=testnet0" >>".env"
             fi
             echo "REDIS_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
             echo "MYSQL_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
@@ -206,18 +213,6 @@ create_es_data_folder() {
     fi
 }
 
-start_testnet() {
-  $compose_command up -d
-  if [ $? -ne "0" ]; then
-      abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb?fromScene=spaceOverview"
-  fi
-  warning "TestNet安装成功，请稍等2分钟打开后台登录..."
-      warning "后台访问地址：https://IP:8099/"
-      for ip in $ips; do
-        warning https://$ip:8099/
-      done
-}
-
 update_testnet_server() {
     info "开始更新 TestNet 服务端..."
     git pull
@@ -241,23 +236,31 @@ update_testnet_client() {
     info "TestNet 客户端更新完成"
 }
 
-local_ips() {
-    if command_exists ip; then
-        ip addr show | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | awk '{print $2}'
-    else
-        ifconfig -a | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | awk '{print $2}'
+start_testnet() {
+    create_env_file
+    create_es_data_folder
+    $compose_command up -d
+    if [ $? -ne "0" ]; then
+        abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb?fromScene=spaceOverview"
     fi
+    warning "TestNet安装成功，请稍等2分钟打开后台登录..."
+    warning "后台访问地址：https://IP:8099/"
+    for ip in $ips; do
+        warning "https://$ip:8099/"
+    done
 }
 
 start_testnet_server() {
+    create_env_file
+    create_es_data_folder
     $compose_command -f docker-compose-server.yml up -d
     if [ $? -ne "0" ]; then
-      abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb?fromScene=spaceOverview"
+        abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb"
     fi
     warning "TestNet安装成功，请稍等2分钟打开后台登录..."
     warning "后台访问地址：https://0.0.0.0:8099/"
     for ip in $ips; do
-        warning https://$ip:8099/
+        warning "https://$ip:8099/"
     done
 }
 
@@ -273,21 +276,18 @@ start_testnet_client() {
 }
 
 install_run_environment() {
-    if confirm "是否需要自动安装客户端运行环境"; then
-        if confirm "是否使用国内加速"; then
-          docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 1"
-          info "客户端环境安装完成"
-        else
-          docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 0"
-          info "客户端环境安装完成"
-        fi
+    warning "开始安装客户端运行环境..."
+    if confirm "是否使用国内加速"; then
+      docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 1"
     else
-        abort "取消安装运行环境"
+      docker exec testnet-client /bin/bash -c "cd /testnet-client && chmod +x ./start.sh && ./start.sh 0"
     fi
+    if [ $? -ne "0" ]; then
+        abort "客户端运行环境安装失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb"
+    fi
+    info "客户端运行环境安装成功"
 }
 
-ips=$(local_ips)
-check_depend
 echo "请选择操作："
 echo "1) 一键安装 TestNet服务端 + 客户端 (testnet-server testnet-frontend testnet-client)"
 echo "2) 单独安装 TestNet服务端 (testnet-server testnet-frontend)"
@@ -299,14 +299,10 @@ read -p "输入数字选择操作: " user_choice
 
 case $user_choice in
     1)
-        create_env_file
-        create_es_data_folder
         start_testnet
         install_run_environment
         ;;
     2)
-        create_env_file
-        create_es_data_folder
         start_testnet_server
         ;;
     3)
