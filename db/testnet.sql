@@ -12,9 +12,10 @@ USE `jeecg-boot`;
  Target Server Type    : MySQL
  Target Server Version : 80300 (8.3.0)
  File Encoding         : 65001
-
  Date: 17/07/2024 14:24:35
 */
+CREATE database if NOT EXISTS `jeecg-boot` default character set utf8mb4 collate utf8mb4_unicode_ci;
+USE `jeecg-boot`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
