@@ -191,6 +191,9 @@ create_env_file() {
             echo "REDIS_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
             echo "MYSQL_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
             echo "SUBNET_PREFIX=172.16.1" >> .env
+            echo "GPT_ENABLE=false" >> .env
+            echo "GPT_KEY=xxx" >> .env
+            echo "GPT_HOST=https://api.openai.com" >> .env
         fi
     fi
 }

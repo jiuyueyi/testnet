@@ -64,9 +64,9 @@ services:
       - REDIS_HOST=${SUBNET_PREFIX}.3
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - ES_HOST=${SUBNET_PREFIX}.4:9200
-      - GPT_ENABLE=false
-      - GPT_KEY=xxx
-      - GPT_HOST=https://api.openai.com
+      - GPT_ENABLE=${GPT_ENABLE}
+      - GPT_KEY=${GPT_KEY}
+      - GPT_HOST=${GPT_HOST}
     depends_on:
       - testnet-mysql
       - testnet-redis
