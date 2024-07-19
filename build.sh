@@ -102,6 +102,21 @@ check_depend() {
     info "安装环境确认正常"
 }
 
+if [ -z "$CDN" ]; then
+    if ping -c 1 -W 1 docker.com > /dev/null 2>&1; then
+        CDN=0
+    else
+        CDN=1
+        echo "检测到你的网络环境不支持直接访问 Docker Hub，镜像将从阿里云镜像仓库下载"
+    fi
+fi
+
+if [ $CDN -eq 0 ]; then
+    echo "IMAGE_PREFIX=testnet0" >>".env"
+else
+    echo "IMAGE_PREFIX=registry.cn-hangzhou.aliyuncs.com/testnet0" >>".env"
+fi
+
 start_docker() {
     systemctl enable docker
     systemctl daemon-reload
@@ -193,21 +208,15 @@ create_es_data_folder() {
 }
 
 start_testnet() {
-  if confirm "是否使用国内加速"; then
-    $compose_command up -d
-  else
-    $compose_command -f docker-compose-noproxy.yml up -d
+  $compose_command up -d
+  if [ $? -ne "0" ]; then
+      abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb?fromScene=spaceOverview"
   fi
   warning "TestNet安装成功，请稍等2分钟打开后台登录..."
       warning "后台访问地址：https://IP:8099/"
       for ip in $ips; do
         warning https://$ip:8099/
       done
-}
-
-stop_testnet() {
-    $compose_command stop
-    info "TestNet 已停止运行"
 }
 
 update_testnet_server() {
@@ -242,10 +251,9 @@ local_ips() {
 }
 
 start_testnet_server() {
-    if confirm "是否使用国内加速"; then
-      $compose_command -f docker-compose-server.yml up -d
-      else
-        $compose_command -f docker-compose-server-noproxy.yml up -d
+    $compose_command -f docker-compose-server.yml up -d
+    if [ $? -ne "0" ]; then
+      abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb?fromScene=spaceOverview"
     fi
     warning "TestNet安装成功，请稍等2分钟打开后台登录..."
     warning "后台访问地址：https://0.0.0.0:8099/"
@@ -256,13 +264,12 @@ start_testnet_server() {
 
 start_testnet_client() {
     if [ -f ".env" ]; then
-        if confirm "是否使用国内加速"; then
-            $compose_command -f docker-compose-client.yml up -d
-          else
-            $compose_command -f docker-compose-client-noproxy.yml up -d
+        $compose_command -f docker-compose-client.yml up -d
+        if [ $? -ne "0" ]; then
+            abort "启动 Docker 容器失败，建议查看文档: https://m55giu8f62.feishu.cn/wiki/EjLRwwPdciVKY2kMT8icAzvgnbb"
         fi
     else
-        warning "请先复制服务端配置文件到客户端，增加一个IP=你的IP地址"
+        abort "请先复制服务端配置文件到客户端，帮助文档：https://m55giu8f62.feishu.cn/wiki/UmHtwhJTJihK6Ekr7ILcjRG9nFy"
     fi
 }
 
