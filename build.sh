@@ -111,27 +111,6 @@ if [ -z "$CDN" ]; then
     fi
 fi
 
-# 检查是否已经存在 .env 文件
-if [ -f ".env" ]; then
-    echo "文件已存在"
-else
-    # 如果不存在，则创建 .env 文件
-    touch ".env"
-    if [ $? -ne 0 ]; then
-        echo "创建 .env 文件失败"
-    else
-        echo "创建 .env 文件成功"
-        if [ $CDN -eq 0 ]; then
-            echo "IMAGE_PREFIX=testnet0" >>".env"
-        else
-            echo "IMAGE_PREFIX=registry.cn-hangzhou.aliyuncs.com/testnet0" >>".env"
-        fi
-        echo "REDIS_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
-        echo "MYSQL_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
-        echo "SUBNET_PREFIX=172.16.1" >> .env
-    fi
-fi
-
 start_docker() {
     systemctl enable docker
     systemctl daemon-reload
@@ -197,6 +176,11 @@ create_env_file() {
             warning "创建 .env 文件失败"
         else
             echo "创建 .env 文件成功"
+            if [ $CDN -eq 0 ]; then
+              echo "IMAGE_PREFIX=testnet0" >>".env"
+            else
+              echo "IMAGE_PREFIX=registry.cn-hangzhou.aliyuncs.com/testnet0" >>".env"
+            fi
             echo "REDIS_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
             echo "MYSQL_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
             echo "SUBNET_PREFIX=172.16.1" >> .env
