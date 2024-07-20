@@ -40,7 +40,7 @@ services:
     restart: always
 
   testnet-es:
-    image: ${IMAGE_PREFIX}/es:7.10.0
+    image: ${IMAGE_PREFIX}/elasticsearch:7.10.0
     container_name: testnet-es
     networks:
       testnet:
