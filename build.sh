@@ -219,10 +219,10 @@ create_es_data_folder() {
 update_testnet_server() {
     info "开始更新 TestNet 服务端..."
     git pull
-    $compose_command stop testnet-server testnet-frontend testent-mysql testnet-redis testnet-es
-    $compose_command rm -f testnet-server testnet-frontend testent-mysql testnet-redis testnet-es
-    $compose_command pull testnet-server testnet-frontend testent-mysql testnet-redis testnet-es
-    $compose_command up -d testnet-server testnet-frontend testent-mysql testnet-redis testnet-es
+    $compose_command stop testnet-server testnet-frontend testnet-mysql testnet-redis testnet-es
+    $compose_command rm -f testnet-server testnet-frontend testnet-mysql testnet-redis testnet-es
+    $compose_command pull testnet-server testnet-frontend testnet-mysql testnet-redis testnet-es
+    $compose_command up -d testnet-server testnet-frontend testnet-mysql testnet-redis testnet-es
     info "TestNet 服务端更新完成"
 }
 
