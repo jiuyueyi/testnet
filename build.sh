@@ -291,6 +291,32 @@ install_run_environment() {
     info "客户端运行环境安装成功"
 }
 
+
+# 检查容器健康状态
+check_health_status() {
+    services=("testnet-mysql" "testnet-redis" "testnet-es")
+    
+    while true; do
+        all_healthy=true
+        for service in "${services[@]}"; do
+            health_status=$(docker inspect --format='{{json .State.Health.Status}}' "$service" 2>/dev/null)
+            if [[ "$health_status" != '"healthy"' ]]; then
+                all_healthy=false
+                info "$service 容器健康状态: $health_status"
+                break
+            fi
+        done
+
+        if $all_healthy; then
+            info "所有服务容器都处于健康状态，安装成功！"
+            break
+        else
+            warning "正在安装中，请稍后..."
+            sleep 10
+        fi
+    done
+}
+
 echo "请选择操作："
 echo "1) 一键安装 TestNet服务端 + 客户端 (testnet-server testnet-frontend testnet-client)"
 echo "2) 单独安装 TestNet服务端 (testnet-server testnet-frontend)"
@@ -303,10 +329,12 @@ read -p "输入数字选择操作: " user_choice
 case $user_choice in
     1)
         start_testnet
+        check_health_status
         install_run_environment
         ;;
     2)
         start_testnet_server
+        check_health_status
         ;;
     3)
         start_testnet_client
@@ -314,6 +342,7 @@ case $user_choice in
         ;;
     4)
         update_testnet_server
+        check_health_status
         ;;
     5)
         update_testnet_client
